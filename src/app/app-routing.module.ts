@@ -26,7 +26,7 @@ const routes: Routes = [
         path: '',
         children: [
           {
-            path: 'sales',
+            path: 'lead',
             loadChildren: () =>
               import('./pages/sales/sales.module').then(m => m.SalesModule),
           },
