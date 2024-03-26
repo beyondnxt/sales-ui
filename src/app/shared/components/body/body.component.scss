@@ -1,14 +1,14 @@
 .body{
     width: calc(100% - 5rem);
-    height: calc(100vh - 7rem);
+    height: calc(100vh - 4rem);
 
     margin-left: 5rem;
     // margin-top: 65px;
     z-index: 0;
     position: relative;
-    top: 45px;
+    top: 0px;
     transition: all .2s ease;
-    //  background:red;
+     background:#f5f4fa;
     // padding: 3rem;
 }
 .body-trimmed{
@@ -28,4 +28,6 @@
     width: 96%;
     margin-left: auto;
     margin-right: auto;
+    padding-top: 15px;
+    // height: calc(100vh - 10rem);
 }

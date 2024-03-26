@@ -7,6 +7,8 @@ import { LayoutComponent } from '../../components/layout/layout.component';
 import { HeaderComponent } from '../../components/header/header.component';
 import { LoginComponent } from '../../components/login/login.component';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
+import { SalesTableComponent } from '../../components/sales-table/sales-table.component';
+import { SearchComponent } from '../../components/search/search.component';
 
 
 
@@ -17,12 +19,14 @@ import { DashboardComponent } from '../../components/dashboard/dashboard.compone
     LayoutComponent,
     HeaderComponent,
     LoginComponent,
-    DashboardComponent
+    DashboardComponent,
+    SalesTableComponent,
+    SearchComponent
   ],
   imports: [
     CommonModule,
     MatModule,
   ],
-  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, DashboardComponent]
+  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, DashboardComponent, SalesTableComponent,SearchComponent]
 })
 export class SharedModule { }
