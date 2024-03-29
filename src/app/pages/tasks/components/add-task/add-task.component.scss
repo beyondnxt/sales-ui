@@ -1,0 +1,19 @@
+.closeAlign {
+    display: flex;
+    justify-content: space-between;
+}
+.dialog-container{
+    padding: 10px;
+}
+
+::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    background-color: white !important;
+    padding-left: 5px !important;
+  }
+  ::ng-deep .mat-mdc-form-field {
+    width: 100%;
+  }
+  .btnEnd{
+    display: flex;
+    justify-content: end;
+  }

@@ -40,5 +40,17 @@ export const navBarData = [
         icon: 'fal fa-hand-holding-box',
         label: 'Attendence',
         menu: 'attendence'
+    },
+    {
+        routerlink: 'tasks',
+        icon: 'fal fa-hand-holding-box',
+        label: 'Task',
+        menu: 'task'
+    },
+    {
+        routerlink: 'feedback',
+        icon: 'fal fa-hand-holding-box',
+        label: 'Feed back',
+        menu: 'feedback'
     }
 ]

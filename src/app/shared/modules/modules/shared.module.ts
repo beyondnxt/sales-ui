@@ -9,6 +9,8 @@ import { LoginComponent } from '../../components/login/login.component';
 import { DashboardComponent } from '../../components/dashboard/dashboard.component';
 import { SalesTableComponent } from '../../components/sales-table/sales-table.component';
 import { SearchComponent } from '../../components/search/search.component';
+import { SalesBtnComponent } from '../../components/sales-btn/sales-btn.component';
+import { SalesCancelBtnComponent } from '../../components/sales-cancel-btn/sales-cancel-btn.component';
 
 
 
@@ -21,12 +23,14 @@ import { SearchComponent } from '../../components/search/search.component';
     LoginComponent,
     DashboardComponent,
     SalesTableComponent,
-    SearchComponent
+    SearchComponent,
+    SalesBtnComponent,
+    SalesCancelBtnComponent
   ],
   imports: [
     CommonModule,
     MatModule,
   ],
-  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, DashboardComponent, SalesTableComponent,SearchComponent]
+  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, DashboardComponent, SalesTableComponent,SearchComponent, SalesBtnComponent, SalesCancelBtnComponent]
 })
 export class SharedModule { }

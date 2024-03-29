@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
   selector: 'app-sales-table',
@@ -6,5 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./sales-table.component.scss']
 })
 export class SalesTableComponent {
+  @Output() openConsole = new EventEmitter();
 
 }

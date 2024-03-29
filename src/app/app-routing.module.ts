@@ -30,6 +30,21 @@ const routes: Routes = [
             loadChildren: () =>
               import('./pages/sales/sales.module').then(m => m.SalesModule),
           },
+          {
+            path: 'attendence',
+            loadChildren: () =>
+              import('./pages/attendence/attendence.module').then(m => m.AttendenceModule),
+          },
+          {
+            path: 'tasks',
+            loadChildren: () =>
+              import('./pages/tasks/tasks.module').then(m => m.TasksModule),
+          },
+          {
+            path: 'feedback',
+            loadChildren: () =>
+              import('./pages/feedback/feedback.module').then(m => m.FeedbackModule),
+          },
         ]
       }
     ]
