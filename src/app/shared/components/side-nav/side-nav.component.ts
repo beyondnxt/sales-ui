@@ -1,6 +1,6 @@
 import { Component, EventEmitter, HostListener, OnInit, Output } from '@angular/core';
 import { navBarData } from './nav-data';
-import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 interface sideNavToggle {
   screenWidth: number;
@@ -12,15 +12,10 @@ interface sideNavToggle {
   styleUrls: ['./side-nav.component.scss']
 })
 export class SideNavComponent implements OnInit {
-  count: any;
-
-  roleId: any = '';
-  showMenu: any;
   @Output() onToggleSideNav: EventEmitter<sideNavToggle> = new EventEmitter();
   collapsed = true;
   screenWidth = 0;
   navData = navBarData;
-  totalCount: any;
   @HostListener('window:resize', ['$event'])
   onreSize(event: any) {
     this.screenWidth = window.innerWidth;
@@ -29,8 +24,7 @@ export class SideNavComponent implements OnInit {
       this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
     }
   }
-  constructor(
-  ) { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
     this.screenWidth = window.innerWidth;
@@ -42,7 +36,10 @@ export class SideNavComponent implements OnInit {
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
   closeSideNav(): void {
-    this.collapsed = false;
+    this.collapsed = true;
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
+  }
+  logout() {
+    this.router.navigate(['/login']);
   }
 }

@@ -75,31 +75,12 @@
     top: 5px;
     margin-right: 4px;
   }
-  .roundConfirm {
-    width: .5rem !important;
-    height: .5rem !important;
-    background-color: #1db3ee;
-    border-radius: 50%;
-    display: inline-block;
-    position: relative;
-    top: 5px;
-    margin-right: 4px;
-  }
   .status{
-    border: 1px solid #54b45d;
-    color: #54b45d;
+    // border: 1px solid #54b45d;
+    // color: #54b45d;
     border-radius: 10px;
     padding: 2px;
-    background-color: #e1f0dd;
-    font-size: 10px;
-    font-weight: 600;
-  }
-  .statusConfirm{
-    border: 1px solid #1db3ee;
-    color: #1db3ee;
-    border-radius: 10px;
-    padding: 2px;
-    background-color: #cdf2ff;
+    // background-color: #e1f0dd;
     font-size: 10px;
     font-weight: 600;
   }
@@ -109,9 +90,9 @@
     }
   }
   @media screen and (min-width: 600px) {
-    .rwd-table tr:hover:not(:first-child) {
-    //   background-color: #d8e7f3;
-    }
+    // .rwd-table tr:hover:not(:first-child) {
+    // //   background-color: #d8e7f3;
+    // }
     .rwd-table td:before {
       display: none;
     }

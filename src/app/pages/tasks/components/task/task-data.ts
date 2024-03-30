@@ -1,0 +1,108 @@
+export const tableHeaders = [
+    {
+        name: 'Task Name',
+        key: 'taskName',
+    },
+    {
+        name: 'Piriority',
+        key: 'status',
+    },
+    {
+        name: 'Assign To',
+        key: 'assignTo',
+    },
+    {
+        name: 'Created On',
+        key: 'createdOn',
+    },
+    {
+        name: 'Created By',
+        key: 'createdBy',
+    },
+    {
+        name: 'Description',
+        key: 'des',
+    },
+]
+export const tableValues = [
+    {
+        taskName:'Collect Lead',
+        status:'Low',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'Medium',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'High',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'Low',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'Low',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'Medium',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'High',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'Low',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'Medium',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+    {
+        taskName:'Collect Lead',
+        status:'High',
+        assignTo:'Ajay',
+        createdOn:'12-03-2022',
+        createdBy:'Michael John',
+        des:'A sample is a subset of a larger population.',
+    },
+]

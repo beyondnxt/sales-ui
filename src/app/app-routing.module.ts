@@ -26,6 +26,21 @@ const routes: Routes = [
         path: '',
         children: [
           {
+            path: 'role',
+            loadChildren: () =>
+              import('./pages/role/role.module').then(m => m.RoleModule),
+          },
+          {
+            path: 'user',
+            loadChildren: () =>
+              import('./pages/user/user.module').then(m => m.UserModule),
+          },
+          {
+            path: 'product',
+            loadChildren: () =>
+              import('./pages/product/product.module').then(m => m.ProductModule),
+          },
+          {
             path: 'lead',
             loadChildren: () =>
               import('./pages/sales/sales.module').then(m => m.SalesModule),

@@ -8,8 +8,6 @@ import { RouterModule } from '@angular/router';
 import { AttendenceConsoleComponent } from './pages/attendence/components/attendence-console/attendence-console.component';
 import { MapComponent } from './pages/attendence/components/map/map.component';
 
-// AIzaSyCuXnZqJGysDofEjDDR3xwiee_00Ep31GA
-
 @NgModule({
   declarations: [
     AppComponent,

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import * as data from './sales-data';
 
 @Component({
   selector: 'app-sales',
@@ -6,5 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./sales.component.scss']
 })
 export class SalesComponent {
-
+  tableHeaders = data.tableHeaders;
+  tableValues = data.tableValues;
 }

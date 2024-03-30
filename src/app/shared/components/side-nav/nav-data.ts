@@ -12,44 +12,44 @@ export const navBarData = [
         menu: 'user'
     },
     {
-        routerlink: 'roles',
+        routerlink: 'role',
         icon: 'fal fa-key',
         label: 'Roles',
         menu: 'role'
     },
     {
         routerlink: 'product',
-        icon: 'fal fa-building',
+        icon: 'fab fa-product-hunt',
         label: 'Product',
         menu: 'product'
     },
-    {
-        routerlink: 'customer',
-        icon: 'fal fa-hand-holding-box',
-        label: 'Customer',
-        menu: 'customer'
-    },
+    // {
+    //     routerlink: 'customer',
+    //     icon: 'fal fa-hand-holding-box',
+    //     label: 'Customer',
+    //     menu: 'customer'
+    // },
     {
         routerlink: 'lead',
-        icon: 'fal fa-hand-holding-box',
+        icon: 'fas fa-signal',
         label: 'Lead',
         menu: 'lead'
     },
     {
         routerlink: 'attendence',
-        icon: 'fal fa-hand-holding-box',
+        icon: 'fas fa-calendar-alt',
         label: 'Attendence',
         menu: 'attendence'
     },
     {
         routerlink: 'tasks',
-        icon: 'fal fa-hand-holding-box',
+        icon: 'fas fa-tasks',
         label: 'Task',
         menu: 'task'
     },
     {
         routerlink: 'feedback',
-        icon: 'fal fa-hand-holding-box',
+        icon: 'fas fa-comment-dots',
         label: 'Feed back',
         menu: 'feedback'
     }

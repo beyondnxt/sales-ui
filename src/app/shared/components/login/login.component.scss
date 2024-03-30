@@ -83,31 +83,22 @@
     height: calc(100vh - 0rem);
     display: flex;
     align-items: center;
-    --color: rgb(62 62 214 / 53%);;
-    background-color: rgb(202 206 214);
+    background: #000000;
+    --gap: 5em;
+    --line: 1px;
+    --color: rgba(255, 255, 255, 0.2);
+  
     background-image: linear-gradient(
-        180deg,
-        transparent 24%,
-        var(--color) 25%,
-        var(--color) 26%,
-        transparent 27%,
-        transparent 74%,
-        var(--color) 75%,
-        var(--color) 76%,
-        transparent 77%,
-        transparent
+        -90deg,
+        transparent calc(var(--gap) - var(--line)),
+        var(--color) calc(var(--gap) - var(--line) + 1px),
+        var(--color) var(--gap)
       ),
       linear-gradient(
-        45deg,
-        transparent 24%,
-        var(--color) 35%,
-        var(--color) 26%,
-        transparent 17%,
-        transparent 74%,
-        var(--color) 75%,
-        var(--color) 76%,
-        transparent 77%,
-        transparent
+        0deg,
+        transparent calc(var(--gap) - var(--line)),
+        var(--color) calc(var(--gap) - var(--line) + 1px),
+        var(--color) var(--gap)
       );
-    background-size: 55px 55px;
+    background-size: var(--gap) var(--gap);
   }

@@ -1,2 +1,8 @@
-<app-sales-table (openConsole)="openConsole()"></app-sales-table>
+<div class="col-lg-12 btnAlign">
+    <p class="main-head">Attendence(12)</p>
+
+    <app-search></app-search>
+<!-- <app-sales-btn [label]="'+ New Task'" (action)="addAttendence()"></app-sales-btn> -->
+</div>
+<app-sales-table (openConsole)="openConsole()" [tableHeaders]="tableHeaders" [tableValues]="tableValues"></app-sales-table>
 
