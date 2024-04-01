@@ -7,8 +7,9 @@ import { Component, Input } from '@angular/core';
 })
 export class HeaderComponent {
   @Input() collapsed = true;
-  @Input() screenWidth = 0;
+  @Input() screenWidth = 769;
   getHeaderClass(): string {
+    this.screenWidth = 769;
     let styleClass = '';
     if (this.collapsed && this.screenWidth > 768) {
       styleClass = 'head-trimmed';

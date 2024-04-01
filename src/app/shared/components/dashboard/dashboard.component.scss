@@ -1,0 +1,32 @@
+.das-card{
+background: #f8f2ff;
+color: #9a84d4;
+padding: 10px;
+border-radius: 13px;
+}
+.count{
+    margin-top: 1rem;
+    font-size: 24px;
+    color: rebeccapurple;
+    font-weight: bolder;
+}
+.icon{
+    background: white;
+    padding: 10px;
+    border-radius: 10px;
+    color: rebeccapurple;
+}
+.das-container{
+    background-color: white;
+    height: calc(100vh - 6rem);
+    padding:10px;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.main-head{
+    font-size: 20px;
+    color:#50237c;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+}

@@ -36,7 +36,7 @@ export class SideNavComponent implements OnInit {
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
   closeSideNav(): void {
-    this.collapsed = true;
+    this.collapsed = false;
     this.onToggleSideNav.emit({ collapsed: this.collapsed, screenWidth: this.screenWidth });
   }
   logout() {
