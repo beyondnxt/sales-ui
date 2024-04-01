@@ -3,14 +3,23 @@
         <tbody>
             <tr>
                 <ng-container *ngFor="let header of tableHeaders">
-                    <th>{{header.name}} <i class="fas fa-sort"></i></th>
+                    <th>{{header.name}} <i *ngIf="header?.sort" class="fas fa-sort"></i></th>
                 </ng-container>
             </tr>
             <ng-container *ngFor="let values of tableValues; let j= index">
                 <tr (click)="openConsole.emit()">
                     <ng-container *ngFor="let key of tableHeaders let i= index">
-                        <td [attr.data-th]="key.name" [ngClass]="{'status':key.key === 'status'}" [style.color]="handleStatusColor(values[key.key])">{{ values[key.key]}}
+                        <td [attr.data-th]="key.name" [ngClass]="{'status':key.key === 'status'}"
+                            [style.color]="handleStatusColor(values[key.key])">{{ values[key.key]}}
+                            <ng-container *ngIf="key.edit">
+                                <i class="far fa-edit"></i>
+                                <i class="far fa-trash-alt delIcon"></i>
+                            </ng-container>
+                            <ng-container *ngIf="key.role">
+                                <i class="far fa-check-circle"></i>
+                            </ng-container>
                         </td>
+     
                     </ng-container>
                 </tr>
             </ng-container>

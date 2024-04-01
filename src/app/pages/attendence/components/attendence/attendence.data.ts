@@ -2,28 +2,32 @@ export const tableHeaders = [
     {
         name: 'User Name',
         key: 'userName',
+        sort:true,
     },
     {
         name: 'date',
         key: 'date',
+        sort:true,
     },
     {
         name: 'Check In',
         key: 'checkIn',
+        sort:true,
     },
     {
         name: 'Check Out',
         key: 'checkOut',
+        sort:true,
     },
     {
         name: 'Status',
         key: 'status',
     },
-    {
-        name: 'Action',
-        key: 'action',
-        edit:'true'
-    }
+    // {
+    //     name: 'Action',
+    //     key: 'action',
+    //     edit:'true'
+    // }
 ]
 
 export const tableValues = [

@@ -1,1 +1,12 @@
-<p>product works!</p>
+<div class="col-lg-12 btnAlign">
+    <div>
+        <p class="main-head">Products(12)</p>
+    </div>
+    <div class="content">
+        <app-search></app-search>
+        <div class="mx-2">
+        <app-sales-btn [label]="'+ New Product'" (action)="addProduct()"></app-sales-btn>
+    </div>
+    </div>
+</div>
+<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues"></app-sales-table>

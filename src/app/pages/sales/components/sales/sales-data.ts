@@ -2,26 +2,32 @@ export const tableHeaders = [
     {
         name: 'Company Name',
         key: 'companyName',
+        sort:true,
     },
     {
         name: 'Phone Number',
         key: 'mobile',
+        sort:true,
     },
     {
         name: 'Email',
         key: 'email',
+        sort:true,
     },
     {
         name: 'Total',
         key: 'total',
+        sort:true,
       },
       {
         name: 'Created On',
         key: 'createdOn',
+        sort:true,
       },
       {
         name: 'Action',
         key: 'action',
+        edit:true
     },
 ]
 
@@ -32,7 +38,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     },
     {
         companyName:'Mark',
@@ -40,7 +45,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
 
     },
     {
@@ -49,7 +53,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     },
     {
         companyName:'Christine',
@@ -57,7 +60,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     },
     {
         companyName:'Christine',
@@ -65,7 +67,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     },
     {
         companyName:'Christine',
@@ -73,7 +74,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     },
     {
         companyName:'Christine',
@@ -81,7 +81,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     },
     {
         companyName:'Christine',
@@ -89,7 +88,6 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     },
     {
         companyName:'Christine',
@@ -98,6 +96,5 @@ export const tableValues = [
         email:'test@test.com',
         total:'$1000',
         createdOn:'13-03-2022',
-        action:'Action',
     }
 ]

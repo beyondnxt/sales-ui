@@ -2,6 +2,7 @@ export const tableHeaders = [
     {
         name: 'Company Name',
         key: 'companyName',
+        sort:true,
     },
     {
         name: 'Description',

@@ -2,6 +2,7 @@ export const tableHeaders = [
     {
         name: 'Task Name',
         key: 'taskName',
+        sort:true,
     },
     {
         name: 'Piriority',
@@ -10,14 +11,17 @@ export const tableHeaders = [
     {
         name: 'Assign To',
         key: 'assignTo',
+        sort:true,
     },
     {
         name: 'Created On',
         key: 'createdOn',
+        sort:true,
     },
     {
         name: 'Created By',
         key: 'createdBy',
+        sort:true,
     },
     {
         name: 'Description',
