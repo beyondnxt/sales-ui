@@ -11,6 +11,7 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { BarChartComponent } from './shared/components/bar-chart/bar-chart.component';
 import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 import { PieChartComponent } from './shared/components/pie-chart/pie-chart.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { PieChartComponent } from './shared/components/pie-chart/pie-chart.compo
     MapComponent,
     BarChartComponent,
     DashboardComponent,
-    PieChartComponent
+    PieChartComponent,
+    
     ],
   imports: [
     BrowserModule,
@@ -27,8 +29,8 @@ import { PieChartComponent } from './shared/components/pie-chart/pie-chart.compo
     SharedModule,
     BrowserAnimationsModule,
     RouterModule,
-    NgApexchartsModule
-    
+    NgApexchartsModule,
+    HttpClientModule
   ],
   providers: [],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

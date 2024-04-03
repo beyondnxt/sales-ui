@@ -8,6 +8,8 @@ import { PageEvent } from '@angular/material/paginator';
 })
 export class SalesTableComponent {
   @Output() openConsole = new EventEmitter();
+  @Output() edit = new EventEmitter();
+  @Output() delete = new EventEmitter();
   @Input() tableHeaders: any = [];
   @Input() tableValues: any = [];
   length = 50;

@@ -10,6 +10,7 @@ import { SalesTableComponent } from '../../components/sales-table/sales-table.co
 import { SearchComponent } from '../../components/search/search.component';
 import { SalesBtnComponent } from '../../components/sales-btn/sales-btn.component';
 import { SalesCancelBtnComponent } from '../../components/sales-cancel-btn/sales-cancel-btn.component';
+import { DeleteComponent } from '../../components/delete/delete.component';
 
 
 
@@ -24,11 +25,12 @@ import { SalesCancelBtnComponent } from '../../components/sales-cancel-btn/sales
     SearchComponent,
     SalesBtnComponent,
     SalesCancelBtnComponent,
+    DeleteComponent
   ],
   imports: [
     CommonModule,
     MatModule,
   ],
-  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, SalesTableComponent,SearchComponent, SalesBtnComponent, SalesCancelBtnComponent]
+  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, SalesTableComponent,SearchComponent, SalesBtnComponent, SalesCancelBtnComponent,DeleteComponent]
 })
 export class SharedModule { }

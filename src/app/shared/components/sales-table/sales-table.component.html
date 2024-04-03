@@ -12,8 +12,8 @@
                         <td [attr.data-th]="key.name" [ngClass]="{'status':key.key === 'status'}"
                             [style.color]="handleStatusColor(values[key.key])">{{ values[key.key]}}
                             <ng-container *ngIf="key.edit">
-                                <i class="far fa-edit"></i>
-                                <i class="far fa-trash-alt delIcon"></i>
+                                <i class="far fa-edit" (click)="edit.emit()"></i>
+                                <i class="far fa-trash-alt delIcon" (click)="delete.emit()"></i>
                             </ng-container>
                             <ng-container *ngIf="key.role">
                                 <i class="far fa-check-circle"></i>
