@@ -14,15 +14,21 @@
 <div class="main-container">
   <div class="forms-container">
     <div class="signin-signup">
-      <form action="#" class="sign-in-form">
+      <form [formGroup]="signInForm" class="sign-in-form">
         <h2 class="title">Sign in</h2>
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" />
+          <input type="text" formControlName="username" placeholder="Username" />
+          <div *ngIf="signInForm.get('username')?.errors && signInForm.get('username')?.touched" class="text-danger">
+            Username is required
+          </div>
         </div>
         <div class="input-field">
           <i class="fas fa-lock"></i>
-          <input type="password" placeholder="Password" />
+          <input type="password" formControlName="password" placeholder="Password" />
+          <div *ngIf="signInForm.get('password')?.errors && signInForm.get('password')?.touched" class="text-danger">
+            Password is required
+          </div>
         </div>
         <input type="submit" value="Login" class="btn solid" (click)="signIn()"/>
         <!-- <p class="social-text">Or Sign in with social platforms</p>

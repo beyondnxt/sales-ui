@@ -11,7 +11,8 @@ import { NgApexchartsModule } from "ng-apexcharts";
 import { BarChartComponent } from './shared/components/bar-chart/bar-chart.component';
 import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 import { PieChartComponent } from './shared/components/pie-chart/pie-chart.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HttpInterceptorService } from './providers/httpinterceptor/http-interceptor.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,13 @@ import { HttpClientModule } from '@angular/common/http';
     NgApexchartsModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpInterceptorService,
+      multi: true
+    }
+  ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })

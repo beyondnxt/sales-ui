@@ -10,6 +10,9 @@ export class UsersService {
 
   constructor(public http: HttpClient) { }
 
+  login(payload: any): Observable<any> {
+    return this.http.post(environment.BASE_URL + '/auth/signin', payload);
+  }
   postRegiter(payload: any): Observable<any> {
     return this.http.post(environment.BASE_URL + '/auth/signup', payload);
   }

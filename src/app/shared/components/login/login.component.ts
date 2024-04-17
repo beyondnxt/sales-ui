@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsersService } from 'src/app/providers/admin/admin.service';
 
 @Component({
   selector: 'app-login',
@@ -7,11 +9,42 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  constructor(private router :Router){}
+
+  constructor(private router :Router, private fb: FormBuilder, private adminService: UsersService){}
+  signInForm = this.fb.group({
+    username: ['', Validators.required], // Add required validator for username
+    password: ['', Validators.required] // Add required validator for password
+  });
+
   ngOnInit(){
     console.log('login')
    }
    signIn(){
+    this.signInForm.markAllAsTouched();
+    if(this.signInForm.invalid){
+    }else{
+      const payload = this.signInForm.getRawValue();
+      this.adminService.login(payload).subscribe({
+        next: (res) => {
+          this.setLocalStorage(res);
+        },
+        error: (err) => {
+          // this.service.showSnackbar(err.error.message);
+        },
+        complete: () => {
+          // this.service.showSnackbar("Loggedin Successfully");
+        }
+      })
+    }
     this.router.navigate(['/dashboard'])
    }
+
+   setLocalStorage(res: any){
+    localStorage.setItem('userId', res?.userId);
+    localStorage.setItem('token', res?.token);
+    localStorage.setItem('roleId', res?.roleId);
+    localStorage.setItem('firstName', res?.firstName);
+    res?.roleId && this.router.navigate(['dashboard']);
+  }
+
 }

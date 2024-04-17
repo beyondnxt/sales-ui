@@ -9,4 +9,4 @@
     </div>
     </div>
 </div>
-<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues"></app-sales-table>
+<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)" (delete)="delete($event)"></app-sales-table>

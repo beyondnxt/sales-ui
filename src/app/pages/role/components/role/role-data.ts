@@ -1,7 +1,7 @@
 export const tableHeaders = [
     {
         name: 'Role Name',
-        key: 'roleName',
+        key: 'name',
         sort:true,
     },
     {
@@ -61,16 +61,16 @@ export const tableHeaders = [
 ]
 
 export const tableValues = [
-    {
-        roleName:'Admin',
-        // action: ''
-    },
-    {
-        roleName:'Manager',
-        // action: ''
-    },
-    {
-        roleName:'Super Admin',
-        // action: ''
-    }
+    // {
+    //     roleName:'Admin',
+    //     // action: ''
+    // },
+    // {
+    //     roleName:'Manager',
+    //     // action: ''
+    // },
+    // {
+    //     roleName:'Super Admin',
+    //     // action: ''
+    // }
 ]

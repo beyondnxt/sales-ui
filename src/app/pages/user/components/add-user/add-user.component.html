@@ -41,7 +41,7 @@
                         <input type="text" matInput placeholder="" formControlName="phoneNumber">
                     </mat-form-field>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-6" *ngIf="!data">
                     <mat-form-field class="example-full-width">
                         <mat-label>Password</mat-label>
                         <input type="password" matInput placeholder="" formControlName="password">
@@ -51,9 +51,9 @@
                     <mat-form-field>
                         <mat-label>Role</mat-label>
                         <mat-select formControlName="roleId">
-                            <mat-option value="Admin">Admin</mat-option>
-                            <mat-option value="Manager">Manager</mat-option>
-                            <mat-option value="Super Admin">Super Admin</mat-option>
+                            <mat-option value="1">Admin</mat-option>
+                            <mat-option value="2">Manager</mat-option>
+                            <mat-option value="3">Super Admin</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

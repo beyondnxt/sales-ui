@@ -15,6 +15,7 @@ export class UserHelper {
                 id:element?._id ? element._id : '',
                 roleId:element?.roleId ? element.roleId : '',
                 status:element?.status ? element.status : '',
+                password:element?.password ? element.password : '',
              })
         });
         return template;

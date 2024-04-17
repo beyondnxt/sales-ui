@@ -17,7 +17,7 @@ export class UserComponent {
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
   ngOnInit() {
-    // this.getUser();
+    this.getUser();
   }
   addUser() {
     this.dialog.open(AddUserComponent, {
@@ -35,15 +35,17 @@ export class UserComponent {
   postUser(payload: any) {
     this.adminService.postRegiter(payload).subscribe({
       next: (res) => {
+        this.getUser();
       }, error: (err) => {
       },
       complete: () => {
       }
     })
   }
-  updateUser(payload: any) {
-    this.adminService.updateUser('', payload).subscribe({
+  updateUser(payload: any, id: any) {
+    this.adminService.updateUser(id, payload).subscribe({
       next: (res) => {
+        this.getUser();
       }, error: (err) => {
       },
       complete: () => {
@@ -53,36 +55,51 @@ export class UserComponent {
   getUser() {
     this.adminService.getUsers('').subscribe({
       next: (res) => {
-        console.log(res)
+        this.tableValues = res.data;
       }, error: (err) => {
       },
       complete: () => {
       }
     })
   }
-  edit() {
+  edit(data: any) {
     this.dialog.open(AddUserComponent, {
       width: '500px',
       height: 'max-content',
       disableClose: true,
       panelClass: 'user-dialog-container',
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        console.log(res)
-        this.updateUser(res);
+      data:data,
+    }).afterClosed().subscribe((result: any[]) => {
+      if (result && result.length === 2) {
+        const userDetails = result[0];
+        const dataId = result[1];
+        this.updateUser(userDetails, dataId);
       }
     });
   }
-  delete() {
+  delete(data: any) {
     this.dialog.open(DeleteComponent, {
       width: '500px',
       height: 'max-content',
       disableClose: true,
       panelClass: 'delete-dialog-container',
+      data:data,
     }).afterClosed().subscribe((res: any) => {
       if (res) {
+        this.deleteUser(res);
       }
     });
+  }
+
+  deleteUser(id: any){
+    this.adminService.deleteUser(id).subscribe({
+      next: (res) => {
+        this.getUser();
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
   }
 
 }

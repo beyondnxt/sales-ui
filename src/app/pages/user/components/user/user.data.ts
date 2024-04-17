@@ -12,7 +12,7 @@ export const tableHeaders = [
     },
     {
         name: 'Phone Number',
-        key: 'mobile',
+        key: 'phoneNumber',
         sort:true,
     },
     {
@@ -22,7 +22,7 @@ export const tableHeaders = [
     },
     {
         name: 'Role',
-        key: 'role',
+        key: 'roleName',
         sort:true,
       },
       {
@@ -38,96 +38,96 @@ export const tableHeaders = [
 ]
 
 export const tableValues = [
-    {
-        firstName:'Leo',
-        lastName:'John',
-        mobile:'7401567040',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
+    // {
+    //     firstName:'Leo',
+    //     lastName:'John',
+    //     mobile:'7401567040',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
 
-    },
-    {
-        firstName:'Mark',
-        lastName:'Antony',
-        mobile:'9443607857',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-
-    },
-    {
-        firstName:'Christine',
-        lastName:'Sweet',
-        mobile:'8965412354',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-    },
-    {
-        firstName:'Christine',
-        lastName:'Sweet',
-        mobile:'8965412354',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-    },
-    {
-        firstName:'Christine',
-        lastName:'Sweet',
-        mobile:'8965412354',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-    },
-    {
-        firstName:'Christine',
-        lastName:'Sweet',
-        mobile:'8965412354',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-    },
-    {
-        firstName:'Christine',
-        lastName:'Sweet',
-        mobile:'8965412354',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-    },
-    {
-        firstName:'Christine',
-        lastName:'Sweet',
-        mobile:'8965412354',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-    },
-    {
-        firstName:'Christine',
-        lastName:'Sweet',
-        mobile:'8965412354',
-        email:'test@test.com',
-        role:'Admin',
-        createdOn:'13-03-2022',
-
-    },
-        {
-            firstName:'Christine',
-            lastName:'Sweet',
-            mobile:'8965412354',
-            email:'test@test.com',
-            role:'Admin',
-            createdOn:'13-03-2022',
+    // },
+    // {
+    //     firstName:'Mark',
+    //     lastName:'Antony',
+    //     mobile:'9443607857',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
 
 
-        },
+    // },
+    // {
+    //     firstName:'Christine',
+    //     lastName:'Sweet',
+    //     mobile:'8965412354',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
+
+    // },
+    // {
+    //     firstName:'Christine',
+    //     lastName:'Sweet',
+    //     mobile:'8965412354',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
+
+    // },
+    // {
+    //     firstName:'Christine',
+    //     lastName:'Sweet',
+    //     mobile:'8965412354',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
+
+    // },
+    // {
+    //     firstName:'Christine',
+    //     lastName:'Sweet',
+    //     mobile:'8965412354',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
+
+    // },
+    // {
+    //     firstName:'Christine',
+    //     lastName:'Sweet',
+    //     mobile:'8965412354',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
+
+    // },
+    // {
+    //     firstName:'Christine',
+    //     lastName:'Sweet',
+    //     mobile:'8965412354',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
+
+    // },
+    // {
+    //     firstName:'Christine',
+    //     lastName:'Sweet',
+    //     mobile:'8965412354',
+    //     email:'test@test.com',
+    //     role:'Admin',
+    //     createdOn:'13-03-2022',
+
+    // },
+    //     {
+    //         firstName:'Christine',
+    //         lastName:'Sweet',
+    //         mobile:'8965412354',
+    //         email:'test@test.com',
+    //         role:'Admin',
+    //         createdOn:'13-03-2022',
+
+
+    //     },
 ]

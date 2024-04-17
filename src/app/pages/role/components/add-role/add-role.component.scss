@@ -17,3 +17,21 @@
     display: flex;
     justify-content: end;
   }
+  .permissionOption {
+    margin-left: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .actions{
+    padding: 5px;
+    border-right:1px solid #ccc;
+  }
+  .selected{
+    background-color:#221ec9;
+    color:#ffffff;
+  }
+  .inTimeData{
+    margin:15px;
+    width:100%;
+}
