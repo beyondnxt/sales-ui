@@ -50,10 +50,16 @@
                 <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>Role</mat-label>
-                        <mat-select formControlName="roleId">
-                            <mat-option value="1">Admin</mat-option>
-                            <mat-option value="2">Manager</mat-option>
-                            <mat-option value="3">Super Admin</mat-option>
+                        <mat-select formControlName="roleId" floatlLabel="never">
+                            <mat-option *ngFor="let role of roleList" [value]="role?.id">{{role?.name}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field>
+                        <mat-label>Company</mat-label>
+                        <mat-select formControlName="companyId" floatlLabel="never">
+                            <mat-option *ngFor="let company of companyList" [value]="company?.id">{{company?.companyName}}</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>

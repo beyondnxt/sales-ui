@@ -8,6 +8,12 @@ import { Component, Input } from '@angular/core';
 export class HeaderComponent {
   @Input() collapsed = true;
   @Input() screenWidth = 769;
+  userName: any;
+
+  ngOnInit(){
+    this.userName = localStorage.getItem('name');
+  }
+
   getHeaderClass(): string {
     this.screenWidth = 769;
     let styleClass = '';

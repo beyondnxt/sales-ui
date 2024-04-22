@@ -12,7 +12,7 @@ export class LoginComponent {
 
   constructor(private router :Router, private fb: FormBuilder, private adminService: UsersService){}
   signInForm = this.fb.group({
-    username: ['', Validators.required], // Add required validator for username
+    email: ['', Validators.required], // Add required validator for username
     password: ['', Validators.required] // Add required validator for password
   });
 
@@ -22,10 +22,12 @@ export class LoginComponent {
    signIn(){
     this.signInForm.markAllAsTouched();
     if(this.signInForm.invalid){
+      return;
     }else{
       const payload = this.signInForm.getRawValue();
       this.adminService.login(payload).subscribe({
         next: (res) => {
+          console.log('30-----', res);
           this.setLocalStorage(res);
         },
         error: (err) => {

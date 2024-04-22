@@ -16,3 +16,33 @@
 .content{
     display: flex;
 }
+.center-align{
+    width: auto;
+    background-color: #f4f5fa;
+    padding: 5px;
+    border-radius: 9px;
+    display: flex;
+    // margin-top: 15px;
+ }
+ input[type="radio"]:checked + label{
+    background-color: var(--primary);
+    color: white;
+    font-size: 14px;
+    padding: 10px 15px 10px 15px;
+  }
+  label {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    color: var(--secondary);
+    padding: 5px 10px;
+    border-radius: 9px;
+    font-size: 14px;
+    padding: 10px 15px 10px 15px;
+  }
+  input[type="radio"]{
+    visibility: hidden;
+    height: 0;
+    width: 0;
+  }

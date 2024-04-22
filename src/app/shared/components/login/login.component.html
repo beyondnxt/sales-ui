@@ -18,9 +18,9 @@
         <h2 class="title">Sign in</h2>
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" formControlName="username" placeholder="Username" />
-          <div *ngIf="signInForm.get('username')?.errors && signInForm.get('username')?.touched" class="text-danger">
-            Username is required
+          <input type="text" formControlName="email" placeholder="Username" />
+          <div *ngIf="signInForm.get('email')?.errors && signInForm.get('email')?.touched" class="text-danger">
+            Email is required
           </div>
         </div>
         <div class="input-field">
@@ -51,7 +51,7 @@
         <!-- <h2 class="title">Sign up</h2> -->
         <div class="input-field">
           <i class="fas fa-user"></i>
-          <input type="text" placeholder="Username" />
+          <input type="text" placeholder="email" />
         </div>
         <div class="input-field">
           <i class="fas fa-envelope"></i>

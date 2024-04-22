@@ -16,6 +16,8 @@ export class SideNavComponent implements OnInit {
   collapsed = true;
   screenWidth = 0;
   navData = navBarData;
+  userName: any;
+
   @HostListener('window:resize', ['$event'])
   onreSize(event: any) {
     this.screenWidth = window.innerWidth;
@@ -27,9 +29,9 @@ export class SideNavComponent implements OnInit {
   constructor(private router: Router) { }
 
   ngOnInit() {
+    this.userName = localStorage.getItem('name');
     this.screenWidth = window.innerWidth;
   }
-
 
   toggleCollapse(): void {
     this.collapsed = !this.collapsed;

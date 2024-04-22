@@ -42,7 +42,6 @@ export class AddRoleComponent {
   ngOnInit() {
 
     if (this.dialogData) {
-      console.log('qq----', this.dialogData);
       let data = {
         "name": this.dialogData.name,
         "description": this.dialogData.description,
@@ -56,7 +55,6 @@ export class AddRoleComponent {
         const permissionName = Object.keys(permission)[0];
 
         const permissions = permission;
-        console.log('59------', permissions);
         menuAccessArray.push({
             [permissionName]: true,
             read: permissions.permissions.read,
@@ -71,13 +69,15 @@ export class AddRoleComponent {
   }
 
   submit() {
-    console.log("hiiii");
     this.roleData.markAllAsTouched();
     if (this.roleData.invalid) {
       return;
     } else {
       const formData = this.roleData.value;
       const transformedData = this.transformMenuAccess(formData);
+      if (this.dialogData)
+        this.dialogRef.close([transformedData, this.dialogData.id]);
+      else
       this.dialogRef.close(transformedData);
     }
   }

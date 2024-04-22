@@ -24,7 +24,7 @@
       </li>
     </ul>
    
-    <button class="w-100" mat-button [matMenuTriggerFor]="menu"> <i class="fas fa-sign-out-alt"></i> <span *ngIf="collapsed">Ajay G S</span></button>
+    <button class="w-100" mat-button [matMenuTriggerFor]="menu"> <i class="fas fa-sign-out-alt"></i> <span *ngIf="collapsed">{{userName}}</span></button>
     <mat-menu #menu="matMenu">
       <button mat-menu-item (click)="logout()">Logout</button>
       <button mat-menu-item>Change Password</button>

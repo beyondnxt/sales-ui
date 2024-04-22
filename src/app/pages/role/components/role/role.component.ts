@@ -22,7 +22,6 @@ export class RoleComponent {
   getRoles() {
     this.roleService.getRole().subscribe({
       next: (res) => {
-        console.log('roles----',res);
         this.tableValues = res.roles;
       }, error: (err) => {
       },
@@ -47,6 +46,7 @@ export class RoleComponent {
   createNewRole(payload: any){
     this.roleService.postRoleData(payload).subscribe({
       next: (res) => {
+
         this.getRoles();
       }, error: (err) => {
       },
@@ -64,11 +64,25 @@ export class RoleComponent {
       panelClass: 'user-dialog-container',
       data:payload,
     }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        // this.createNewRole(res);
+      if (res && res.length === 2) {
+        const userDetails = res[0];
+        const dataId = res[1];
+        this.updateRole(userDetails, dataId);
       }
     });
   }
+
+  updateRole(payload: any, id: any){
+    this.roleService.updateRole(id, payload).subscribe({
+      next: (res) => {
+        this.getRoles();
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
+  }
+
   delete(data: any) {
     this.dialog.open(DeleteComponent, {
       width: '500px',

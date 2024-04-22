@@ -1,6 +1,23 @@
 <div class="col-lg-12 btnAlign">
     <div>
-        <p class="main-head">Tasks(12)</p>
+        <div class="tabs-align">
+            <div class="center-align">
+    
+                <input type="radio" name="size" id="size_1" value="small" checked (change)="loadData('unassigned')" />
+                <label for="size_1">Open Tasks</label>
+    
+                <input type="radio" name="size" id="size_2" value="small" (change)="loadData('assigned')" />
+                <label for="size_2">Assigned Tasks</label>
+    
+                <input type="radio" name="size" id="size_3" value="small" (change)="loadData('completed')" />
+                <label for="size_3">Completed Tasks</label>
+
+                <input type="radio" name="size" id="size_4" value="small" (change)="loadData('verified')" />
+                <label for="size_4">Verified Tasks</label>
+    
+            </div>
+        </div>
+        <!-- <p class="main-head">Tasks(12)</p> -->
     </div>
     <div class="content">
         <app-search></app-search>
@@ -9,4 +26,4 @@
     </div>
     </div>
 </div>
-<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues"></app-sales-table>
+<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)" (delete)="delete($event)"></app-sales-table>

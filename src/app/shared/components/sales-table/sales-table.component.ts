@@ -25,17 +25,17 @@ export class SalesTableComponent {
   }
   handleStatusColor(status: string) {
     switch (status) {
-      case 'Present':
+      case 'new':
         return 'rgb(116 206 116)';
-      case 'Absent':
+      case 'Unassigned':
         return 'rgb(255 89 89)';
-      case 'Request':
+      case 'Assigned':
         return 'rgb(111 119 228)';
       case 'Low':
         return 'rgb(228 21 21)';
-      case 'High':
+      case 'completed':
         return 'rgb(75 185 47 / 88%)';
-      case 'Medium':
+      case 'verified':
         return 'rgb(147 18 222 / 88%)';
       default:
         return '#000000';

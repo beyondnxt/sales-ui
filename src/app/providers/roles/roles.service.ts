@@ -19,4 +19,7 @@ export class RolesService {
   deleteRole(id:string): Observable<any> {
     return this.http.delete(environment.BASE_URL + `/role/${id}`);
   }
+  updateRole(id:string,payload:any): Observable<any> {
+    return this.http.put(environment.BASE_URL + `/role/${id}`,payload);
+  }
 }
