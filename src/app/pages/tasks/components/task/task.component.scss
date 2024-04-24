@@ -47,3 +47,9 @@
     height: 0;
     width: 0;
   }
+  ::ng-deep .task .addBtn{
+    margin-top:10px;
+  }
+  .task{
+    text-align: right;
+  }

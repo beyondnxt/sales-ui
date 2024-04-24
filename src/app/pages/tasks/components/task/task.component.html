@@ -26,4 +26,8 @@
     </div>
     </div>
 </div>
-<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)" (delete)="delete($event)"></app-sales-table>
+<app-sales-table #childRef [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)" (delete)="delete($event)" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)"></app-sales-table>
+<div class="task" *ngIf="this.changeTab">
+    <app-sales-btn [label]="'Verify'" (action)="Verify()"></app-sales-btn>
+</div>
+

@@ -5,6 +5,7 @@ import { AddUserComponent } from '../add-user/add-user.component';
 import { UsersService } from 'src/app/providers/admin/admin.service';
 import { UserHelper } from './user.helper';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
+import { CommonService } from 'src/app/providers/core/common.service';
 
 @Component({
   selector: 'app-user',
@@ -13,7 +14,7 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
   providers: [UserHelper]
 })
 export class UserComponent {
-  constructor(private dialog: MatDialog, private adminService: UsersService, private userHelper: UserHelper) { }
+  constructor(private dialog: MatDialog, private adminService: UsersService, private userHelper: UserHelper, private service:CommonService) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
   ngOnInit() {
@@ -35,8 +36,10 @@ export class UserComponent {
   postUser(payload: any) {
     this.adminService.postRegiter(payload).subscribe({
       next: (res) => {
+        this.service.showSnackbar("User Created Successfully");
         this.getUser();
       }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
       },
       complete: () => {
       }
@@ -45,8 +48,10 @@ export class UserComponent {
   updateUser(payload: any, id: any) {
     this.adminService.updateUser(id, payload).subscribe({
       next: (res) => {
+        this.service.showSnackbar("User Updated Successfully");
         this.getUser();
       }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
       },
       complete: () => {
       }
@@ -57,6 +62,7 @@ export class UserComponent {
       next: (res) => {
         this.tableValues = res.data;
       }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
       },
       complete: () => {
       }
@@ -94,8 +100,10 @@ export class UserComponent {
   deleteUser(id: any){
     this.adminService.deleteUser(id).subscribe({
       next: (res) => {
+        this.service.showSnackbar("User Deleted Successfully");
         this.getUser();
       }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
       },
       complete: () => {
       }

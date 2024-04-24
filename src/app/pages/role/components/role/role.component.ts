@@ -4,6 +4,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { AddRoleComponent } from '../add-role/add-role.component';
 import { RolesService } from 'src/app/providers/roles/roles.service';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
+import { CommonService } from 'src/app/providers/core/common.service';
 
 @Component({
   selector: 'app-role',
@@ -11,7 +12,7 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
   styleUrls: ['./role.component.scss']
 })
 export class RoleComponent {
-  constructor(private dialog: MatDialog, private roleService: RolesService) { }
+  constructor(private dialog: MatDialog, private roleService: RolesService, private service:CommonService) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
 
@@ -46,9 +47,10 @@ export class RoleComponent {
   createNewRole(payload: any){
     this.roleService.postRoleData(payload).subscribe({
       next: (res) => {
-
+        this.service.showSnackbar("Role Created Successfully");
         this.getRoles();
       }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
       },
       complete: () => {
       }
@@ -75,8 +77,10 @@ export class RoleComponent {
   updateRole(payload: any, id: any){
     this.roleService.updateRole(id, payload).subscribe({
       next: (res) => {
+        this.service.showSnackbar("Role Updated Successfully");
         this.getRoles();
       }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
       },
       complete: () => {
       }
@@ -100,8 +104,10 @@ export class RoleComponent {
   deleteRole(id: any){
     this.roleService.deleteRole(id).subscribe({
       next: (res) => {
+        this.service.showSnackbar("Role Deleted Successfully");
         this.getRoles();
       }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
       },
       complete: () => {
       }

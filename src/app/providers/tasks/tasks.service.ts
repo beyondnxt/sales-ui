@@ -22,4 +22,7 @@ export class TasksService {
   updateTask(id:string,payload:any): Observable<any> {
     return this.http.put(environment.BASE_URL + `/task/${id}`,payload);
   }
+  verifyTask(ids:string): Observable<any> {
+    return this.http.put(environment.BASE_URL + `/task`,ids);
+  }
 }

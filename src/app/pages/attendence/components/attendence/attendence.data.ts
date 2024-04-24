@@ -6,17 +6,17 @@ export const tableHeaders = [
     },
     {
         name: 'date',
-        key: 'date',
+        key: 'createdOn',
         sort:true,
     },
     {
         name: 'Check In',
-        key: 'checkIn',
+        key: 'punchIn',
         sort:true,
     },
     {
         name: 'Check Out',
-        key: 'checkOut',
+        key: 'punchOut',
         sort:true,
     },
     {

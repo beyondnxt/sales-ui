@@ -10,6 +10,8 @@ export class SalesTableComponent {
   @Output() openConsole = new EventEmitter();
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();
+  @Output() emitIds = new EventEmitter();
+  @Output() checkBoxes = new EventEmitter();
   @Input() tableHeaders: any = [];
   @Input() tableValues: any = [];
   length = 50;
@@ -42,9 +44,18 @@ export class SalesTableComponent {
     }
   }
   selectAllValues(event: any){
-
+    this.tableValues.forEach((obj: any) => {
+      obj.checked = event.checked ? true : false;
+    });
+    // console.log(this.tableValues);
+    const idArray = this.tableValues.map((item: any) => item.id);
+    this.checkBoxes.emit(idArray);
   }
   onCheckboxChange(event: any, key: string, ids: string) {
-    
+    const index = this.tableValues.findIndex((item:any) => item.id === ids);
+    if (index !== -1) {
+      this.tableValues[index].checked = !this.tableValues[index].checked;
+    }
+    this.emitIds.emit(ids);
   }
 }
