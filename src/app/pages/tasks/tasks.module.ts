@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TasksRoutingModule } from './task-routing.module';
 import { SharedModule } from 'src/app/shared/modules/modules/shared.module';
@@ -16,6 +16,7 @@ import { AddTaskComponent } from './components/add-task/add-task.component';
     CommonModule,
     TasksRoutingModule,
     SharedModule
-  ]
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class TasksModule { }

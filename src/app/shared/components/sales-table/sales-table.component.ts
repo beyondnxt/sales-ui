@@ -20,7 +20,7 @@ export class SalesTableComponent {
   showFirstLastButtons = true;
   disabled = false;
   pageEvent: PageEvent | undefined;
-
+  isSelectAll: boolean = false;
   handlePageEvent(e: PageEvent) {
   }
   handleStatusColor(status: string) {
@@ -33,12 +33,18 @@ export class SalesTableComponent {
         return 'rgb(111 119 228)';
       case 'Low':
         return 'rgb(228 21 21)';
-      case 'completed':
+      case 'Completed':
         return 'rgb(75 185 47 / 88%)';
       case 'verified':
         return 'rgb(147 18 222 / 88%)';
       default:
         return '#000000';
     }
+  }
+  selectAllValues(event: any){
+
+  }
+  onCheckboxChange(event: any, key: string, ids: string) {
+    
   }
 }

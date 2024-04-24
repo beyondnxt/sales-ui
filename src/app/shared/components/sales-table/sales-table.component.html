@@ -3,14 +3,28 @@
         <tbody>
             <tr>
                 <ng-container *ngFor="let header of tableHeaders">
-                    <th>{{header.name}} <i *ngIf="header?.sort" class="fas fa-sort"></i></th>
+                    <ng-container *ngIf="header.checkboxColumn; else headerCell">
+                        <mat-checkbox [(ngModel)]="isSelectAll" (change)="selectAllValues($event)"></mat-checkbox>
+                    </ng-container>
+                    <ng-template #headerCell>
+                        <th>{{header.name}} <i *ngIf="header?.sort" class="fas fa-sort"></i></th>
+                    </ng-template>
                 </ng-container>
             </tr>
             <ng-container *ngFor="let values of tableValues; let j= index">
                 <tr (click)="openConsole.emit()">
                     <ng-container *ngFor="let key of tableHeaders let i= index">
-                        <td [attr.data-th]="key.name" [ngClass]="{'status':key.key === 'status'}"
-                            [style.color]="handleStatusColor(values[key.key])">{{ values[key.key]}}
+                        <td>
+                            <ng-container>
+                                <ng-container *ngIf="key.key == 'checkBox'">
+                                    <mat-checkbox [checked]="values['checked'] ? true : false"
+                                      (change)="onCheckboxChange($event,key.key,values.id)"></mat-checkbox>
+                                  </ng-container>
+                                  
+                                <span [attr.data-th]="key.name" [ngClass]="{'status':key.key === 'status'}"
+                                [style.color]="handleStatusColor(values[key.key])">{{ values[key.key]}}</span>
+                            </ng-container>
+
                             <ng-container *ngIf="key.edit">
                                 <i class="far fa-edit" (click)="edit.emit(values)"></i>
                                 <i class="far fa-trash-alt delIcon" (click)="delete.emit(values.id)"></i>
@@ -18,8 +32,9 @@
                             <ng-container *ngIf="key.role">
                                 <i class="far fa-check-circle"></i>
                             </ng-container>
+
                         </td>
-     
+
                     </ng-container>
                 </tr>
             </ng-container>

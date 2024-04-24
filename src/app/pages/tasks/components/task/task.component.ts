@@ -49,15 +49,19 @@ export class TaskComponent {
     switch (tab) {
       case 'unassigned':
         this.tab = 'status=' + tab;
+        this.tableHeaders = data.tableHeaders;
         break;
       case 'assigned':
         this.tab = 'status=' + tab;
+        this.tableHeaders = data.tableHeaders;
         break;
       case 'completed':
         this.tab = 'status=' + tab;
+        this.tableHeaders = data.tableHeadersForCompleted;
         break;
       case 'verified':
         this.tab = 'status=' + tab;
+        this.tableHeaders = data.tableHeaders;
         break;
       default:
     }
@@ -109,8 +113,19 @@ export class TaskComponent {
       if (result && result.length === 2) {
         const userDetails = result[0];
         const dataId = result[1];
-        // this.updateUser(userDetails, dataId);
+        this.updateTask(userDetails, dataId);
       }
     });
+  }
+
+  updateTask(payload: any, id: any) {
+    this.taskService.updateTask(id, payload).subscribe({
+      next: (res) => {
+        this.getDataBasedOnTabSelection(this.tab);
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
   }
 }

@@ -13,24 +13,29 @@ import { CompanyService } from 'src/app/providers/company/company.service';
 export class AddTaskComponent {
   userList: any;
   companyList: any;
+  taskDetails: any;
   // taskDetails!: FormGroup;
-  constructor(private userService:UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddUserComponent>, @Inject(MAT_DIALOG_DATA) public data: any){}
+  constructor(private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddUserComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
-  taskDetails = this.fb.group({
-    companyId:[''],
-    taskType: [''],
-    status: [''],
-    assignTo: [''],
-    description: [''],
-    feedBack: [''],
-  })
-  ngOnInit(){
+  ngOnInit() {
+    this.taskDetails = this.fb.group({
+      customerName: [''],
+      taskType: [''],
+      status: [''],
+      assignTo: [''],
+      description: [''],
+      feedBack: [''],
+    });
     this.getUser();
     this.getCompany();
     if (this.data) {
       console.log(this.data);
+      this.taskDetails.get('customerName').disable();
+      this.data.status === 'Assigned' && this.taskDetails.get('taskType').disable();
+      this.data.status === 'Assigned' && this.taskDetails.get('assignTo').disable();
       this.taskDetails.patchValue(this.data);
     }
+
   }
 
   getUser() {
@@ -55,11 +60,18 @@ export class AddTaskComponent {
     })
   }
 
-  saveTask(){
-    const taskDetails: any = this.taskDetails.getRawValue();
-    (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
-    // console.log(taskDetails);
-    this.dialogRef.close(taskDetails);
+  saveTask() {
+    if (this.data) {
+      const taskDetails: any = this.taskDetails.getRawValue();
+      (taskDetails.status === 'Completed') && (delete taskDetails.assignTo);
+      this.dialogRef.close([taskDetails, this.data.id]);
+    }
+    else {
+      const taskDetails: any = this.taskDetails.getRawValue();
+      (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
+      // console.log(taskDetails);
+      this.dialogRef.close(taskDetails);
+    }
   }
 
 }

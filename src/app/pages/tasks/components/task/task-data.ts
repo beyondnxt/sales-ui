@@ -1,7 +1,7 @@
 export const tableHeaders = [
     {
-        name: 'Company Name',
-        key: 'companyName',
+        name: 'Customer Name',
+        key: 'customerName',
         sort:true,
     },
     {
@@ -11,7 +11,7 @@ export const tableHeaders = [
     },
     {
         name: 'Task Type',
-        key: 'tasktype',
+        key: 'taskType',
         sort:true,
     },
     {
@@ -30,7 +30,7 @@ export const tableHeaders = [
     },
     {
         name: 'Feedback',
-        key: 'feedback',
+        key: 'feedBack',
     },
     {
         name: 'Created On',
@@ -43,6 +43,53 @@ export const tableHeaders = [
         edit: true
     }
 ]
+
+export const tableHeadersForCompleted = [
+    {
+        name: '#',
+        key: 'checkBox',
+        checkboxColumn: true,
+    },
+    {
+        name: 'Customer Name',
+        key: 'customerName',
+        sort:true,
+    },
+    {
+        name: 'Created By',
+        key: 'userName',
+        sort:true,
+    },
+    {
+        name: 'Task Type',
+        key: 'taskType',
+        sort:true,
+    },
+    {
+        name: 'Assign To',
+        key: 'assignTo',
+        sort:true,
+    },
+    {
+        name: 'Status',
+        key: 'status',
+        sort:true,
+    },
+    {
+        name: 'Description',
+        key: 'description',
+    },
+    {
+        name: 'Feedback',
+        key: 'feedBack',
+    },
+    {
+        name: 'Created On',
+        key: 'createdOn',
+        sort:true,
+    }
+]
+
 export const tableValues = [
     // {
     //     taskName:'Collect Lead',

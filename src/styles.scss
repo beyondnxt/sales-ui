@@ -8,3 +8,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --font-primary-color:#221ec9;
     --bg:#ffff;
 }
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface{
+    overflow-x:hidden;
+}
