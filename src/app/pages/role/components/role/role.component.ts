@@ -15,7 +15,7 @@ export class RoleComponent {
   constructor(private dialog: MatDialog, private roleService: RolesService, private service:CommonService) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
-
+  count = 0;
   ngOnInit(){
     this.getRoles();
   }
@@ -24,6 +24,7 @@ export class RoleComponent {
     this.roleService.getRole().subscribe({
       next: (res) => {
         this.tableValues = res.roles;
+        this.count = res.total;
       }, error: (err) => {
       },
       complete: () => {

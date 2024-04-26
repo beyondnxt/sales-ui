@@ -17,6 +17,7 @@ export class UserComponent {
   constructor(private dialog: MatDialog, private adminService: UsersService, private userHelper: UserHelper, private service:CommonService) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
+  count = 0;
   ngOnInit() {
     this.getUser();
   }
@@ -61,6 +62,7 @@ export class UserComponent {
     this.adminService.getUsers('').subscribe({
       next: (res) => {
         this.tableValues = res.data;
+        this.count = res.total;
       }, error: (err) => {
         this.service.showSnackbar(err.error.message);
       },

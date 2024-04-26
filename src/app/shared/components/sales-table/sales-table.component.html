@@ -18,16 +18,27 @@
                             <ng-container>
                                 <ng-container *ngIf="key.key == 'checkBox'">
                                     <mat-checkbox [checked]="values['checked'] ? true : false"
-                                      (change)="onCheckboxChange($event,key.key,values.id)"></mat-checkbox>
-                                  </ng-container>
-                                  
+                                        (change)="onCheckboxChange($event,key.key,values.id)"></mat-checkbox>
+                                </ng-container>
+
                                 <span [attr.data-th]="key.name" [ngClass]="{'status':key.key === 'status'}"
-                                [style.color]="handleStatusColor(values[key.key])">{{ values[key.key]}}</span>
+                                    [style.color]="handleStatusColor(values[key.key])">
+                                    <ng-container
+                                        *ngIf="key.key === 'createdOn' || key.key === 'updatedOn'; else elseBlock">
+                                        {{ values[key.key] ? (values[key.key] | date: 'MMM d, y') : '-' }}
+                                    </ng-container>
+                                    <ng-template #elseBlock>
+                                        {{ values[key.key] }}
+                                    </ng-template>
+                                </span>
                             </ng-container>
 
                             <ng-container *ngIf="key.edit">
                                 <i class="far fa-edit" (click)="edit.emit(values)"></i>
                                 <i class="far fa-trash-alt delIcon" (click)="delete.emit(values.id)"></i>
+                            </ng-container>
+                            <ng-container *ngIf="key.map">
+                                <i class="fas fa-map-marker-alt delIcon" (click)="map.emit()"></i>
                             </ng-container>
                             <ng-container *ngIf="key.role">
                                 <i class="far fa-check-circle"></i>

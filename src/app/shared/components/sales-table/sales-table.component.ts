@@ -10,6 +10,7 @@ export class SalesTableComponent {
   @Output() openConsole = new EventEmitter();
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();
+  @Output() map = new EventEmitter();
   @Output() emitIds = new EventEmitter();
   @Output() checkBoxes = new EventEmitter();
   @Input() tableHeaders: any = [];

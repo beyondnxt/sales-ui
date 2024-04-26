@@ -8,7 +8,7 @@ import * as L from 'leaflet';
 })
 export class MapComponent {
   private map: L.Map | any;
-  private centroid: L.LatLngExpression = [42.3601, -71.0589]; //
+  private centroid: L.LatLngExpression = [8.186480, 77.430923]; //
 
   private initMap(): void {
     this.map = L.map('map', {
@@ -22,15 +22,25 @@ export class MapComponent {
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
 
-    // create 5 random jitteries and add them to map
-    const jittery = Array(5).fill(this.centroid).map( 
-        x => [x[0] + (Math.random() - .5)/10, x[1] + (Math.random() - .5)/10 ]
-      ).map(
-        x => L.marker(x as L.LatLngExpression)
-      ).forEach(
-        x => x.addTo(this.map)
-      );
+    const icon = L.icon({
+      iconUrl: 'assets/images/placeholder.png', // Path to your custom marker icon
+      iconSize: [20, 20], // Size of the icon
+      // iconAnchor: [12, 41], // Point of the icon which will correspond to marker's location
+      // popupAnchor: [0, -41] // Point from which the popup should open relative to the iconAnchor
+    });
 
+
+    const coordinates = [
+      { lat: "8.188315", lng: "77.400481" },
+      { lat: "8.154365", lng: "77.428423" },
+      { lat: "8.174416", lng: "77.425331" },
+      { lat: "8.173736", lng: "77.468275" }
+    ];
+
+    coordinates.forEach(coord => {
+      const marker = L.marker([parseFloat(coord.lat), parseFloat(coord.lng)], { icon: icon }).addTo(this.map);
+    });
+    
     tiles.addTo(this.map);
   
   }

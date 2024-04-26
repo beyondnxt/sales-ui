@@ -10,7 +10,10 @@ export class AttendanceService {
 
   constructor(public http:HttpClient) { }
 
-  getTodayAttendance(): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/attendance`);
+  getTodayAttendance(date: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/attendance?date=${date}`);
+  }
+  deleteAttendance(id:string): Observable<any> {
+    return this.http.delete(environment.BASE_URL + `/attendance/${id}`);
   }
 }
