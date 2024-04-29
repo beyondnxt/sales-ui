@@ -48,7 +48,7 @@ export class AddUserComponent {
   }
 
   getCompanyList() {
-    this.companyService.getCompanyList().subscribe({
+    this.companyService.getCompanyList('', '').subscribe({
       next: (res) => {
         console.log('companyList----', res);
         this.companyList = res.company;

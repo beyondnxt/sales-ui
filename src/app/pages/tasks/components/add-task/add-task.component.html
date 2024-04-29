@@ -14,7 +14,9 @@
                 <div class="col-lg-6">
                     <mat-form-field class="example-full-width">
                         <mat-label>Customer Name</mat-label>
-                        <input type="text" [disabled]="true" matInput placeholder="" formControlName="customerName">
+                        <mat-select formControlName="customerId">
+                            <mat-option *ngFor="let cus of customerList" [value]="cus.id">{{cus.name}}</mat-option>
+                        </mat-select>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-6">
@@ -50,9 +52,18 @@
                 <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>Assign To</mat-label>
-                        <mat-select formControlName="assignTo" [disabled]="taskDetails.get('status')?.value === 'Unassigned'">
+                        <mat-select formControlName="assignTo"
+                            [disabled]="taskDetails.get('status')?.value === 'Unassigned'">
                             <mat-option *ngFor="let user of userList" [value]="user.id">{{user.firstName}}</mat-option>
                         </mat-select>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6" *ngIf="data?.status=='Unassigned' || !data">
+                    <mat-form-field class="full-width flex-end">
+                        <mat-label>Follow-up Date</mat-label>
+                        <input #fromDateInput matInput formControlName="followUpDate" [matDatepicker]="fromDatepicker" placeholder="From date">
+                        <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+                        <mat-datepicker #fromDatepicker></mat-datepicker>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-12">

@@ -80,7 +80,7 @@ export class TaskComponent {
         break;
       case 'assigned':
         this.tab = 'status=' + tab;
-        this.tableHeaders = data.tableHeaders;
+        this.tableHeaders = data.tableHeadersForAssigned;
         this.changeTab = '';
         break;
       case 'completed':
@@ -247,7 +247,6 @@ export class TaskComponent {
   }
 
   gettaskType(event: any){
-    console.log('250----', event.value);
     this.ttSearch = `&taskType=${event.value}`;
     this.filterAll();
   }

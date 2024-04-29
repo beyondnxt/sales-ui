@@ -29,12 +29,12 @@ export const navBarData = [
     //     label: 'Customer',
     //     menu: 'customer'
     // },
-    {
-        routerlink: 'lead',
-        icon: 'fas fa-signal',
-        label: 'Lead',
-        menu: 'lead'
-    },
+    // {
+    //     routerlink: 'lead',
+    //     icon: 'fas fa-signal',
+    //     label: 'Lead',
+    //     menu: 'lead'
+    // },
     {
         routerlink: 'attendence',
         icon: 'fas fa-calendar-alt',
@@ -48,9 +48,15 @@ export const navBarData = [
         menu: 'task'
     },
     {
-        routerlink: 'feedback',
-        icon: 'fas fa-comment-dots',
-        label: 'Feed back',
-        menu: 'feedback'
+        routerlink: 'company',
+        icon: 'fal fa-hand-holding-box',
+        label: 'Company',
+        menu: 'company'
     }
+    // {
+    //     routerlink: 'feedback',
+    //     icon: 'fas fa-comment-dots',
+    //     label: 'Feed back',
+    //     menu: 'feedback'
+    // }
 ]

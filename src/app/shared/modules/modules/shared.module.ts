@@ -33,6 +33,6 @@ import { TableLoaderComponent } from '../../components/table-loader/table-loader
     CommonModule,
     MatModule,
   ],
-  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, SalesTableComponent,SearchComponent, SalesBtnComponent, SalesCancelBtnComponent,DeleteComponent, TableLoaderComponent]
+  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, SalesTableComponent,SearchComponent, SalesBtnComponent, SalesCancelBtnComponent,DeleteComponent, TableLoaderComponent ]
 })
 export class SharedModule { }

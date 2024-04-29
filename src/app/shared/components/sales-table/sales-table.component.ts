@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { CommonService } from 'src/app/providers/core/common.service';
 
 @Component({
@@ -8,8 +9,8 @@ import { CommonService } from 'src/app/providers/core/common.service';
   styleUrls: ['./sales-table.component.scss']
 })
 export class SalesTableComponent {
-  constructor(public service:CommonService){}
-  @ViewChild(MatPaginator)paginator!: MatPaginator;
+  constructor(public service: CommonService) { }
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Output() openConsole = new EventEmitter();
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();
@@ -50,11 +51,15 @@ export class SalesTableComponent {
         return 'rgb(75 185 47 / 88%)';
       case 'verified':
         return 'rgb(147 18 222 / 88%)';
+      case 'Absent':
+        return '#FF001B';
+      case 'Present':
+        return '#06CF0C';
       default:
         return '#000000';
     }
   }
-  selectAllValues(event: any){
+  selectAllValues(event: any) {
     this.tableValues.forEach((obj: any) => {
       obj.checked = event.checked ? true : false;
     });
@@ -62,10 +67,31 @@ export class SalesTableComponent {
     this.checkBoxes.emit(idArray);
   }
   onCheckboxChange(event: any, key: string, ids: string) {
-    const index = this.tableValues.findIndex((item:any) => item.id === ids);
+    const index = this.tableValues.findIndex((item: any) => item.id === ids);
     if (index !== -1) {
       this.tableValues[index].checked = !this.tableValues[index].checked;
     }
     this.emitIds.emit(ids);
   }
+
+  handleDateColor(dateString: string) {
+    // console.log('11------', dateString);
+    const today = new Date();
+    const date = new Date(dateString);
+
+    today.setHours(0, 0, 0, 0);
+    date.setHours(0, 0, 0, 0);
+
+    // const todayWithoutDay = new Date(today);
+    // todayWithoutDay.setDate(1);
+    if (today >= date) {
+      console.log('date-----', date);
+      console.log('today-----', today);
+      return '#FF001B';
+    }
+    else {
+      return '';
+    }
+  }
+
 }

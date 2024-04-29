@@ -1,9 +1,11 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AddUserComponent } from 'src/app/pages/user/components/add-user/add-user.component';
 import { UsersService } from 'src/app/providers/admin/admin.service';
 import { CompanyService } from 'src/app/providers/company/company.service';
+import { CommonService } from 'src/app/providers/core/common.service';
+import { CustomerService } from 'src/app/providers/customers/customer.service';
 
 @Component({
   selector: 'app-add-task',
@@ -14,23 +16,28 @@ export class AddTaskComponent {
   userList: any;
   companyList: any;
   taskDetails: any;
+  customerList: any;
   // taskDetails!: FormGroup;
-  constructor(private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddUserComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
+  date = '';
+  constructor(private service: CommonService,private customerService:CustomerService,private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddUserComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.taskDetails = this.fb.group({
-      customerName: [''],
+      customerId: [''],
       taskType: [''],
       status: [''],
       assignTo: [''],
       description: [''],
       feedBack: [''],
+      followUpDate:[''],
     });
+    this.getCustomer();
     this.getUser();
     this.getCompany();
     if (this.data) {
       console.log(this.data);
-      this.taskDetails.get('customerName').disable();
+      this.taskDetails.get('customerId').disable();
       this.data.status === 'Assigned' && this.taskDetails.get('taskType').disable();
       this.data.status === 'Assigned' && this.taskDetails.get('assignTo').disable();
       this.taskDetails.patchValue(this.data);
@@ -38,6 +45,18 @@ export class AddTaskComponent {
 
   }
 
+  getCustomer(){
+    this.customerService.getCustomers().subscribe({
+      next: (res) => {
+        // console.log('customers-----', res);
+        this.customerList = res.customers;
+        console.log('customers-----', this.customerList);
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
+  }
   getUser() {
     this.userService.getUsers('', '').subscribe({
       next: (res) => {
@@ -50,7 +69,7 @@ export class AddTaskComponent {
   }
 
   getCompany() {
-    this.companyService.getCompanyList().subscribe({
+    this.companyService.getCompanyList('', '').subscribe({
       next: (res) => {
         this.companyList = res.company;
       }, error: (err) => {
@@ -68,10 +87,15 @@ export class AddTaskComponent {
     }
     else {
       const taskDetails: any = this.taskDetails.getRawValue();
+      console.log('75-----', taskDetails);
       (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
       // console.log(taskDetails);
       this.dialogRef.close(taskDetails);
     }
+  }
+
+  onFromDateChange(event: any){
+    this.date = this.service.dateFormat(event.value);
   }
 
 }

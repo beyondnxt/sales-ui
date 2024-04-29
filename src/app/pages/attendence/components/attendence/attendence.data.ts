@@ -15,8 +15,18 @@ export const tableHeaders = [
         sort:true,
     },
     {
+        name: 'Check In Distance',
+        key: 'punchInDistanceFromOffice',
+        sort:true,
+    },
+    {
         name: 'Check Out',
         key: 'punchOut',
+        sort:true,
+    },
+    {
+        name: 'Check Out Distance',
+        key: 'punchOutDistanceFromOffice',
         sort:true,
     },
     {
