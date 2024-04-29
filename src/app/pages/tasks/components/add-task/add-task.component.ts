@@ -39,7 +39,7 @@ export class AddTaskComponent {
   }
 
   getUser() {
-    this.userService.getUsers('').subscribe({
+    this.userService.getUsers('', '').subscribe({
       next: (res) => {
         this.userList = res.data;
       }, error: (err) => {

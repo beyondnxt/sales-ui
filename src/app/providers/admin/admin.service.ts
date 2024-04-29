@@ -16,8 +16,8 @@ export class UsersService {
   postRegiter(payload: any): Observable<any> {
     return this.http.post(environment.BASE_URL + '/auth/signup', payload);
   }
-  getUsers(query:string): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/user?page=1&limit=10`);
+  getUsers(query:string, searchQry:any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/user?${query}${searchQry}`);
   }
   deleteUser(id:string): Observable<any> {
     return this.http.delete(environment.BASE_URL + `/user/${id}`);

@@ -12,7 +12,14 @@ import { CommonService } from 'src/app/providers/core/common.service';
   styleUrls: ['./role.component.scss']
 })
 export class RoleComponent {
-  constructor(private dialog: MatDialog, private roleService: RolesService, private service:CommonService) { }
+  pageCount: any;
+  totalCount = 0;
+  currentPage = 0;
+  apiLoader = false;
+  pageSize = this.service.calculatePaginationVal();
+  showOrHide = false;
+  searchQuery = '';
+  constructor(private dialog: MatDialog, private roleService: RolesService, public service:CommonService) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
   count = 0;
@@ -21,11 +28,17 @@ export class RoleComponent {
   }
 
   getRoles() {
-    this.roleService.getRole().subscribe({
+    this.showOrHide = false;
+    this.apiLoader = true;
+    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
+    this.roleService.getRole(query, this.searchQuery).subscribe({
       next: (res) => {
+        !res.roles.length && (this.showOrHide = true);
+        this.apiLoader = false;
         this.tableValues = res.roles;
         this.count = res.total;
       }, error: (err) => {
+        this.apiLoader = false;
       },
       complete: () => {
       }
@@ -113,5 +126,16 @@ export class RoleComponent {
       complete: () => {
       }
     })
+  }
+  pagination(event: any): void {
+    this.currentPage = event;
+    this.getRoles();
+  }
+
+  searchBox(event: any){
+    this.searchQuery = `&role=${event}`;
+    (event) && ( this.currentPage = 0);
+    this.currentPage = 0;
+    this.getRoles();
   }
 }

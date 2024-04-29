@@ -7,6 +7,14 @@
     border-top-right-radius: 10px;
     border-top-left-radius: 10px;
 }
+.filterClass{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
 .main-head{
     font-size: 20px;
     color: var(--primary);
@@ -53,3 +61,61 @@
   .task{
     text-align: right;
   }
+  .filterIcon{
+    font-size: 20px;
+    padding-right: 10px;
+    margin-top: 10px;
+  }
+  ::ng-deep .datePicker .mat-mdc-text-field-wrapper {
+    width: 75% !important;
+    border-radius: 5px !important;
+    height: 40px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // padding:0px !important;
+}
+
+::ng-deep .datePicker .mat-mdc-form-field {
+    width: 100% !important;
+    margin-left: 20px;
+}
+::ng-deep .datePicker .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    --mdc-filled-text-field-active-indicator-height:0px !important;
+    border: 1px solid #ffffff !important;
+    background-color:#ffffff !important;
+    // inset: 0;
+    background: var(--input-bg-color);
+    border-radius: 30px !important;
+    pointer-events: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+::ng-deep .taskType .mat-mdc-text-field-wrapper {
+    width: 100% !important;
+    border-radius: 5px !important;
+    height: 40px !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // padding:0px !important;
+}
+
+::ng-deep .taskType .mat-mdc-form-field {
+    width: 100% !important;
+    margin-left: 20px;
+}
+::ng-deep .taskType .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+    --mdc-filled-text-field-active-indicator-height:0px !important;
+    border: 1px solid #ffffff !important;
+    background-color:#ffffff !important;
+    inset: 0;
+    background: var(--input-bg-color);
+    border-radius: 30px !important;
+    // pointer-events: none;
+    box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.filterClass app-search,
+.filterClass mat-form-field {
+    padding-left: 10px; /* Adjust the padding value as needed */
+    padding-right: 10px; /* Adjust the padding value as needed */
+}

@@ -12,7 +12,14 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./attendence.component.scss']
 })
 export class AttendenceComponent {
-  constructor(private dialog: MatDialog, public router: Router,private service:CommonService, private attendance:AttendanceService) { }
+  pageCount: any;
+  totalCount = 0;
+  currentPage = 0;
+  apiLoader = false;
+  pageSize = this.service.calculatePaginationVal();
+  searchQuery = '';
+  showOrHide = false;
+  constructor(private dialog: MatDialog, public router: Router,public service:CommonService, private attendance:AttendanceService) { }
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
@@ -29,12 +36,17 @@ export class AttendenceComponent {
   }
 
   getTodayAttendance(){
-    this.attendance.getTodayAttendance(this.date).subscribe({
+    this.showOrHide = false;
+    this.apiLoader = true;
+    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
+    this.attendance.getTodayAttendance(this.date, query, this.searchQuery).subscribe({
       next: (res) => {
-        console.log('29:::::', res.data);
+        !res.data.length && (this.showOrHide = true);
+        this.apiLoader = false;
         this.tableValues = res.data;
         this.count = res.total;
       }, error: (err) => {
+        this.apiLoader = false;
       },
       complete: () => {
       }
@@ -87,5 +99,17 @@ export class AttendenceComponent {
     else {
       return date;
     }
+  }
+
+  pagination(event: any): void {
+    this.currentPage = event;
+    this.getTodayAttendance();
+  }
+
+  searchBox(event: any){
+    this.searchQuery = `&userName=${event}`;
+    (event) && ( this.currentPage = 0);
+    this.currentPage = 0;
+    this.getTodayAttendance();
   }
 }

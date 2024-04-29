@@ -1,0 +1,13 @@
+<table class="tg">
+    <tr>
+      <th class="tg-cly1" *ngFor="let _ of skeletonHeadersLines()">
+        <div class="line"></div>
+      </th>
+    </tr>
+  
+    <tr *ngFor="let _ of skeletonValueLines()">
+      <td class="tg-cly1" *ngFor="let _ of skeletonHeadersLines()">
+        <div class="line"></div>
+      </td>
+    </tr>
+  </table>

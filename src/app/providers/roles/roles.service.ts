@@ -10,8 +10,8 @@ export class RolesService {
 
   constructor(public http:HttpClient) { }
 
-  getRole(): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/role`);
+  getRole(query: any, searchQry: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/role?${query}${searchQry}`);
   }
   postRoleData(payload: any): Observable<any> {
     return this.http.post(environment.BASE_URL + '/role', payload);

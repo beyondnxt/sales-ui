@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { PageEvent } from '@angular/material/paginator';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { CommonService } from 'src/app/providers/core/common.service';
 
 @Component({
   selector: 'app-sales-table',
@@ -7,17 +8,24 @@ import { PageEvent } from '@angular/material/paginator';
   styleUrls: ['./sales-table.component.scss']
 })
 export class SalesTableComponent {
+  constructor(public service:CommonService){}
+  @ViewChild(MatPaginator)paginator!: MatPaginator;
   @Output() openConsole = new EventEmitter();
   @Output() edit = new EventEmitter();
   @Output() delete = new EventEmitter();
   @Output() map = new EventEmitter();
   @Output() emitIds = new EventEmitter();
   @Output() checkBoxes = new EventEmitter();
+  @Output() pagination = new EventEmitter();
   @Input() tableHeaders: any = [];
   @Input() tableValues: any = [];
+  @Input() count: any;
+  @Input() apiLoader: any;
+  @Input() headerLength: any;
   length = 50;
   pageSize = 10;
   pageIndex = 0;
+  currentPage = 0;
   hidePageSize = false;
   showPageSizeOptions = true;
   showFirstLastButtons = true;
@@ -25,6 +33,8 @@ export class SalesTableComponent {
   pageEvent: PageEvent | undefined;
   isSelectAll: boolean = false;
   handlePageEvent(e: PageEvent) {
+    this.currentPage = this.paginator.pageIndex;
+    this.pagination.emit(this.currentPage);
   }
   handleStatusColor(status: string) {
     switch (status) {
@@ -48,7 +58,6 @@ export class SalesTableComponent {
     this.tableValues.forEach((obj: any) => {
       obj.checked = event.checked ? true : false;
     });
-    // console.log(this.tableValues);
     const idArray = this.tableValues.map((item: any) => item.id);
     this.checkBoxes.emit(idArray);
   }

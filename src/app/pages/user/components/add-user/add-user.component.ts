@@ -37,7 +37,7 @@ export class AddUserComponent {
   }
 
   getRoles() {
-    this.roleService.getRole().subscribe({
+    this.roleService.getRole('', '').subscribe({
       next: (res) => {
         this.roleList = res.roles;
       }, error: (err) => {

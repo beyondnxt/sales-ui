@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import * as data from './user.data';
 import { MatDialog } from '@angular/material/dialog';
 import { AddUserComponent } from '../add-user/add-user.component';
@@ -14,9 +14,16 @@ import { CommonService } from 'src/app/providers/core/common.service';
   providers: [UserHelper]
 })
 export class UserComponent {
-  constructor(private dialog: MatDialog, private adminService: UsersService, private userHelper: UserHelper, private service:CommonService) { }
+  pageCount: any;
+  totalCount = 0;
+  currentPage = 0;
+  pageSize = this.service.calculatePaginationVal();
+  showOrHide = false;
+  searchQuery = '';
+  constructor(private dialog: MatDialog, private adminService: UsersService, private userHelper: UserHelper, public service:CommonService) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
+  apiLoader = false;
   count = 0;
   ngOnInit() {
     this.getUser();
@@ -59,11 +66,17 @@ export class UserComponent {
     })
   }
   getUser() {
-    this.adminService.getUsers('').subscribe({
+    this.showOrHide = false;
+    this.apiLoader = true;
+    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
+    this.adminService.getUsers(query, this.searchQuery).subscribe({
       next: (res) => {
+        !res.data.length && (this.showOrHide = true);
+        this.apiLoader = false;
         this.tableValues = res.data;
         this.count = res.total;
       }, error: (err) => {
+        this.apiLoader = false;
         this.service.showSnackbar(err.error.message);
       },
       complete: () => {
@@ -112,5 +125,16 @@ export class UserComponent {
     })
   }
 
+  pagination(event: any): void {
+    this.currentPage = event;
+    this.getUser();
+  }
+
+  searchBox(event: any){
+    this.searchQuery = `&userName=${event}`;
+    (event) && ( this.currentPage = 0);
+    this.currentPage = 0;
+    this.getUser();
+  }
 }
 

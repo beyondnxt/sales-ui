@@ -9,8 +9,9 @@
         <mat-datepicker #fromDatepicker></mat-datepicker>
     </mat-form-field>
     
-    <app-search></app-search>
+    <app-search (searchData)="searchBox($event)"></app-search>
 <!-- <app-sales-btn [label]="'+ New Task'" (action)="addAttendence()"></app-sales-btn> -->
 </div>
-<app-sales-table (map)="openConsole()" (delete)="delete($event)" (edit)="edit($event)" [tableHeaders]="tableHeaders" [tableValues]="tableValues"></app-sales-table>
+<app-sales-table (map)="openConsole()" (delete)="delete($event)" (edit)="edit($event)" [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" (pagination)="pagination($event)" [apiLoader]="apiLoader"></app-sales-table>
+<div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>
 

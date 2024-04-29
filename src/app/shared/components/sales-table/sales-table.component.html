@@ -52,7 +52,11 @@
         </tbody>
     </table>
 </div>
-<mat-paginator #paginator class="demo-paginator" (page)="handlePageEvent($event)" [length]="length"
-    [pageSize]="pageSize" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
-    [hidePageSize]="hidePageSize" [pageIndex]="pageIndex" aria-label="Select page">
+<mat-paginator #paginator *ngIf="this.count>this.pageSize" class="demo-paginator" (page)="handlePageEvent($event)" [length]="count"
+    [pageSize]="service.calculatePaginationVal()" [disabled]="disabled" [showFirstLastButtons]="showFirstLastButtons"
+    [hidePageSize]="hidePageSize" [pageIndex]="currentPage" aria-label="Select page">
 </mat-paginator>
+
+<ng-container *ngIf="apiLoader">
+    <app-table-loader [valueColumns]="pageSize" [columns]="tableHeaders.length"></app-table-loader>
+</ng-container>

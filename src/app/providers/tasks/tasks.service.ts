@@ -10,8 +10,8 @@ export class TasksService {
 
   constructor(public http:HttpClient) { }
 
-  getTaskList(tab: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/task?${tab}`);
+  getTaskList(tab: any, query: any, serachQry: any, cusQry: any, cbQry: any, atQry: any, ttQry: any, date:any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/task?startDate=${date}&${tab}&${query}${serachQry}${cusQry}${cbQry}${atQry}${ttQry}`);
   }
   postTask(payload: any): Observable<any> {
     return this.http.post(environment.BASE_URL + '/task', payload);

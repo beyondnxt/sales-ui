@@ -11,6 +11,7 @@ import { SearchComponent } from '../../components/search/search.component';
 import { SalesBtnComponent } from '../../components/sales-btn/sales-btn.component';
 import { SalesCancelBtnComponent } from '../../components/sales-cancel-btn/sales-cancel-btn.component';
 import { DeleteComponent } from '../../components/delete/delete.component';
+import { TableLoaderComponent } from '../../components/table-loader/table-loader.component';
 
 
 
@@ -25,12 +26,13 @@ import { DeleteComponent } from '../../components/delete/delete.component';
     SearchComponent,
     SalesBtnComponent,
     SalesCancelBtnComponent,
-    DeleteComponent
+    DeleteComponent,
+    TableLoaderComponent
   ],
   imports: [
     CommonModule,
     MatModule,
   ],
-  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, SalesTableComponent,SearchComponent, SalesBtnComponent, SalesCancelBtnComponent,DeleteComponent]
+  exports: [MatModule,SideNavComponent,BodyComponent,LayoutComponent,HeaderComponent, SalesTableComponent,SearchComponent, SalesBtnComponent, SalesCancelBtnComponent,DeleteComponent, TableLoaderComponent]
 })
 export class SharedModule { }

@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 
 @Component({
   selector: 'app-search',
@@ -6,5 +7,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
-
+  constructor(private fb: FormBuilder) { }
+  @Output() searchData = new EventEmitter();
+  @Input() placeholder: string = 'Search...'; 
+  search = this.fb.group({
+    keyWord: [''],
+  })
 }

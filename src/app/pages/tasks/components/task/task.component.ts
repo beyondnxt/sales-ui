@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import * as data from './task-data';
@@ -14,6 +14,26 @@ import { CommonService } from 'src/app/providers/core/common.service';
 })
 export class TaskComponent {
   changeTab: any;
+  pageCount: any;
+  totalCount = 0;
+  currentPage = 0;
+  count = 0;
+  searchQuery = '';
+  apiLoader = false;
+  showFilter: boolean = false;
+  showOrHide = false;
+  date = '';
+  cusSearch = '';
+  cbSearch = '';
+  atSearch = '';
+  ttSearch = '';
+  pageSize = this.service.calculatePaginationVal();
+  @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
+  taskType = [
+    { id: 1, name: 'Lead' },
+    { id: 2, name: 'Call Back' },
+    { id: 3, name: 'Service' }
+  ];
   constructor(private dialog: MatDialog, private taskService: TasksService, private service:CommonService) { }
   @ViewChild('childRef') saledData!: SalesTableComponent;
   tableHeaders = data.tableHeaders;
@@ -79,10 +99,17 @@ export class TaskComponent {
   }
 
   getDataBasedOnTabSelection(tab: any) {
-    this.taskService.getTaskList(tab).subscribe({
+    this.showOrHide = false;
+    this.apiLoader = true;
+    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
+    this.taskService.getTaskList(tab, query, this.searchQuery,this.cusSearch, this.cbSearch, this.atSearch, this.ttSearch, this.date).subscribe({
       next: (res) => {
+        !res.data.length && (this.showOrHide = true);
+        this.apiLoader = false;
         this.tableValues = res.data;
+        this.count = res.fetchedCount;
       }, error: (err) => {
+        this.apiLoader = false;
       },
       complete: () => {
       }
@@ -172,5 +199,61 @@ export class TaskComponent {
 
       }
     })
+  }
+  pagination(event: any): void {
+    this.currentPage = event;
+    this.getDataBasedOnTabSelection(this.tab);
+  }
+  searchBox(event: any){
+    this.searchQuery = `&customerName=${event}`;
+    (event) && ( this.currentPage = 0);
+    this.currentPage = 0;
+    this.getDataBasedOnTabSelection(this.tab);
+  }
+
+  toggleFilter() {
+    this.showFilter = !this.showFilter;
+  }
+
+  onFromDateChange(event: any){
+    this.date = this.dateFormat(event.value);
+    this.getDataBasedOnTabSelection(this.tab);
+  }
+
+  dateFormat(date: any) {
+    if (date != null) {
+      const year = date.getFullYear();
+      const month = ('0' + (date.getMonth() + 1)).slice(-2);
+      const day = ('0' + date.getDate()).slice(-2);
+      const formattedDate = `${year}-${month}-${day}`;
+      return formattedDate;
+    }
+    else {
+      return date;
+    }
+  }
+
+  customerSearch(event: any){
+    this.cusSearch = `&customerName=${event}`;
+    this.filterAll();
+  }
+  createdbySearch(event: any){
+    this.cbSearch = `&createdBy=${event}`;
+    this.filterAll();
+  }
+  assignedToSearch(event: any){
+    this.atSearch = `&assignToName=${event}`;
+    this.filterAll();
+  }
+
+  gettaskType(event: any){
+    console.log('250----', event.value);
+    this.ttSearch = `&taskType=${event.value}`;
+    this.filterAll();
+  }
+
+  filterAll(){
+    this.currentPage = 0;
+    this.getDataBasedOnTabSelection(this.tab);
   }
 }
