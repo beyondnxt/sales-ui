@@ -19,9 +19,16 @@
         </div>
         <!-- <p class="main-head">Tasks(12)</p> -->
     </div>
+    
     <div class="content">
+        
         <!-- <app-search (searchData)="searchBox($event)"></app-search> -->
         <span (click)="toggleFilter()"><i class="fa fa-filter filterIcon"></i></span>
+
+        <div class="task" *ngIf="this.changeTab">
+            <app-sales-btn [label]="'Verify'" (action)="Verify()"></app-sales-btn>
+        </div>
+        
         <div class="mx-2">
             <app-sales-btn [label]="'+ New Task'" (action)="addTask()"></app-sales-btn>
         </div>
@@ -50,6 +57,3 @@
     (delete)="delete($event)" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)" [count]="count"
     (pagination)="pagination($event)" [apiLoader]="apiLoader"></app-sales-table>
     <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>
-<div class="task" *ngIf="this.changeTab">
-    <app-sales-btn [label]="'Verify'" (action)="Verify()"></app-sales-btn>
-</div>

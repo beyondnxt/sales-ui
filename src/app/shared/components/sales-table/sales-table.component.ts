@@ -74,7 +74,7 @@ export class SalesTableComponent {
     this.emitIds.emit(ids);
   }
 
-  handleDateColor(dateString: string) {
+  handleDateColor(dateString: any) {
     // console.log('11------', dateString);
     const today = new Date();
     const date = new Date(dateString);
@@ -85,8 +85,6 @@ export class SalesTableComponent {
     // const todayWithoutDay = new Date(today);
     // todayWithoutDay.setDate(1);
     if (today >= date) {
-      console.log('date-----', date);
-      console.log('today-----', today);
       return '#FF001B';
     }
     else {

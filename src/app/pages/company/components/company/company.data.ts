@@ -11,20 +11,11 @@ export const tableHeaders = [
         sort: true,
     },
     {
-        name: 'Address',
-        key: 'address',
-        sort: true,
-    },
-    {
         name: 'Mobile Number',
         key: 'phoneNo',
         sort: true,
     },
-    {
-        name: 'Created Date',
-        key: 'createdOn',
-        sort: true,
-    },
+    
     {
         name: 'Latitude',
         key: 'latitude',
@@ -36,8 +27,23 @@ export const tableHeaders = [
         sort: true,
     },
     {
-        name: 'Location',
-        key: 'location',
+        name: 'City',
+        key: 'city',
+        sort: true,
+    },
+    {
+        name: 'Street',
+        key: 'street',
+        sort: true,
+    },
+    {
+        name: 'Country',
+        key: 'country',
+        sort: true,
+    },
+    {
+        name: 'Created Date',
+        key: 'createdOn',
         sort: true,
     },
     {
