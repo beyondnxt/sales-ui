@@ -5,6 +5,20 @@ import { CommonService } from 'src/app/providers/core/common.service';
 import { AttendanceService } from 'src/app/providers/attendance/attendance.service';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
+
+
+export const MY_FORMATS = {
+  parse: {
+    dateInput: 'MM/YYYY',
+  },
+  display: {
+    dateInput: 'MM/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
 
 @Component({
   selector: 'app-attendence',
@@ -19,6 +33,8 @@ export class AttendenceComponent {
   pageSize = this.service.calculatePaginationVal();
   searchQuery = '';
   showOrHide = false;
+  attDate =  new FormControl();
+
   constructor(private dialog: MatDialog, public router: Router,public service:CommonService, private attendance:AttendanceService) { }
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   tableHeaders = data.tableHeaders;
@@ -34,6 +50,7 @@ export class AttendenceComponent {
   ngOnInit(){
     this.getTodayAttendance();
   }
+
 
   getTodayAttendance(){
     this.showOrHide = false;
@@ -112,4 +129,9 @@ export class AttendenceComponent {
     this.currentPage = 0;
     this.getTodayAttendance();
   }
+  setMonthAndYear(data: any, ip: any){
+
+  }
 }
+
+

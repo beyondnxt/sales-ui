@@ -19,10 +19,9 @@ export class AddRoleComponent {
     { name: 'Users' },
     { name: 'Roles' },
     { name: 'Product' },
-    { name: 'Lead' },
     { name: 'Attendance' },
     { name: 'Task' },
-    { name: 'Feedback' }
+    { name: 'Company' }
   ];
 
 

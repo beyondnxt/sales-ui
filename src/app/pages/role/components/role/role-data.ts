@@ -11,20 +11,26 @@ export const tableHeaders = [
         role:true
     },
     {
+        name: 'Users',
+        key: 'users',
+        sort:false,
+        role:true
+    },
+    {
+        name: 'Roles',
+        key: 'roles',
+        sort:false,
+        role:true
+    },
+    {
         name: 'Product',
         key: 'product',
         sort:false,
         role:true
     },
     {
-        name: 'Lead',
-        key: 'lead',
-        sort:false,
-        role:true
-    },
-    {
-        name: 'Attendence',
-        key: 'attendence',
+        name: 'Attendance',
+        key: 'attendance',
         sort:false,
         role:true
     },
@@ -35,23 +41,17 @@ export const tableHeaders = [
         role:true
     },
     {
-        name: 'User',
-        key: 'user',
-        sort:false,
-        role:true
-    },
-    {
-        name: 'Role',
-        key: 'role',
+        name: 'Company',
+        key: 'company',
         role:true,
         sort:false,
     },
-    {
-        name: 'Feed back',
-        key: 'feedBack',
-        sort:false,
-        role:true
-    },
+    // {
+    //     name: 'Feed back',
+    //     key: 'feedBack',
+    //     sort:false,
+    //     role:true
+    // },
     {
         name: 'Action',
         key: 'action',

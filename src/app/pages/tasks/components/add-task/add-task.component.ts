@@ -1,5 +1,5 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { AddUserComponent } from 'src/app/pages/user/components/add-user/add-user.component';
 import { UsersService } from 'src/app/providers/admin/admin.service';
@@ -20,17 +20,17 @@ export class AddTaskComponent {
   // taskDetails!: FormGroup;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
-  constructor(private service: CommonService,private customerService:CustomerService,private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddUserComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private service: CommonService, private customerService: CustomerService, private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddUserComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.taskDetails = this.fb.group({
-      customerId: [''],
-      taskType: [''],
-      status: [''],
-      assignTo: [''],
+      customerId: ['', [Validators.required]],
+      taskType: ['', [Validators.required]],
+      status: ['', [Validators.required]],
+      assignTo: ['', [Validators.required]],
       description: [''],
       feedBack: [''],
-      followUpDate:[''],
+      followUpDate: [''],
     });
     this.getCustomer();
     this.getUser();
@@ -45,7 +45,7 @@ export class AddTaskComponent {
 
   }
 
-  getCustomer(){
+  getCustomer() {
     this.customerService.getCustomers().subscribe({
       next: (res) => {
         // console.log('customers-----', res);
@@ -80,21 +80,27 @@ export class AddTaskComponent {
   }
 
   saveTask() {
-    if (this.data) {
-      const taskDetails: any = this.taskDetails.getRawValue();
-      (taskDetails.status === 'Completed') && (delete taskDetails.assignTo);
-      this.dialogRef.close([taskDetails, this.data.id]);
+    this.taskDetails.markAllAsTouched();
+    if (this.taskDetails.invalid) {
+      return;
+    } else {
+      if (this.data) {
+        const taskDetails: any = this.taskDetails.getRawValue();
+        (taskDetails.status === 'Completed') && (delete taskDetails.assignTo);
+        this.dialogRef.close([taskDetails, this.data.id]);
+      }
+      else {
+        const taskDetails: any = this.taskDetails.getRawValue();
+        console.log('75-----', taskDetails);
+        (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
+        // console.log(taskDetails);
+        this.dialogRef.close(taskDetails);
+      }
     }
-    else {
-      const taskDetails: any = this.taskDetails.getRawValue();
-      console.log('75-----', taskDetails);
-      (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
-      // console.log(taskDetails);
-      this.dialogRef.close(taskDetails);
-    }
+
   }
 
-  onFromDateChange(event: any){
+  onFromDateChange(event: any) {
     this.date = this.service.dateFormat(event.value);
   }
 

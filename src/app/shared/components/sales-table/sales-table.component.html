@@ -13,7 +13,7 @@
             </tr>
             <ng-container *ngFor="let values of tableValues; let j= index">
                 <!-- (click)="openConsole.emit()" -->
-                <tr >
+                <tr>
                     <ng-container *ngFor="let key of tableHeaders let i= index">
                         <td>
                             <ng-container>
@@ -27,7 +27,7 @@
                                     <ng-container
                                         *ngIf="key.key === 'createdOn' || key.key === 'updatedOn' || key.key === 'followUpDate' ; else elseBlock">
                                         <!-- {{values[key.key]}} -->
-                                        <ng-container *ngIf="key.key === 'followUpDate'" >
+                                        <ng-container *ngIf="key.key === 'followUpDate'">
                                             <!-- {{values[key.key]}} -->
                                             <span [style.color]="handleDateColor(values[key.key])">
                                                 {{ values[key.key] ? (values[key.key] | date: 'MMM d, y') : '-' }}
@@ -51,9 +51,37 @@
                             <ng-container *ngIf="key.map">
                                 <i class="fas fa-map-marker-alt delIcon" (click)="map.emit()"></i>
                             </ng-container>
+
                             <ng-container *ngIf="key.role">
-                                <i class="far fa-check-circle"></i>
+                                <ng-container *ngIf="values && key.key">
+
+                                    <ng-container *ngIf="values[key.key + 'Read'];else readBlock">
+                                        <i class="circle">R</i>
+                                    </ng-container>
+                                    <ng-template #readBlock>
+                                        <i class="circle falseItem">R</i>
+                                    </ng-template>
+
+                                    <ng-container *ngIf="values[key.key + 'Write'];else writeBlock">
+                                        <i class="circle">W</i>
+                                    </ng-container>
+                                    <ng-template #writeBlock>
+                                        <i class="circle falseItem">W</i>
+                                    </ng-template>
+
+                                    <ng-container *ngIf="values[key.key + 'Delete'];else deleteBlock">
+                                        <i class="circle">D</i>
+                                    </ng-container>
+                                    <ng-template #deleteBlock>
+                                        <i class="circle falseItem">D</i>
+                                    </ng-template>
+                                    
+                                </ng-container>
+                                <ng-template #elseBlock>
+                                    hi
+                                </ng-template>
                             </ng-container>
+
 
                         </td>
 

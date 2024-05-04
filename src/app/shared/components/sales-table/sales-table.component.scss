@@ -125,4 +125,33 @@
   .delIcon{
     margin-left: 10px;
   }
+  .user-avator{
+    margin-bottom: -4px;
+    width: 15px;
+    border-radius: 50%;
+    margin-left: 3px;
+    margin-right: 3px;
+    // border: 1px solid black;
+    font-weight:normal;
+    // box-shadow: 0 0 15px rgb(35 35 35 / 15%);
+    cursor: pointer;
+}
+.circle {
+  display: inline-block;
+  width: 16px; /* Adjust size as needed */
+  height: 17px; /* Adjust size as needed */
+  font-size: 12px;
+  line-height: 15px; /* Adjust line-height to center text */
+  border-radius: 50%;
+  border: 1px solid blue; /* Add border */
+  font-weight:bold;
+  // color: blue; /* Change text color to match the border */
+  text-align: center; /* Center the text horizontally */
+  background-color: transparent; /* Remove background color */
+  margin-left: 3px;
+  margin-right: 3px;
+}
+.falseItem{
+  border: 1px solid red; 
+}
   

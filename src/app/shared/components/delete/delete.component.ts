@@ -11,6 +11,7 @@ export class DeleteComponent {
   constructor(public dialogRef: MatDialogRef<DeleteComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
 
   delete(){
+    console.log("14-----", this.data);
     this.dialogRef.close(this.data);
   }
 

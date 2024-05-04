@@ -11,6 +11,7 @@ export class HttpInterceptorService implements HttpInterceptor{
 
   constructor(private router: Router) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    console.log('14----------');
     const authToken = localStorage.getItem('token');
     const userid = localStorage.getItem('userId');
     if (authToken && userid) {

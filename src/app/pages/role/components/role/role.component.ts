@@ -5,6 +5,7 @@ import { AddRoleComponent } from '../add-role/add-role.component';
 import { RolesService } from 'src/app/providers/roles/roles.service';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { CommonService } from 'src/app/providers/core/common.service';
+import { RoleHelper } from './role.helper';
 
 @Component({
   selector: 'app-role',
@@ -19,7 +20,7 @@ export class RoleComponent {
   pageSize = this.service.calculatePaginationVal();
   showOrHide = false;
   searchQuery = '';
-  constructor(private dialog: MatDialog, private roleService: RolesService, public service:CommonService) { }
+  constructor(private dialog: MatDialog, private roleService: RolesService, public service:CommonService, private roleHelper: RoleHelper) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
   count = 0;
@@ -35,7 +36,8 @@ export class RoleComponent {
       next: (res) => {
         !res.roles.length && (this.showOrHide = true);
         this.apiLoader = false;
-        this.tableValues = res.roles;
+        // console.log("hiiii");
+        this.tableValues = this.roleHelper.mapUserData(res.roles);
         this.count = res.total;
       }, error: (err) => {
         this.apiLoader = false;
@@ -102,6 +104,7 @@ export class RoleComponent {
   }
 
   delete(data: any) {
+    console.log('107-----', data);
     this.dialog.open(DeleteComponent, {
       width: '500px',
       height: 'max-content',
@@ -110,12 +113,14 @@ export class RoleComponent {
       data:data,
     }).afterClosed().subscribe((res: any) => {
       if (res) {
+        console.log("hiiii");
         this.deleteRole(res);
       }
     });
   }
 
   deleteRole(id: any){
+    console.log('121-----');
     this.roleService.deleteRole(id).subscribe({
       next: (res) => {
         this.service.showSnackbar("Role Deleted Successfully");
