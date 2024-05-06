@@ -16,4 +16,7 @@ export class AttendanceService {
   deleteAttendance(id:string): Observable<any> {
     return this.http.delete(environment.BASE_URL + `/attendance/${id}`);
   }
+  attendanceReport(date: any){
+    return this.http.get(environment.BASE_URL + `/attendance/report?startDate=${date}`);
+  }
 }

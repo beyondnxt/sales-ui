@@ -2,19 +2,17 @@
     <p class="main-head">Attendence ({{count}})</p>
 
 
-    <!-- <mat-form-field>
-        <mat-label>Month and Year</mat-label>
-        <input matInput [matDatepicker]="dp" [formControl]="attDate">
-        <mat-hint>MM/YYYY</mat-hint>
+    <mat-form-field class="full-width datePicker flex-end">
+        <input matInput [matDatepicker]="dp" [formControl]="attDate" placeholder="Select Month">
         <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
             panelClass="example-month-picker">
         </mat-datepicker>
-    </mat-form-field> -->
-
-
+    </mat-form-field>
+      
+    
     <mat-form-field class="full-width datePicker flex-end">
-        <input #fromDateInput matInput [matDatepicker]="fromDatepicker" placeholder="From date" [(ngModel)]="date"
+        <input #fromDateInput matInput [matDatepicker]="fromDatepicker" placeholder="Date" [(ngModel)]="date"
             (dateChange)="onFromDateChange($event)">
         <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #fromDatepicker></mat-datepicker>

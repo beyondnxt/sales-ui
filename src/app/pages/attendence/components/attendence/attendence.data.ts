@@ -41,6 +41,34 @@ export const tableHeaders = [
     }
 ]
 
+export const reportHeaders = [
+    {
+        name: 'User Name',
+        key: 'userName',
+        sort:true,
+    },
+    {
+        name: 'Total Present',
+        key: 'totalPresent',
+        sort:true,
+    },
+    {
+        name: 'Total Absent',
+        key: 'totalAbsent',
+        sort:true,
+    },
+    {
+        name: 'Late Punch-In',
+        key: 'totalLatePunchIn',
+        sort:true,
+    },
+    {
+        name: 'Early Punch-Out',
+        key: 'totalEarlyPunchout',
+        sort:true,
+    }
+]
+
 export const tableValues = [
     // {
     //     userName:'Ajay G S',

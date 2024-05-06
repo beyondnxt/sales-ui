@@ -54,6 +54,6 @@
 </div>
 
 <app-sales-table #childRef [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)"
-    (delete)="delete($event)" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)" [count]="count"
+    (delete)="delete($event)" (comment)="comments($event)" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)" [count]="count"
     (pagination)="pagination($event)" [apiLoader]="apiLoader"></app-sales-table>
     <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>

@@ -6,6 +6,7 @@ import { TasksService } from 'src/app/providers/tasks/tasks.service';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { SalesTableComponent } from 'src/app/shared/components/sales-table/sales-table.component';
 import { CommonService } from 'src/app/providers/core/common.service';
+import { CommentsComponent } from '../comments/comments.component';
 
 @Component({
   selector: 'app-task',
@@ -254,5 +255,19 @@ export class TaskComponent {
   filterAll(){
     this.currentPage = 0;
     this.getDataBasedOnTabSelection(this.tab);
+  }
+
+  comments(data: any){
+    this.dialog.open(CommentsComponent, {
+      width: '500px',
+      height: 'max-content',
+      disableClose: true,
+      panelClass: 'delete-dialog-container',
+      data: data,
+    }).afterClosed().subscribe((res: any) => {
+      if (res) {
+        // this.deleteUser(res);
+      }
+    });
   }
 }

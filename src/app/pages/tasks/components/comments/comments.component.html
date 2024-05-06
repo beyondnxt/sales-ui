@@ -1,0 +1,35 @@
+<div class="col-lg-12 closeAlign head">
+    <div>
+        <p class="pt-3 pl">Test</p>
+    </div>
+    <div>
+        <button mat-icon-button mat-dialog-close tabindex="-1" class="close-button"><mat-icon
+                class="closeColor">close</mat-icon></button>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="inTimeData d-flex justify-content-center">
+                <table class="tableData centered-table">
+                    <tr class="headerClass">
+                        <th>Feedback</th>
+                        <th>Created Date</th>
+                    </tr>
+                    <tr *ngFor="let data of dataArray">
+                        <td>{{data.feedback}}</td>
+                        <td>{{data.createdDate | date:'HH:mm:ss'}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+            <div class="d-flex justify-content-end w-100 mb-2">
+                <app-sales-btn [label]="'Add'" (action)="addFeedBack()"></app-sales-btn>
+            </div>
+            
+            <div *ngIf="isAddingFeedback" class="addingFeedBack">
+                <textarea #feedbackTextarea class="form-control"></textarea>
+                <app-sales-btn class="saveFeedback" [label]="'Save'" (action)="saveFeedback(feedbackTextarea.value)"></app-sales-btn>
+                <!-- <button mat-button (click)="saveFeedback(feedbackTextarea.value)">Save</button> -->
+            </div>
+    </div>
+

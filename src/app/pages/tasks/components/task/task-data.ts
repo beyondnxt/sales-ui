@@ -29,13 +29,14 @@ export const tableHeaders = [
         key: 'description',
     },
     {
-        name: 'Feedback',
-        key: 'feedBack',
-    },
-    {
         name: 'Created On',
         key: 'createdOn',
         sort:true,
+    },
+    {
+        name: 'Feedback',
+        key: 'feedback',
+        feedback: true
     },
     {
         name: 'Action',
@@ -75,10 +76,6 @@ export const tableHeadersForAssigned = [
         key: 'description',
     },
     {
-        name: 'Feedback',
-        key: 'feedBack',
-    },
-    {
         name: 'Follow-up Date',
         key: 'followUpDate',
         sort:true,
@@ -87,6 +84,11 @@ export const tableHeadersForAssigned = [
         name: 'Created On',
         key: 'createdOn',
         sort:true,
+    },
+    {
+        name: 'Feedback',
+        key: 'feedback',
+        feedback: true
     },
     {
         name: 'Action',

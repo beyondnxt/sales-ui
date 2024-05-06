@@ -44,6 +44,9 @@
                                 </span>
                             </ng-container>
 
+                            <ng-container class="comment" *ngIf="key.feedback">
+                                <i class='far fa-comment-dots' (click)="comment.emit(values)"></i>
+                            </ng-container>
                             <ng-container *ngIf="key.edit">
                                 <i class="far fa-edit" (click)="edit.emit(values)"></i>
                                 <i class="far fa-trash-alt delIcon" (click)="delete.emit(values.id)"></i>

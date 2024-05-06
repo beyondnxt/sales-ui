@@ -18,6 +18,7 @@ export class SalesTableComponent {
   @Output() emitIds = new EventEmitter();
   @Output() checkBoxes = new EventEmitter();
   @Output() pagination = new EventEmitter();
+  @Output() comment = new EventEmitter();
   @Input() tableHeaders: any = [];
   @Input() tableValues: any = [];
   @Input() count: any;

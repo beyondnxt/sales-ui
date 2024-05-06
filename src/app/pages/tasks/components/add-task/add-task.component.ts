@@ -17,6 +17,7 @@ export class AddTaskComponent {
   companyList: any;
   taskDetails: any;
   customerList: any;
+  showStatus: boolean = false;
   // taskDetails!: FormGroup;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
@@ -36,7 +37,8 @@ export class AddTaskComponent {
     this.getUser();
     this.getCompany();
     if (this.data) {
-      console.log(this.data);
+      console.log(this.showStatus);
+      this.data && this.showStatus;
       this.taskDetails.get('customerId').disable();
       this.data.status === 'Assigned' && this.taskDetails.get('taskType').disable();
       this.data.status === 'Assigned' && this.taskDetails.get('assignTo').disable();
@@ -91,8 +93,14 @@ export class AddTaskComponent {
       }
       else {
         const taskDetails: any = this.taskDetails.getRawValue();
-        console.log('75-----', taskDetails);
+        taskDetails.feedBack = [{
+          feedback: taskDetails.feedBack,
+          createdDate: new Date().toISOString(),
+          createdBy: localStorage.getItem('userId'),
+      }];
+      console.log('75-----', taskDetails);
         (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
+
         // console.log(taskDetails);
         this.dialogRef.close(taskDetails);
       }

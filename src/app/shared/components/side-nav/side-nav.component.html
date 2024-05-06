@@ -1,32 +1,60 @@
-<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed':''">
-    <div class="logo-container">
-      <button class="logo" (click)="toggleCollapse()">S</button>
-      <div class="logo-txt" *ngIf="collapsed">
-        Sales
-      </div>
-      <button *ngIf="collapsed" class="btnclose" (click)="closeSideNav()">
-        <svg xmlns="http://www.w3.org/2000/svg" class="menu-toggle"
-          viewBox="0 0 448 512"><!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-          <path
-            d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z" />
-        </svg>
-      </button>
-    </div>
-    <ul class="sidenav-nav">
-      <li class="sidenav-nav-item" *ngFor="let data of navData">
-        <ng-container >
-          <a class="sidenav-nav-link" [routerLink]="data.routerlink" routerLinkActive="active"
-            [routerLinkActiveOptions]="{exact:true}">
-            <i class="sidenav-link-icon" [class]="data.icon"></i>
-            <span class="sidenav-link-text" *ngIf="collapsed">{{data.label}}</span>
-          </a>
-        </ng-container>
-      </li>
-    </ul>
-   
-    <button class="w-100" mat-button [matMenuTriggerFor]="menu"> <i class="fas fa-sign-out-alt"></i> <span *ngIf="collapsed">{{userName}}</span></button>
-    <mat-menu #menu="matMenu">
-      <button mat-menu-item (click)="logout()">Logout</button>
-      <button mat-menu-item>Change Password</button>
-    </mat-menu>
+<div class="sidenav" [ngClass]="collapsed ? 'sidenav-collapsed' : ''">
+  <div class="logo-container">
+    <button class="logo" (click)="toggleCollapse()">S</button>
+    <div class="logo-txt" *ngIf="collapsed">Sales</div>
+    <button *ngIf="collapsed" class="btnclose" (click)="closeSideNav()">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="menu-toggle"
+        viewBox="0 0 448 512"
+      >
+        <!--!Font Awesome Free 6.5.1 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+        <path
+          d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
+        />
+      </svg>
+    </button>
   </div>
+  <div class="profile-card">
+    <div class="profile-align">
+      <img
+        src="./../../../../assets/images/9439678.jpg"
+        width="35"
+        height="35"
+        alt=""
+      />
+      <div class="profile-name" *ngIf="collapsed">
+        <div>
+          <span class="name">{{ loggedInUserName }}</span>
+          <p class="role">{{ loggedInUserRole }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ul class="sidenav-nav">
+    <li class="sidenav-nav-item" *ngFor="let data of navData">
+      <ng-container>
+        <a
+          class="sidenav-nav-link"
+          [routerLink]="data.routerlink"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+        >
+          <i class="sidenav-link-icon" [class]="data.icon"></i>
+          <span class="sidenav-link-text" *ngIf="collapsed">{{
+            data.label
+          }}</span>
+        </a>
+      </ng-container>
+    </li>
+  </ul>
+
+  <button class="w-100" mat-button [matMenuTriggerFor]="menu">
+    <i class="fas fa-sign-out-alt"></i> Logout
+    <!-- <span *ngIf="collapsed">{{ loggedInUserName }}</span> -->
+  </button>
+  <mat-menu #menu="matMenu">
+    <button mat-menu-item (click)="logout()">Logout</button>
+    <button mat-menu-item>Change Password</button>
+  </mat-menu>
+</div>

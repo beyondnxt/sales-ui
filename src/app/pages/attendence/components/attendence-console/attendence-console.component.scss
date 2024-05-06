@@ -1,0 +1,17 @@
+.back-icon {
+  display: flex;
+  gap: 2px;
+  color: #221ec9;
+  cursor: pointer;
+  width: fit-content;
+}
+
+.back-icon:hover {
+  color: #808193;
+}
+
+
+.marker-icon{
+  height: 28px;
+  width: 25px;
+}

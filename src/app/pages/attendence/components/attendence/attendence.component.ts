@@ -6,7 +6,8 @@ import { AttendanceService } from 'src/app/providers/attendance/attendance.servi
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
-
+import { MatDatepicker } from '@angular/material/datepicker';
+// import * as _moment from 'moment';
 
 export const MY_FORMATS = {
   parse: {
@@ -35,7 +36,11 @@ export class AttendenceComponent {
   showOrHide = false;
   attDate =  new FormControl();
 
+  startDate = new Date(); // Set initial view to current month and year
+
+
   constructor(private dialog: MatDialog, public router: Router,public service:CommonService, private attendance:AttendanceService) { }
+  @ViewChild('picker') datePickerElement = MatDatepicker;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
@@ -48,10 +53,10 @@ export class AttendenceComponent {
   };
 
   ngOnInit(){
+    
     this.getTodayAttendance();
   }
-
-
+  
   getTodayAttendance(){
     this.showOrHide = false;
     this.apiLoader = true;
@@ -129,8 +134,21 @@ export class AttendenceComponent {
     this.currentPage = 0;
     this.getTodayAttendance();
   }
-  setMonthAndYear(data: any, ip: any){
-
+  setMonthAndYear(date: any, ip: any){
+    const reportDate = `${date.getFullYear()}-${date.getMonth() + 1}`;
+    this.attendance.attendanceReport(reportDate).subscribe({
+      next: (res: any) => {
+        !res.data.length && (this.showOrHide = true);
+        this.tableHeaders = data.reportHeaders;
+        this.tableValues = res.data;
+        this.count = res.fetchedCount;
+        // console.log('145-----', this.count);
+      }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
+      },
+      complete: () => {
+      }
+    })
   }
 }
 
