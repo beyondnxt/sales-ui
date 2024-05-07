@@ -134,7 +134,8 @@ export const tableHeadersForCompleted = [
     },
     {
         name: 'Feedback',
-        key: 'feedBack',
+        key: 'feedback',
+        feedback: true
     },
     {
         name: 'Created On',

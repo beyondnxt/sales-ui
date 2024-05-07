@@ -188,6 +188,7 @@ export class TaskComponent {
     }
   }
   Verify(){
+    console.log('ids------', this.selectedIds);
     this.taskService.verifyTask(this.selectedIds).subscribe({
       next: (res) => {
         this.service.showSnackbar("Verified Successfully");
@@ -235,7 +236,9 @@ export class TaskComponent {
   }
 
   customerSearch(event: any){
+    // console.log('seach-----', event.length);
     this.cusSearch = `&customerName=${event}`;
+    // (event.length > 3) && 
     this.filterAll();
   }
   createdbySearch(event: any){
@@ -266,7 +269,7 @@ export class TaskComponent {
       data: data,
     }).afterClosed().subscribe((res: any) => {
       if (res) {
-        // this.deleteUser(res);
+        this.getDataBasedOnTabSelection(this.tab);
       }
     });
   }

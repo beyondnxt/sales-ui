@@ -21,14 +21,14 @@ export class AddTaskComponent {
   // taskDetails!: FormGroup;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
-  constructor(private service: CommonService, private customerService: CustomerService, private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddUserComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
+  constructor(private service: CommonService, private customerService: CustomerService, private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
     this.taskDetails = this.fb.group({
-      customerId: ['', [Validators.required]],
-      taskType: ['', [Validators.required]],
-      status: ['', [Validators.required]],
-      assignTo: ['', [Validators.required]],
+      customerId: [''],
+      taskType: [''],
+      status: [''],
+      assignTo: [''],
       description: [''],
       feedBack: [''],
       followUpDate: [''],
@@ -37,8 +37,9 @@ export class AddTaskComponent {
     this.getUser();
     this.getCompany();
     if (this.data) {
+      console.log('40-----', this.data);
       console.log(this.showStatus);
-      this.data && this.showStatus;
+      this.showStatus = this.data && true;
       this.taskDetails.get('customerId').disable();
       this.data.status === 'Assigned' && this.taskDetails.get('taskType').disable();
       this.data.status === 'Assigned' && this.taskDetails.get('assignTo').disable();

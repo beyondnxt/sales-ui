@@ -15,7 +15,7 @@
     align-items: center;
 }
 
-::ng-deep .datePicker .mdc-text-field--filled:not(.mdc-text-field--disabled) {
+::ng-deep .datePicker1 .mdc-text-field--filled:not(.mdc-text-field--disabled) {
     --mdc-filled-text-field-active-indicator-height:0px !important;
     border: 1px solid #ffffff !important;
     background-color:#ffffff !important;
@@ -34,7 +34,7 @@
 //     color: #ffffff !important;
 // }
 
-::ng-deep .datePicker .mat-mdc-text-field-wrapper {
+::ng-deep .datePicker1 .mat-mdc-text-field-wrapper {
     width: 75% !important;
     border-radius: 5px !important;
     height: 40px !important;
@@ -48,3 +48,6 @@
 //     width: 100% !important;
 //     margin-left: 20px;
 // }
+.attendanceFilter{
+    display:flex;
+}

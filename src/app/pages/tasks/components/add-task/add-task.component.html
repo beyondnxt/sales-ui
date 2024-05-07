@@ -8,7 +8,7 @@
                 <mat-icon class="closeColor">close</mat-icon></button>
         </div>
     </div>
-    <form action="" [formGroup]="taskDetails">
+    <form action="" [formGroup]="taskDetails" class="taskForm">
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-6">
@@ -29,16 +29,18 @@
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-6" *ngIf="!data">
+                <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>Status</mat-label>
                         <mat-select formControlName="status">
-                            <mat-option value="Unassigned">Unassigned</mat-option>
-                            <mat-option value="Assigned">Assigned</mat-option>
+                            <mat-option *ngIf="!data" value="Unassigned">Unassigned</mat-option>
+                            <mat-option *ngIf="!data || data.status === 'Unassigned'" value="Assigned">Assigned</mat-option>
+                            <mat-option *ngIf="data && data.status === 'Assigned'" value="Completed">Completed</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-6" *ngIf="showStatus">
+                
+                <!-- <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>Status</mat-label>
                         <mat-select formControlName="status" *ngIf="data.status=='Unassigned'">
@@ -48,7 +50,7 @@
                             <mat-option value="Completed">Completed</mat-option>
                         </mat-select>
                     </mat-form-field>
-                </div>
+                </div> -->
                 <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>Assign To</mat-label>
@@ -72,7 +74,7 @@
                         <textarea matInput placeholder="" formControlName="description"></textarea>
                     </mat-form-field>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-12" *ngIf="!data">
                     <mat-form-field class="example-full-width">
                         <mat-label>Feedback</mat-label>
                         <textarea matInput placeholder="" formControlName="feedBack"></textarea>

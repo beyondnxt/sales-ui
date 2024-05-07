@@ -1,22 +1,33 @@
 <div class="col-lg-12 btnAlign">
     <p class="main-head">Attendence ({{count}})</p>
 
-    <mat-form-field class="full-width datePicker flex-end">
-        <input matInput [matDatepicker]="dp" [formControl]="myDate" placeholder="Month & Year">
-        <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
-        <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
-            panelClass="example-month-picker">
-        </mat-datepicker>
-    </mat-form-field>
+    <div class="attendanceFilter">
+        <mat-form-field class="full-width datePicker1 flex-end">
+            <input matInput [matDatepicker]="dp" [formControl]="myDate" placeholder="Month & Year">
+            <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
+            <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
+                panelClass="example-month-picker">
+            </mat-datepicker>
+        </mat-form-field>
+        
+        <mat-form-field class="full-width datePicker1 flex-end">
+            <input #fromDateInput matInput [matDatepicker]="fromDatepicker" placeholder="Date" [(ngModel)]="date"
+                (dateChange)="onFromDateChange($event)">
+            <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatepicker></mat-datepicker>   
+        </mat-form-field>
+        
+        
+        <!-- <mat-form-field class="full-width datePicker1 flex-end">
+            <input #fromDateInput matInput [matDatepicker]="fromDatepicker" placeholder="Date" [(ngModel)]="date"
+                (dateChange)="onFromDateChange($event)">
+            <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #fromDatepicker></mat-datepicker>   
+        </mat-form-field> -->
+        
+        <app-search (searchData)="searchBox($event)"></app-search>
+    </div>
     
-    <mat-form-field class="full-width datePicker flex-end">
-        <input #fromDateInput matInput [matDatepicker]="fromDatepicker" placeholder="Date" [(ngModel)]="date"
-            (dateChange)="onFromDateChange($event)">
-        <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #fromDatepicker></mat-datepicker>
-    </mat-form-field>
-
-    <app-search (searchData)="searchBox($event)"></app-search>
     <!-- <app-sales-btn [label]="'+ New Task'" (action)="addAttendence()"></app-sales-btn> -->
 </div>
 <app-sales-table (map)="openConsole()" (delete)="delete($event)" (edit)="edit($event)" [tableHeaders]="tableHeaders"

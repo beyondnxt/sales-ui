@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonService } from 'src/app/providers/core/common.service';
 import { TasksService } from 'src/app/providers/tasks/tasks.service';
 
@@ -10,7 +10,7 @@ import { TasksService } from 'src/app/providers/tasks/tasks.service';
 })
 export class CommentsComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private taskService: TasksService, private service: CommonService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private taskService: TasksService, private service: CommonService, public dialogRef: MatDialogRef<CommentsComponent>) { }
   isAddingFeedback: any;
   dataArray: any;
   // data: any = {
@@ -69,18 +69,18 @@ export class CommentsComponent {
         "feedBack": [{
           feedback: feedback,
           createdDate: new Date(),
-          createdBy: localStorage.getItem('userId')
+          createdBy: localStorage.getItem('user_id')
         }]
       };
-      console.log('75------', this.dataArray);
     } else {
-      // If not empty, append feedback to dataArray
-      this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('userId') });
+      this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('user_id') });
+      this.dataArray = { feedBack: this.dataArray };
     }
     this.isAddingFeedback = false;
     this.taskService.saveFeedBack(this.data.id, this.dataArray).subscribe({
       next: (res) => {
         this.service.showSnackbar("Feedback Added Successfully");
+        this.dialogRef.close(res);
       }, error: (err) => {
         this.service.showSnackbar(err.error.message);
       },

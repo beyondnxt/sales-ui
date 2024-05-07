@@ -26,6 +26,18 @@ export const MY_FORMATS = {
   },
 };
 
+export const MY_DATE_FORMATS  = {
+  parse: {
+    dateInput: 'MM/DD/YYYY',
+  },
+  display: {
+    dateInput: 'MM/DD/YYYY',
+    monthYearLabel: 'MMM YYYY',
+    dateA11yLabel: 'LL',
+    monthYearA11yLabel: 'MMMM YYYY',
+  },
+};
+
 @Component({
   selector: 'app-attendence',
   templateUrl: './attendence.component.html',
@@ -36,8 +48,8 @@ export const MY_FORMATS = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
   ],
 })
 export class AttendenceComponent {
@@ -74,9 +86,10 @@ export class AttendenceComponent {
   }
 
   getTodayAttendance() {
+    console.log("77------");
     this.showOrHide = false;
     this.apiLoader = true;
-    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
+    let query = `pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
     this.attendance.getTodayAttendance(this.date, query, this.searchQuery).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
@@ -123,22 +136,20 @@ export class AttendenceComponent {
   }
 
   onFromDateChange(event: any) {
+    // console.log("126----", event);
     this.date = this.dateFormat(event.value);
     this.getTodayAttendance();
   }
 
-  dateFormat(date: any) {
-    if (date != null) {
-      const year = date.getFullYear();
-      const month = ('0' + (date.getMonth() + 1)).slice(-2);
-      const day = ('0' + date.getDate()).slice(-2);
-      const formattedDate = `${year}-${month}-${day}`;
-      return formattedDate;
-    }
-    else {
-      return date;
-    }
+dateFormat(date: any) {
+
+  if (moment.isMoment(date)) { 
+    const formattedDate = date.format('YYYY-MM-DD');
+    return formattedDate;
+  } else {
+    return date; 
   }
+}
 
   pagination(event: any): void {
     this.currentPage = event;
@@ -168,7 +179,6 @@ export class AttendenceComponent {
         this.tableHeaders = data.reportHeaders;
         this.tableValues = res.data;
         this.count = res.fetchedCount;
-        // console.log('145-----', this.count);
       }, error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
