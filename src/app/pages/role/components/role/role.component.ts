@@ -34,10 +34,9 @@ export class RoleComponent {
     let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
     this.roleService.getRole(query, this.searchQuery).subscribe({
       next: (res) => {
-        !res.roles.length && (this.showOrHide = true);
+        !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
-        // console.log("hiiii");
-        this.tableValues = this.roleHelper.mapUserData(res.roles);
+        this.tableValues = this.roleHelper.mapUserData(res.data);
         this.count = res.total;
       }, error: (err) => {
         this.apiLoader = false;
@@ -138,7 +137,7 @@ export class RoleComponent {
   }
 
   searchBox(event: any){
-    this.searchQuery = `&role=${event}`;
+    this.searchQuery = `&name=${event}`;
     (event) && ( this.currentPage = 0);
     this.currentPage = 0;
     this.getRoles();

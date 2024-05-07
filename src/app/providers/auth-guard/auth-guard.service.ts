@@ -20,8 +20,8 @@ export class AuthGuardService implements CanActivate{
 
   public isAuthenticated(): boolean {
     // console.log("authToken after removal:", localStorage.getItem('authToken'));
-    const token = localStorage.getItem('authToken');
-    // console.log("24------", token);
+    const token = localStorage.getItem('token');  
+    console.log("24------", token);
     if(token){ 
       return true; 
     }else{

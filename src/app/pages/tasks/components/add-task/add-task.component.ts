@@ -82,6 +82,7 @@ export class AddTaskComponent {
   }
 
   saveTask() {
+    console.log("Hiiiii");
     this.taskDetails.markAllAsTouched();
     if (this.taskDetails.invalid) {
       return;
@@ -93,21 +94,21 @@ export class AddTaskComponent {
       }
       else {
         const taskDetails: any = this.taskDetails.getRawValue();
-        if(taskDetails.feedBack !=''){
+        if (taskDetails.feedBack != '') {
           taskDetails.feedBack = [{
             feedback: taskDetails.feedBack,
             createdDate: new Date().toISOString(),
             createdBy: localStorage.getItem('userId'),
-        }];
+          }];
         }
-        else{
+        else {
           delete taskDetails.feedBack;
         }
 
-      console.log('75-----', taskDetails);
+        console.log('75-----', taskDetails);
         (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
 
-        // console.log(taskDetails);
+        console.log('task-----', taskDetails);
         this.dialogRef.close(taskDetails);
       }
     }

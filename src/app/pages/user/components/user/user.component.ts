@@ -131,7 +131,7 @@ export class UserComponent {
   }
 
   searchBox(event: any){
-    this.searchQuery = `&userName=${event}`;
+    this.searchQuery = `&firstName=${event}`;
     (event) && ( this.currentPage = 0);
     this.currentPage = 0;
     this.getUser();
