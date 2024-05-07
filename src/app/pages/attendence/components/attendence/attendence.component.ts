@@ -7,14 +7,19 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-// import * as _moment from 'moment';
+import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
+import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import * as _moment from 'moment';
+// tslint:disable-next-line:no-duplicate-imports
+import { default as _rollupMoment, Moment } from 'moment';
 
+const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
   parse: {
     dateInput: 'MM/YYYY',
   },
   display: {
-    dateInput: 'MM/YYYY',
+    dateInput: 'MMM/YYYY',
     monthYearLabel: 'MMM YYYY',
     dateA11yLabel: 'LL',
     monthYearA11yLabel: 'MMMM YYYY',
@@ -24,7 +29,16 @@ export const MY_FORMATS = {
 @Component({
   selector: 'app-attendence',
   templateUrl: './attendence.component.html',
-  styleUrls: ['./attendence.component.scss']
+  styleUrls: ['./attendence.component.scss'],
+  providers: [
+    {
+      provide: DateAdapter,
+      useClass: MomentDateAdapter,
+      deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
+    },
+
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+  ],
 })
 export class AttendenceComponent {
   pageCount: any;
@@ -34,12 +48,14 @@ export class AttendenceComponent {
   pageSize = this.service.calculatePaginationVal();
   searchQuery = '';
   showOrHide = false;
-  attDate =  new FormControl();
+
+
 
   startDate = new Date(); // Set initial view to current month and year
 
 
-  constructor(private dialog: MatDialog, public router: Router,public service:CommonService, private attendance:AttendanceService) { }
+  constructor(private dialog: MatDialog, public router: Router, public service: CommonService, private attendance: AttendanceService) {
+  }
   @ViewChild('picker') datePickerElement = MatDatepicker;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   tableHeaders = data.tableHeaders;
@@ -52,12 +68,12 @@ export class AttendenceComponent {
   addAttendence() {
   };
 
-  ngOnInit(){
-    
+  ngOnInit() {
+
     this.getTodayAttendance();
   }
-  
-  getTodayAttendance(){
+
+  getTodayAttendance() {
     this.showOrHide = false;
     this.apiLoader = true;
     let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
@@ -74,7 +90,7 @@ export class AttendenceComponent {
       }
     })
   }
-  
+
   delete(data: any) {
     this.dialog.open(DeleteComponent, {
       width: '500px',
@@ -89,7 +105,7 @@ export class AttendenceComponent {
     });
   }
 
-  deleteUser(id: any){
+  deleteUser(id: any) {
     this.attendance.deleteAttendance(id).subscribe({
       next: (res) => {
         this.service.showSnackbar("Attendance Deleted Successfully");
@@ -101,11 +117,12 @@ export class AttendenceComponent {
       }
     })
   }
-  edit(data: any){
+
+  edit(data: any) {
 
   }
 
-  onFromDateChange(event: any){
+  onFromDateChange(event: any) {
     this.date = this.dateFormat(event.value);
     this.getTodayAttendance();
   }
@@ -128,27 +145,21 @@ export class AttendenceComponent {
     this.getTodayAttendance();
   }
 
-  searchBox(event: any){
+  searchBox(event: any) {
     this.searchQuery = `&userName=${event}`;
-    (event) && ( this.currentPage = 0);
+    (event) && (this.currentPage = 0);
     this.currentPage = 0;
     this.getTodayAttendance();
   }
-  setMonthAndYear(date: any, ip: any){
-    const reportDate = `${date.getFullYear()}-${date.getMonth() + 1}`;
-    this.attendance.attendanceReport(reportDate).subscribe({
-      next: (res: any) => {
-        !res.data.length && (this.showOrHide = true);
-        this.tableHeaders = data.reportHeaders;
-        this.tableValues = res.data;
-        this.count = res.fetchedCount;
-        // console.log('145-----', this.count);
-      }, error: (err) => {
-        this.service.showSnackbar(err.error.message);
-      },
-      complete: () => {
-      }
-    })
+
+
+  myDate = new FormControl();
+  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+    const month = normalizedMonthAndYear.month();
+    const year = normalizedMonthAndYear.year();
+    const newDate = moment({ year, month });
+    this.myDate.setValue(newDate);
+    datepicker.close();
   }
 }
 
