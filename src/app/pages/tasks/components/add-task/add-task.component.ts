@@ -93,11 +93,17 @@ export class AddTaskComponent {
       }
       else {
         const taskDetails: any = this.taskDetails.getRawValue();
-        taskDetails.feedBack = [{
-          feedback: taskDetails.feedBack,
-          createdDate: new Date().toISOString(),
-          createdBy: localStorage.getItem('userId'),
-      }];
+        if(taskDetails.feedBack !=''){
+          taskDetails.feedBack = [{
+            feedback: taskDetails.feedBack,
+            createdDate: new Date().toISOString(),
+            createdBy: localStorage.getItem('userId'),
+        }];
+        }
+        else{
+          delete taskDetails.feedBack;
+        }
+
       console.log('75-----', taskDetails);
         (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
 

@@ -10,9 +10,9 @@ import { TasksService } from 'src/app/providers/tasks/tasks.service';
 })
 export class CommentsComponent {
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private taskService: TasksService, private service: CommonService) {}
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private taskService: TasksService, private service: CommonService) { }
   isAddingFeedback: any;
-  dataArray: any[] = [];
+  dataArray: any;
   // data: any = {
   //   "data": [
   //     {
@@ -51,12 +51,12 @@ export class CommentsComponent {
 
   ngOnInit() {
     console.log(this.data);
-    if(this.data.feedBack) {
+    if (this.data.feedBack) {
       this.dataArray = this.data.feedBack;
-    }else {
-    this.dataArray = [];
+    } else {
+      this.dataArray = {};
     }
-    
+
   }
 
   addFeedBack() {
@@ -64,21 +64,19 @@ export class CommentsComponent {
   }
   saveFeedback(feedback: any) {
     console.log('60-----', feedback);
-    if (this.dataArray.length === 0) {
-      // If empty, initialize dataArray with feedback
-        // Explicitly declare dataArray with the correct type
-let dataArray: { feedBack: { feedback: any; createdDate: Date; createdBy: string | null; }[] } = {
-  feedBack: [{
-    feedback,
-    createdDate: new Date(),
-    createdBy: localStorage.getItem('userId')
-  }]
-};
-
-  } else {
+    if (Object.keys(this.dataArray).length === 0) {
+      this.dataArray = {
+        "feedBack": [{
+          feedback: feedback,
+          createdDate: new Date(),
+          createdBy: localStorage.getItem('userId')
+        }]
+      };
+      console.log('75------', this.dataArray);
+    } else {
       // If not empty, append feedback to dataArray
       this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('userId') });
-  }
+    }
     this.isAddingFeedback = false;
     this.taskService.saveFeedBack(this.data.id, this.dataArray).subscribe({
       next: (res) => {
