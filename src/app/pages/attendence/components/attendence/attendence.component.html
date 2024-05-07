@@ -3,12 +3,13 @@
 
 
     <mat-form-field class="full-width datePicker flex-end">
-        <input matInput [matDatepicker]="dp" [formControl]="attDate" placeholder="Select Month">
+        <input matInput [matDatepicker]="dp" [formControl]="myDate" placeholder="Month & Year">
         <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
         <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
             panelClass="example-month-picker">
         </mat-datepicker>
     </mat-form-field>
+    
       
     
     <mat-form-field class="full-width datePicker flex-end">

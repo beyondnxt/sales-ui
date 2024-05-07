@@ -4,6 +4,7 @@ import { LoginComponent } from './shared/components/login/login.component';
 import { LayoutComponent } from './shared/components/layout/layout.component';
 import { DashboardComponent } from './shared/components/dashboard/dashboard.component';
 import { AuthGuardService } from './providers/auth-guard/auth-guard.service';
+import { AuthGuard } from './shared/guards/auth.guard.ts/auth.guard';
 
 const routes: Routes = [
   {
@@ -23,6 +24,7 @@ const routes: Routes = [
         path: 'dashboard',
         component: DashboardComponent,
         canActivate: [AuthGuardService]
+        // canActivate:[AuthGuard]
       },
       {
         path: '',
