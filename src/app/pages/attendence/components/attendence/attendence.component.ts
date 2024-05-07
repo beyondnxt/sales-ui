@@ -160,6 +160,21 @@ export class AttendenceComponent {
     const newDate = moment({ year, month });
     this.myDate.setValue(newDate);
     datepicker.close();
+
+    const reportDate = `${normalizedMonthAndYear.year()}-${normalizedMonthAndYear.month() + 1}`;
+    this.attendance.attendanceReport(reportDate).subscribe({
+      next: (res: any) => {
+        !res.data.length && (this.showOrHide = true);
+        this.tableHeaders = data.reportHeaders;
+        this.tableValues = res.data;
+        this.count = res.fetchedCount;
+        // console.log('145-----', this.count);
+      }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
+      },
+      complete: () => {
+      }
+    })
   }
 }
 
