@@ -7,17 +7,19 @@
                 class="closeColor">close</mat-icon></button>
     </div>
 </div>
-    <div class="row">
+    <div class="row commentSection">
         <div class="col-lg-12">
             <div class="inTimeData d-flex justify-content-center">
                 <table class="tableData centered-table">
                     <tr class="headerClass">
                         <th>Feedback</th>
                         <th>Created Date</th>
+                        <th>Created By</th>
                     </tr>
                     <tr *ngFor="let data of dataArray">
                         <td>{{data.feedback}}</td>
                         <td>{{data.createdDate | date:'HH:mm:ss'}}</td>
+                        <td>{{data.createdByName}}</td>
                     </tr>
                 </table>
             </div>

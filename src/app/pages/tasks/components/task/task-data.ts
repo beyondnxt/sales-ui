@@ -34,6 +34,11 @@ export const tableHeaders = [
         sort:true,
     },
     {
+        name: 'Follow-up Date',
+        key: 'followUpDate',
+        sort:true,
+    },
+    {
         name: 'Feedback',
         key: 'feedback',
         feedback: true

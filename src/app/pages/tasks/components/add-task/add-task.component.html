@@ -11,12 +11,23 @@
     <form action="" [formGroup]="taskDetails" class="taskForm">
         <div class="col-lg-12">
             <div class="row">
-                <div class="col-lg-6">
+                <!-- <div class="col-lg-6">
                     <mat-form-field class="example-full-width">
                         <mat-label>Customer Name</mat-label>
                         <mat-select formControlName="customerId">
                             <mat-option *ngFor="let cus of customerList" [value]="cus.id">{{cus.name}}</mat-option>
                         </mat-select>
+                    </mat-form-field>
+                </div> -->
+                <div class="col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <input type="text" placeholder="Customer Name" (input)="onInputChange($event)" matInput formControlName="customerId"
+                            [matAutocomplete]="auto">
+                        <mat-autocomplete #auto="matAutocomplete">
+                            <mat-option *ngFor="let cus of filteredCustomer" [value]="cus">
+                                {{ cus.name }}
+                            </mat-option>
+                        </mat-autocomplete>
                     </mat-form-field>
                 </div>
                 <div class="col-lg-6">
@@ -34,12 +45,14 @@
                         <mat-label>Status</mat-label>
                         <mat-select formControlName="status">
                             <mat-option *ngIf="!data" value="Unassigned">Unassigned</mat-option>
-                            <mat-option *ngIf="!data || data.status === 'Unassigned'" value="Assigned">Assigned</mat-option>
-                            <mat-option *ngIf="data && data.status === 'Assigned'" value="Completed">Completed</mat-option>
+                            <mat-option *ngIf="!data || data.status === 'Unassigned'"
+                                value="Assigned">Assigned</mat-option>
+                            <mat-option *ngIf="data && data.status === 'Assigned'"
+                                value="Completed">Completed</mat-option>
                         </mat-select>
                     </mat-form-field>
                 </div>
-                
+
                 <!-- <div class="col-lg-6">
                     <mat-form-field>
                         <mat-label>Status</mat-label>
@@ -63,7 +76,8 @@
                 <div class="col-lg-6" *ngIf="data?.status=='Unassigned' || !data">
                     <mat-form-field class="full-width flex-end">
                         <mat-label>Follow-up Date</mat-label>
-                        <input #fromDateInput matInput formControlName="followUpDate" [matDatepicker]="fromDatepicker" placeholder="From date">
+                        <input #fromDateInput matInput formControlName="followUpDate" [matDatepicker]="fromDatepicker"
+                            placeholder="From date">
                         <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
                         <mat-datepicker #fromDatepicker></mat-datepicker>
                     </mat-form-field>

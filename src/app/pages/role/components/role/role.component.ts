@@ -34,6 +34,7 @@ export class RoleComponent {
     let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
     this.roleService.getRole(query, this.searchQuery).subscribe({
       next: (res) => {
+        console.log('37-----', res.data);
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.tableValues = this.roleHelper.mapUserData(res.data);

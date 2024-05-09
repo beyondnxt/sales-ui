@@ -14,7 +14,8 @@ import { CommentsComponent } from '../comments/comments.component';
   styleUrls: ['./task.component.scss']
 })
 export class TaskComponent {
-  changeTab: any;
+  customerNamePlaceholder: string = 'Customer Name...';
+  changeTab: any = 'unassigned';
   pageCount: any;
   totalCount = 0;
   currentPage = 0;
@@ -37,6 +38,7 @@ export class TaskComponent {
   ];
   constructor(private dialog: MatDialog, private taskService: TasksService, private service:CommonService) { }
   @ViewChild('childRef') saledData!: SalesTableComponent;
+  
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
   selectedIds: any = [];
@@ -77,7 +79,7 @@ export class TaskComponent {
       case 'unassigned':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeaders;
-        this.changeTab = '';
+        this.changeTab = tab;
         break;
       case 'assigned':
         this.tab = 'status=' + tab;
@@ -272,5 +274,11 @@ export class TaskComponent {
         this.getDataBasedOnTabSelection(this.tab);
       }
     });
+  }
+  onRefreshClick(){
+    this.customerNamePlaceholder = 'Customer Name...';
+    console.log('280----', this.customerNamePlaceholder);
+    this.cusSearch = this.cbSearch = this.atSearch = this.ttSearch = this.date = '';
+    this.getDataBasedOnTabSelection(this.tab);
   }
 }

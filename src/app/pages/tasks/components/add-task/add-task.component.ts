@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { AddUserComponent } from 'src/app/pages/user/components/add-user/add-user.component';
 import { UsersService } from 'src/app/providers/admin/admin.service';
 import { CompanyService } from 'src/app/providers/company/company.service';
@@ -13,11 +14,19 @@ import { CustomerService } from 'src/app/providers/customers/customer.service';
   styleUrls: ['./add-task.component.scss']
 })
 export class AddTaskComponent {
+
   userList: any;
   companyList: any;
   taskDetails: any;
   customerList: any;
   showStatus: boolean = false;
+  filteredCustomer: any;
+  customerList1 = [
+    { id: 1, name: 'Customer 1' },
+    { id: 2, name: 'Customer 2' },
+    { id: 3, name: 'Customer 3' }
+    // Add more customer data as needed
+  ];
   // taskDetails!: FormGroup;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
@@ -52,7 +61,7 @@ export class AddTaskComponent {
     this.customerService.getCustomers().subscribe({
       next: (res) => {
         // console.log('customers-----', res);
-        this.customerList = res.customers;
+        this.customerList = res.data;
         console.log('customers-----', this.customerList);
       }, error: (err) => {
       },
@@ -74,7 +83,7 @@ export class AddTaskComponent {
   getCompany() {
     this.companyService.getCompanyList('', '').subscribe({
       next: (res) => {
-        this.companyList = res.company;
+        this.companyList = res.data;
       }, error: (err) => {
       },
       complete: () => {
@@ -120,4 +129,7 @@ export class AddTaskComponent {
     this.date = this.service.dateFormat(event.value);
   }
 
+  onInputChange(event:any){
+    console.log("133----", event);
+  }
 }

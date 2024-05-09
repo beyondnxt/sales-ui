@@ -32,16 +32,17 @@ export class CompanyComponent {
     let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
     this.companyService.getCompanyList(this.searchQuery, query).subscribe({
       next: (res) => {
-        !res.company.length && (this.showOrHide = true);
+        console.log('35-----',res.data);
+        !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.count = res.totalCount;
         console.log("38------", this.tableValues);
-        res.company.forEach((company: any) => {
+        res.data.forEach((company: any) => {
           const [latitude, longitude] = company.location.split(',');
           company.latitude = latitude;
           company.longitude = longitude;
         });
-        this.tableValues = this.companyHelper.mapCompanyData(res.company);
+        this.tableValues = this.companyHelper.mapCompanyData(res.data);
       }, error: (err) => {
         this.apiLoader = false;
       },

@@ -52,7 +52,7 @@ export class AddUserComponent {
     this.companyService.getCompanyList('', '').subscribe({
       next: (res) => {
         console.log('companyList----', res);
-        this.companyList = res.company;
+        this.companyList = res.data;
       }, error: (err) => {
       },
       complete: () => {

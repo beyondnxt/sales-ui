@@ -11,7 +11,8 @@ import { AttendenceRoutingModule } from './attendence-routing.module';
   imports: [
     CommonModule,
     SharedModule,
-    AttendenceRoutingModule
+    AttendenceRoutingModule,
+    
   ],
 })
 export class AttendenceModule { }
