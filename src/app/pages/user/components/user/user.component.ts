@@ -36,7 +36,6 @@ export class UserComponent {
       panelClass: 'user-dialog-container',
     }).afterClosed().subscribe((res: any) => {
       if (res) {
-        console.log(res)
         this.postUser(res);
       }
     });

@@ -39,7 +39,6 @@ export class AddUserComponent {
   getRoles() {
     this.roleService.getRole('', '').subscribe({
       next: (res) => {
-        // console.log('roles-----', res);
         this.roleList = res.data;
       }, error: (err) => {
       },
@@ -51,7 +50,6 @@ export class AddUserComponent {
   getCompanyList() {
     this.companyService.getCompanyList('', '').subscribe({
       next: (res) => {
-        console.log('companyList----', res);
         this.companyList = res.company;
       }, error: (err) => {
       },

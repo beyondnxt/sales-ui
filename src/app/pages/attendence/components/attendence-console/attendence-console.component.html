@@ -2,10 +2,10 @@
   <mat-icon>keyboard_backspace</mat-icon
   ><span style="display: flex; align-items: center">Back</span>
 </div>
-<app-map></app-map>
+<app-map [SELECTED_USER_ID]="selectedUserId"></app-map>
 
-<div style="display: flex; gap: 10px; margin-top: 15px; color: #808193;">
-  <div style="display: flex; flex-direction: column; gap: 8px;" >
+<div style="display: flex; gap: 10px; margin-top: 15px; color: #808193">
+  <div style="display: flex; flex-direction: column; gap: 8px">
     <div>
       <img
         class="marker-icon"
@@ -25,7 +25,7 @@
       <span>Punch Out</span>
     </div>
   </div>
-  <div style="display: flex; flex-direction: column; gap: 8px;">
+  <div style="display: flex; flex-direction: column; gap: 8px">
     <div>
       <img
         class="marker-icon"

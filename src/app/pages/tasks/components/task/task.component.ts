@@ -180,7 +180,6 @@ export class TaskComponent {
     const index = this.selectedIds.indexOf(ids);
     index === -1 ? this.selectedIds.push(ids) : this.selectedIds.splice(index, 1);
 
-    // console.log('155------', this.selectedIds);
     if (this.selectedIds.length == this.saledData.tableValues.length) {
       this.saledData.isSelectAll = true;
     } else {
@@ -188,7 +187,6 @@ export class TaskComponent {
     }
   }
   Verify(){
-    console.log('ids------', this.selectedIds);
     this.taskService.verifyTask(this.selectedIds).subscribe({
       next: (res) => {
         this.service.showSnackbar("Verified Successfully");
@@ -236,9 +234,7 @@ export class TaskComponent {
   }
 
   customerSearch(event: any){
-    // console.log('seach-----', event.length);
     this.cusSearch = `&customerName=${event}`;
-    // (event.length > 3) && 
     this.filterAll();
   }
   createdbySearch(event: any){

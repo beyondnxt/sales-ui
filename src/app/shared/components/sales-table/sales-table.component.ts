@@ -76,7 +76,6 @@ export class SalesTableComponent {
   }
 
   handleDateColor(dateString: any) {
-    // console.log('11------', dateString);
     const today = new Date();
     const date = new Date(dateString);
 

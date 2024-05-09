@@ -37,8 +37,6 @@ export class AddTaskComponent {
     this.getUser();
     this.getCompany();
     if (this.data) {
-      console.log('40-----', this.data);
-      console.log(this.showStatus);
       this.showStatus = this.data && true;
       this.taskDetails.get('customerId').disable();
       this.data.status === 'Assigned' && this.taskDetails.get('taskType').disable();
@@ -51,9 +49,7 @@ export class AddTaskComponent {
   getCustomer() {
     this.customerService.getCustomers().subscribe({
       next: (res) => {
-        // console.log('customers-----', res);
         this.customerList = res.customers;
-        console.log('customers-----', this.customerList);
       }, error: (err) => {
       },
       complete: () => {
@@ -83,7 +79,6 @@ export class AddTaskComponent {
   }
 
   saveTask() {
-    console.log("Hiiiii");
     this.taskDetails.markAllAsTouched();
     if (this.taskDetails.invalid) {
       return;
@@ -106,10 +101,7 @@ export class AddTaskComponent {
           delete taskDetails.feedBack;
         }
 
-        console.log('75-----', taskDetails);
         (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
-
-        console.log('task-----', taskDetails);
         this.dialogRef.close(taskDetails);
       }
     }

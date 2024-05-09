@@ -35,7 +35,6 @@ export class CompanyComponent {
         !res.company.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.count = res.totalCount;
-        console.log("38------", this.tableValues);
         res.company.forEach((company: any) => {
           const [latitude, longitude] = company.location.split(',');
           company.latitude = latitude;
@@ -64,7 +63,6 @@ export class CompanyComponent {
       panelClass: 'user-dialog-container',
     }).afterClosed().subscribe((res: any) => {
       if (res) {
-        console.log(res)
         this.postCompany(res);
       }
     });
