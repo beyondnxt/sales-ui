@@ -96,6 +96,11 @@ export class TaskComponent {
         this.tableHeaders = data.tableHeaders;
         this.changeTab = '';
         break;
+        case 'visit':
+        this.tab = 'status=' + tab;
+        this.tableHeaders = data.tableHeadersForVisit;
+        this.changeTab = tab;
+        break;
       default:
     }
     this.getDataBasedOnTabSelection(this.tab);

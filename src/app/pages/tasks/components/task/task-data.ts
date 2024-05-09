@@ -149,6 +149,38 @@ export const tableHeadersForCompleted = [
     }
 ]
 
+export const tableHeadersForVisit = [
+    {
+        name: 'Customer Name',
+        key: 'customerName',
+        sort:true,
+    },
+    {
+        name: 'Created By',
+        key: 'userName',
+        sort:true,
+    },
+    {
+        name: 'Status',
+        key: 'status',
+        sort:true,
+    },
+    {
+        name: 'Description',
+        key: 'description',
+    },
+    {
+        name: 'Feedback',
+        key: 'feedback',
+        feedback: true
+    },
+    {
+        name: 'Created On',
+        key: 'createdOn',
+        sort:true,
+    }
+]
+
 export const tableValues = [
     // {
     //     taskName:'Collect Lead',

@@ -14,20 +14,16 @@ import { CustomerService } from 'src/app/providers/customers/customer.service';
   styleUrls: ['./add-task.component.scss']
 })
 export class AddTaskComponent {
-
+  // Inside your component class
+  selectedOption: string = 'task'; // Default option is 'task'
+  searchQuery: any
   userList: any;
   companyList: any;
   taskDetails: any;
   customerList: any;
   showStatus: boolean = false;
   filteredCustomer: any;
-  customerList1 = [
-    { id: 1, name: 'Customer 1' },
-    { id: 2, name: 'Customer 2' },
-    { id: 3, name: 'Customer 3' }
-    // Add more customer data as needed
-  ];
-  // taskDetails!: FormGroup;
+  
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
   constructor(private service: CommonService, private customerService: CustomerService, private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -42,9 +38,9 @@ export class AddTaskComponent {
       feedBack: [''],
       followUpDate: [''],
     });
-    this.getCustomer();
     this.getUser();
     this.getCompany();
+    this.getCustomers();
     if (this.data) {
       console.log('40-----', this.data);
       console.log(this.showStatus);
@@ -57,18 +53,7 @@ export class AddTaskComponent {
 
   }
 
-  getCustomer() {
-    this.customerService.getCustomers().subscribe({
-      next: (res) => {
-        // console.log('customers-----', res);
-        this.customerList = res.data;
-        console.log('customers-----', this.customerList);
-      }, error: (err) => {
-      },
-      complete: () => {
-      }
-    })
-  }
+
   getUser() {
     this.userService.getUsers('', '').subscribe({
       next: (res) => {
@@ -84,6 +69,20 @@ export class AddTaskComponent {
     this.companyService.getCompanyList('', '').subscribe({
       next: (res) => {
         this.companyList = res.data;
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
+  }
+
+  getCustomers() {
+    this.searchQuery = '';
+    this.customerService.getCustomers(this.searchQuery).subscribe({
+      next: (res) => {
+        // console.log('customers-----', res);
+        this.customerList = res.data;
+        console.log('customers-----', this.customerList);
       }, error: (err) => {
       },
       complete: () => {
@@ -114,6 +113,10 @@ export class AddTaskComponent {
         else {
           delete taskDetails.feedBack;
         }
+        if(this.selectedOption === 'visit'){
+          delete taskDetails.assignTo;
+          delete taskDetails.taskType;
+        }
 
         console.log('75-----', taskDetails);
         (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
@@ -129,7 +132,22 @@ export class AddTaskComponent {
     this.date = this.service.dateFormat(event.value);
   }
 
-  onInputChange(event:any){
-    console.log("133----", event);
+  onInputChange(event: any) {
+    const searchTerm = event.target.value;
+    console.log('134----', searchTerm);
+    this.searchQuery = `?name=${searchTerm}`;
+
+    this.customerService.getCustomers(this.searchQuery).subscribe({
+      next: (res) => {
+        // console.log('customers-----', res);
+        this.customerList = res.data;
+        console.log('customers-----', this.customerList);
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
   }
+
+
 }

@@ -34,11 +34,11 @@ export class RoleComponent {
     let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
     this.roleService.getRole(query, this.searchQuery).subscribe({
       next: (res) => {
-        console.log('37-----', res.data);
+        // console.log('37-----', res);
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.tableValues = this.roleHelper.mapUserData(res.data);
-        this.count = res.total;
+        this.count = res.fetchedCount;
       }, error: (err) => {
         this.apiLoader = false;
       },
@@ -74,7 +74,7 @@ export class RoleComponent {
   }
 
   edit(payload: any){
-    console.log('payload----', payload);
+    // console.log('payload----', payload);
     this.dialog.open(AddRoleComponent, {
       width: '500px',
       height: 'max-content',
@@ -104,7 +104,7 @@ export class RoleComponent {
   }
 
   delete(data: any) {
-    console.log('107-----', data);
+    // console.log('107-----', data);
     this.dialog.open(DeleteComponent, {
       width: '500px',
       height: 'max-content',
@@ -113,14 +113,14 @@ export class RoleComponent {
       data:data,
     }).afterClosed().subscribe((res: any) => {
       if (res) {
-        console.log("hiiii");
+        // console.log("hiiii");
         this.deleteRole(res);
       }
     });
   }
 
   deleteRole(id: any){
-    console.log('121-----');
+    // console.log('121-----');
     this.roleService.deleteRole(id).subscribe({
       next: (res) => {
         this.service.showSnackbar("Role Deleted Successfully");
