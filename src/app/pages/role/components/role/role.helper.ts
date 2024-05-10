@@ -5,10 +5,8 @@ import { Injectable } from "@angular/core";
 })
 export class RoleHelper {
     mapUserData(serviceData: any) {
-        console.log('role-----', serviceData);
         let template: any = [];
         serviceData.forEach((element: any) => {
-            console.log();
             const menuAccessPermissions = this.mapPermissions(element.menuAccess);
             template.push({
                 name: element?.name ? element.name : '',
@@ -18,18 +16,14 @@ export class RoleHelper {
                 menuAccess: element?.menuAccess ? element.menuAccess : '',
             });
         });
-        // console.log('20-----', template);
         return template;
     }
 
     mapPermissions(menuAccess: any): any {
         const permissions: any = {};
         if (menuAccess) {
-            // console.log('27------', menuAccess);
             menuAccess.forEach((menu: any) => {
-                // console.log('27------', menu);
                 for (const key in menu) {
-                    // console.log('29-----', key);
                     if (key !== 'permissions') {
                         // const formattedKey = key.charAt(0).toUpperCase() + key.slice(1); // Capitalize the first letter
                         // for (const permission in menu[key]) {
@@ -47,7 +41,6 @@ export class RoleHelper {
                 }
             });
         }
-        // console.log('47-----', permissions);
         return permissions;
     }
 

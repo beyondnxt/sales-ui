@@ -52,7 +52,7 @@
                                 <i class="far fa-trash-alt delIcon" (click)="delete.emit(values.id)"></i>
                             </ng-container>
                             <ng-container *ngIf="key.map">
-                                <i class="fas fa-map-marker-alt delIcon" (click)="map.emit()"></i>
+                                <i class="fas fa-map-marker-alt delIcon" (click)="map.emit(values)"></i>
                             </ng-container>
 
                             <ng-container *ngIf="key.role">

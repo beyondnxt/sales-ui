@@ -30,7 +30,6 @@ export class CompanyHelper {
     }
 
     mapBoxData(companyData: any){
-        console.log('address=>', companyData);
         let data: any = {
           address: {}
         };
@@ -46,6 +45,5 @@ export class CompanyHelper {
         data.latitude = companyData.latitude;
         data.longitude = companyData.longitude;
         return data;
-          // console.log(data);
       }
 }

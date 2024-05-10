@@ -65,7 +65,6 @@ export class CompanyComponent {
       panelClass: 'user-dialog-container',
     }).afterClosed().subscribe((res: any) => {
       if (res) {
-        console.log(res)
         this.postCompany(res);
       }
     });

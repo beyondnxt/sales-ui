@@ -1,5 +1,5 @@
 import { Component, ElementRef, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { NavigationExtras, Router } from '@angular/router';
 import * as data from './attendence.data';
 import { CommonService } from 'src/app/providers/core/common.service';
 import { AttendanceService } from 'src/app/providers/attendance/attendance.service';
@@ -26,7 +26,7 @@ export const MY_FORMATS = {
   },
 };
 
-export const MY_DATE_FORMATS  = {
+export const MY_DATE_FORMATS = {
   parse: {
     dateInput: 'MM/DD/YYYY',
   },
@@ -74,19 +74,22 @@ export class AttendenceComponent {
   tableValues = data.tableValues;
   date = '';
   count = 0;
-  openConsole() {
-    this.router.navigate(['/attendence/attendence-console'])
+  openConsole(selectedRow: any) {
+    let selectedId: NavigationExtras = {
+      state: {
+        data: selectedRow.id
+      }
+    };
+    this.router.navigate(['/attendence/attendence-console'], selectedId);
   }
   addAttendence() {
   };
 
   ngOnInit() {
-
     this.getTodayAttendance();
   }
 
   getTodayAttendance() {
-    console.log("77------");
     this.showOrHide = false;
     this.apiLoader = true;
     let query = `pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
@@ -136,20 +139,19 @@ export class AttendenceComponent {
   }
 
   onFromDateChange(event: any) {
-    // console.log("126----", event);
     this.date = this.dateFormat(event.value);
     this.getTodayAttendance();
   }
 
-dateFormat(date: any) {
+  dateFormat(date: any) {
 
-  if (moment.isMoment(date)) { 
-    const formattedDate = date.format('YYYY-MM-DD');
-    return formattedDate;
-  } else {
-    return date; 
+    if (moment.isMoment(date)) {
+      const formattedDate = date.format('YYYY-MM-DD');
+      return formattedDate;
+    } else {
+      return date;
+    }
   }
-}
 
   pagination(event: any): void {
     this.currentPage = event;

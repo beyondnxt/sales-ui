@@ -50,7 +50,6 @@ export class CommentsComponent {
   // }
 
   ngOnInit() {
-    console.log(this.data);
     if (this.data.feedBack) {
       this.dataArray = this.data.feedBack;
     } else {
@@ -63,7 +62,6 @@ export class CommentsComponent {
     this.isAddingFeedback = !this.isAddingFeedback;
   }
   saveFeedback(feedback: any) {
-    console.log('60-----', feedback);
     if (Object.keys(this.dataArray).length === 0) {
       this.dataArray = {
         "feedBack": [{

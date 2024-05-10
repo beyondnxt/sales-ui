@@ -74,7 +74,6 @@ export class RoleComponent {
   }
 
   edit(payload: any){
-    // console.log('payload----', payload);
     this.dialog.open(AddRoleComponent, {
       width: '500px',
       height: 'max-content',
@@ -104,7 +103,6 @@ export class RoleComponent {
   }
 
   delete(data: any) {
-    // console.log('107-----', data);
     this.dialog.open(DeleteComponent, {
       width: '500px',
       height: 'max-content',
@@ -113,14 +111,12 @@ export class RoleComponent {
       data:data,
     }).afterClosed().subscribe((res: any) => {
       if (res) {
-        // console.log("hiiii");
         this.deleteRole(res);
       }
     });
   }
 
   deleteRole(id: any){
-    // console.log('121-----');
     this.roleService.deleteRole(id).subscribe({
       next: (res) => {
         this.service.showSnackbar("Role Deleted Successfully");
