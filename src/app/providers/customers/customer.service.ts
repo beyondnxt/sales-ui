@@ -9,7 +9,7 @@ import { environment } from 'src/environments/environment';
 export class CustomerService {
 
   constructor(public http:HttpClient) { }
-  getCustomers(): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/customers`);
+  getCustomers(searchQry: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/customers${searchQry}`);
   }
 }

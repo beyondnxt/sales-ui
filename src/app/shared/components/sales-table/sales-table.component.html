@@ -4,7 +4,7 @@
             <tr>
                 <ng-container *ngFor="let header of tableHeaders">
                     <ng-container *ngIf="header.checkboxColumn; else headerCell">
-                        <mat-checkbox [(ngModel)]="isSelectAll" (change)="selectAllValues($event)"></mat-checkbox>
+                        <th><mat-checkbox [(ngModel)]="isSelectAll" (change)="selectAllValues($event)"></mat-checkbox></th>
                     </ng-container>
                     <ng-template #headerCell>
                         <th>{{header.name}} <i *ngIf="header?.sort" class="fas fa-sort"></i></th>

@@ -15,6 +15,9 @@
                 <input type="radio" name="size" id="size_4" value="small" (change)="loadData('verified')" />
                 <label for="size_4">Verified Tasks</label>
 
+                <input type="radio" name="size" id="size_5" value="small" (change)="loadData('visit')" />
+                <label for="size_5">Visit Tasks</label>
+
             </div>
         </div>
         <!-- <p class="main-head">Tasks(12)</p> -->
@@ -25,17 +28,17 @@
         <!-- <app-search (searchData)="searchBox($event)"></app-search> -->
         <span (click)="toggleFilter()"><i class="fa fa-filter filterIcon"></i></span>
 
-        <div class="task" *ngIf="this.changeTab">
+        <div class="task" *ngIf="changeTab=='completed'">
             <app-sales-btn [label]="'Verify'" (action)="Verify()"></app-sales-btn>
         </div>
         
-        <div class="mx-2">
+        <div class="mx-2" *ngIf="changeTab=='unassigned'">
             <app-sales-btn [label]="'+ New Task'" (action)="addTask()"></app-sales-btn>
         </div>
     </div>
 </div>
 <div class="filterClass" *ngIf="showFilter">
-    <app-search (searchData)="customerSearch($event)" [placeholder]="'Customer Name...'"></app-search>
+    <app-search (searchData)="customerSearch($event)" [placeholder]="customerNamePlaceholder" ></app-search>
     <app-search (searchData)="createdbySearch($event)" [placeholder]="'Created By...'"></app-search>
     <app-search (searchData)="assignedToSearch($event)" [placeholder]="'Assigned To...'"></app-search>
     <mat-form-field class="taskType">
@@ -50,7 +53,7 @@
         <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
         <mat-datepicker #fromDatepicker></mat-datepicker>
     </mat-form-field>
-
+    <span class="refreshIconSpan"><i (click)="onRefreshClick()" class="fas fa-sync refreshIcon"></i></span>
 </div>
 
 <app-sales-table #childRef [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)"

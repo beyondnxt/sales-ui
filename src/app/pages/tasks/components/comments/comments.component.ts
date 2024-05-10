@@ -67,11 +67,12 @@ export class CommentsComponent {
         "feedBack": [{
           feedback: feedback,
           createdDate: new Date(),
-          createdBy: localStorage.getItem('user_id')
+          createdBy: localStorage.getItem('user_id'),
+          createdByName:localStorage.getItem('user_name')
         }]
       };
     } else {
-      this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('user_id') });
+      this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('user_id'),createdByName:localStorage.getItem('user_name') });
       this.dataArray = { feedBack: this.dataArray };
     }
     this.isAddingFeedback = false;

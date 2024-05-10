@@ -1,6 +1,7 @@
 import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { Observable } from 'rxjs';
 import { AddUserComponent } from 'src/app/pages/user/components/add-user/add-user.component';
 import { UsersService } from 'src/app/providers/admin/admin.service';
 import { CompanyService } from 'src/app/providers/company/company.service';
@@ -13,12 +14,16 @@ import { CustomerService } from 'src/app/providers/customers/customer.service';
   styleUrls: ['./add-task.component.scss']
 })
 export class AddTaskComponent {
+  // Inside your component class
+  selectedOption: string = 'task'; // Default option is 'task'
+  searchQuery: any
   userList: any;
   companyList: any;
   taskDetails: any;
   customerList: any;
   showStatus: boolean = false;
-  // taskDetails!: FormGroup;
+  filteredCustomer: any;
+  
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
   constructor(private service: CommonService, private customerService: CustomerService, private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -33,9 +38,9 @@ export class AddTaskComponent {
       feedBack: [''],
       followUpDate: [''],
     });
-    this.getCustomer();
     this.getUser();
     this.getCompany();
+    this.getCustomers();
     if (this.data) {
       this.showStatus = this.data && true;
       this.taskDetails.get('customerId').disable();
@@ -46,16 +51,6 @@ export class AddTaskComponent {
 
   }
 
-  getCustomer() {
-    this.customerService.getCustomers().subscribe({
-      next: (res) => {
-        this.customerList = res.customers;
-      }, error: (err) => {
-      },
-      complete: () => {
-      }
-    })
-  }
   getUser() {
     this.userService.getUsers('', '').subscribe({
       next: (res) => {
@@ -70,7 +65,21 @@ export class AddTaskComponent {
   getCompany() {
     this.companyService.getCompanyList('', '').subscribe({
       next: (res) => {
-        this.companyList = res.company;
+        this.companyList = res.data;
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
+  }
+
+  getCustomers() {
+    this.searchQuery = '';
+    this.customerService.getCustomers(this.searchQuery).subscribe({
+      next: (res) => {
+        // console.log('customers-----', res);
+        this.customerList = res.data;
+        console.log('customers-----', this.customerList);
       }, error: (err) => {
       },
       complete: () => {
@@ -100,6 +109,10 @@ export class AddTaskComponent {
         else {
           delete taskDetails.feedBack;
         }
+        if(this.selectedOption === 'visit'){
+          delete taskDetails.assignTo;
+          delete taskDetails.taskType;
+        }
 
         (taskDetails.status === 'Unassigned') && (delete taskDetails.assignTo);
         this.dialogRef.close(taskDetails);
@@ -111,5 +124,23 @@ export class AddTaskComponent {
   onFromDateChange(event: any) {
     this.date = this.service.dateFormat(event.value);
   }
+
+  onInputChange(event: any) {
+    const searchTerm = event.target.value;
+    console.log('134----', searchTerm);
+    this.searchQuery = `?name=${searchTerm}`;
+
+    this.customerService.getCustomers(this.searchQuery).subscribe({
+      next: (res) => {
+        // console.log('customers-----', res);
+        this.customerList = res.data;
+        console.log('customers-----', this.customerList);
+      }, error: (err) => {
+      },
+      complete: () => {
+      }
+    })
+  }
+
 
 }
