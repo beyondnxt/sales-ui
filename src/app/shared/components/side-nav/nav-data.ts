@@ -52,11 +52,17 @@ export const navBarData = [
         icon: 'fal fa-hand-holding-box',
         label: 'Company',
         menu: 'company'
+    },
+    {
+        routerlink: 'approve',
+        icon: 'fas fa-check-circle',
+        label: 'Approve',
+        menu: 'approve'
+    },
+    {
+        routerlink: 'customer',
+        icon: 'far fa-users',
+        label: 'Customer',
+        menu: 'customer'
     }
-    // {
-    //     routerlink: 'feedback',
-    //     icon: 'fas fa-comment-dots',
-    //     label: 'Feed back',
-    //     menu: 'feedback'
-    // }
 ]

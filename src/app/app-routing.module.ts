@@ -70,10 +70,23 @@ const routes: Routes = [
             loadChildren: () =>
               import('./pages/feedback/feedback.module').then(m => m.FeedbackModule),
             canActivate: [AuthGuardService]
-          }, {
+          },
+          {
             path: 'company',
             loadChildren: () =>
               import('./pages/company/company.module').then(m => m.CompanyModule),
+            canActivate: [AuthGuardService]
+          },
+          {
+            path: 'approve',
+            loadChildren: () =>
+              import('./pages/approve/approve.module').then(m => m.ApproveModule),
+            canActivate: [AuthGuardService]
+          },
+          {
+            path: 'customer',
+            loadChildren: () =>
+              import('./pages/customer/customer.module').then(m => m.CustomerModule),
             canActivate: [AuthGuardService]
           },
         ]

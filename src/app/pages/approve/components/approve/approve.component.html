@@ -1,0 +1,17 @@
+<div class="col-lg-12 btnAlign">
+    <div>
+        <p class="main-head">Company({{count}})</p>
+    </div>
+    <div class="content">
+        <app-search (searchData)="searchBox($event)"></app-search>
+        <div class="mx-2">
+            <app-sales-btn [label]="'Approve'" (action)="approve()"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Late Check-in'" (action)="lateCheckin()"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Early Check-out'" (action)="earlyChecout()"></app-sales-btn>
+        </div>
+    </div>
+</div>
+<!-- (pagination)="pagination($event)" -->
+<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" 
+    [apiLoader]="apiLoader"></app-sales-table>
+<div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>
