@@ -7,8 +7,15 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { MomentDateAdapter, MAT_MOMENT_DATE_ADAPTER_OPTIONS } from '@angular/material-moment-adapter';
-import { DateAdapter, MAT_DATE_LOCALE, MAT_DATE_FORMATS } from '@angular/material/core';
+import {
+  MomentDateAdapter,
+  MAT_MOMENT_DATE_ADAPTER_OPTIONS,
+} from '@angular/material-moment-adapter';
+import {
+  DateAdapter,
+  MAT_DATE_LOCALE,
+  MAT_DATE_FORMATS,
+} from '@angular/material/core';
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
@@ -26,17 +33,17 @@ export const MY_FORMATS = {
   },
 };
 
-export const MY_DATE_FORMATS = {
-  parse: {
-    dateInput: 'MM/DD/YYYY',
-  },
-  display: {
-    dateInput: 'MM/DD/YYYY',
-    monthYearLabel: 'MMM YYYY',
-    dateA11yLabel: 'LL',
-    monthYearA11yLabel: 'MMMM YYYY',
-  },
-};
+// export const MY_DATE_FORMATS = {
+//   parse: {
+//     dateInput: 'MM/DD/YYYY',
+//   },
+//   display: {
+//     dateInput: 'MM/DD/YYYY',
+//     monthYearLabel: 'MMM YYYY',
+//     dateA11yLabel: 'LL',
+//     monthYearA11yLabel: 'MMMM YYYY',
+//   },
+// };
 
 @Component({
   selector: 'app-attendence',
@@ -48,8 +55,8 @@ export const MY_DATE_FORMATS = {
       useClass: MomentDateAdapter,
       deps: [MAT_DATE_LOCALE, MAT_MOMENT_DATE_ADAPTER_OPTIONS],
     },
-    { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
-    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS }
+    { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
+    // { provide: MAT_DATE_FORMATS, useValue: MY_DATE_FORMATS },
   ],
 })
 export class AttendenceComponent {
@@ -61,29 +68,30 @@ export class AttendenceComponent {
   searchQuery = '';
   showOrHide = false;
 
-
-
   startDate = new Date(); // Set initial view to current month and year
 
-
-  constructor(private dialog: MatDialog, public router: Router, public service: CommonService, private attendance: AttendanceService) {
-  }
+  constructor(
+    private dialog: MatDialog,
+    public router: Router,
+    public service: CommonService,
+    private attendance: AttendanceService
+  ) {}
   @ViewChild('picker') datePickerElement = MatDatepicker;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
-  date = '';
+  date: any = '';
   count = 0;
+
   openConsole(selectedRow: any) {
     let selectedId: NavigationExtras = {
       state: {
-        data: selectedRow.id
-      }
+        data: selectedRow.id,
+      },
     };
     this.router.navigate(['/attendence/attendence-console'], selectedId);
   }
-  addAttendence() {
-  };
+  addAttendence() {}
 
   ngOnInit() {
     this.getTodayAttendance();
@@ -92,59 +100,64 @@ export class AttendenceComponent {
   getTodayAttendance() {
     this.showOrHide = false;
     this.apiLoader = true;
-    let query = `pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
-    this.attendance.getTodayAttendance(this.date, query, this.searchQuery).subscribe({
-      next: (res) => {
-        !res.data.length && (this.showOrHide = true);
-        this.apiLoader = false;
-        this.tableValues = res.data;
-        this.count = res.total;
-      }, error: (err) => {
-        this.apiLoader = false;
-      },
-      complete: () => {
-      }
-    })
+    let query = `pageSize=${this.pageSize}&page=${
+      isNaN(this.currentPage) ? 1 : this.currentPage + 1
+    }`;
+    this.attendance
+      .getTodayAttendance(this.date, query, this.searchQuery)
+      .subscribe({
+        next: (res) => {
+          !res.data.length && (this.showOrHide = true);
+          this.apiLoader = false;
+          this.tableValues = res.data;
+          this.count = res.total;
+        },
+        error: (err) => {
+          this.apiLoader = false;
+        },
+        complete: () => {},
+      });
   }
 
   delete(data: any) {
-    this.dialog.open(DeleteComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'delete-dialog-container',
-      data: data,
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        this.deleteUser(res);
-      }
-    });
+    this.dialog
+      .open(DeleteComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'delete-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.deleteUser(res);
+        }
+      });
   }
 
   deleteUser(id: any) {
     this.attendance.deleteAttendance(id).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Attendance Deleted Successfully");
+        this.service.showSnackbar('Attendance Deleted Successfully');
         this.getTodayAttendance();
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
-  edit(data: any) {
-
-  }
+  edit(data: any) {}
 
   onFromDateChange(event: any) {
+    MY_FORMATS.display.dateInput = 'DD-MM-YYYY';
     this.date = this.dateFormat(event.value);
     this.getTodayAttendance();
   }
 
   dateFormat(date: any) {
-
     if (moment.isMoment(date)) {
       const formattedDate = date.format('YYYY-MM-DD');
       return formattedDate;
@@ -160,34 +173,37 @@ export class AttendenceComponent {
 
   searchBox(event: any) {
     this.searchQuery = `&userName=${event}`;
-    (event) && (this.currentPage = 0);
+    event && (this.currentPage = 0);
     this.currentPage = 0;
     this.getTodayAttendance();
   }
 
-
   myDate = new FormControl();
-  setMonthAndYear(normalizedMonthAndYear: Moment, datepicker: MatDatepicker<Moment>) {
+  setMonthAndYear(
+    normalizedMonthAndYear: Moment,
+    datepicker: MatDatepicker<Moment>
+  ) {
+    MY_FORMATS.display.dateInput = 'MMM YYYY';
     const month = normalizedMonthAndYear.month();
     const year = normalizedMonthAndYear.year();
     const newDate = moment({ year, month });
     this.myDate.setValue(newDate);
     datepicker.close();
 
-    const reportDate = `${normalizedMonthAndYear.year()}-${normalizedMonthAndYear.month() + 1}`;
+    const reportDate = `${normalizedMonthAndYear.year()}-${
+      normalizedMonthAndYear.month() + 1
+    }`;
     this.attendance.attendanceReport(reportDate).subscribe({
       next: (res: any) => {
         !res.data.length && (this.showOrHide = true);
         this.tableHeaders = data.reportHeaders;
         this.tableValues = res.data;
         this.count = res.fetchedCount;
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 }
-
-
