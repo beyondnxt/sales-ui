@@ -130,6 +130,7 @@ export class UserComponent {
   }
 
   searchBox(event: any){
+    console.log('133-----', event);
     this.searchQuery = `&firstName=${event}`;
     (event) && ( this.currentPage = 0);
     this.currentPage = 0;

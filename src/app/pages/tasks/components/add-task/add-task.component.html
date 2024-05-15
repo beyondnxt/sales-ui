@@ -10,8 +10,8 @@
     </div>
     <div>
         <mat-radio-group [(ngModel)]="selectedOption" *ngIf="!data">
-            <mat-radio-button value="task">Task</mat-radio-button>
-            <mat-radio-button value="visit">Visit</mat-radio-button>
+            <mat-radio-button value="task" (click)="selectOption()">Task</mat-radio-button>
+            <mat-radio-button value="visit" (click)="selectOption()">Visit</mat-radio-button>
         </mat-radio-group>
     </div>
     <form action="" [formGroup]="taskDetails" class="taskForm" *ngIf="selectedOption === 'task'">

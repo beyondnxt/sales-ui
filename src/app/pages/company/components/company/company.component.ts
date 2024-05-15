@@ -32,11 +32,9 @@ export class CompanyComponent {
     let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
     this.companyService.getCompanyList(this.searchQuery, query).subscribe({
       next: (res) => {
-        console.log('35-----',res.data);
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.count = res.totalCount;
-        console.log("38------", this.tableValues);
         res.data.forEach((company: any) => {
           const [latitude, longitude] = company.location.split(',');
           company.latitude = latitude;

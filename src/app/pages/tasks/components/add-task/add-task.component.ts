@@ -29,15 +29,26 @@ export class AddTaskComponent {
   constructor(private service: CommonService, private customerService: CustomerService, private userService: UsersService, private companyService: CompanyService, private fb: FormBuilder, public dialogRef: MatDialogRef<AddTaskComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 
   ngOnInit() {
+    // this.selectedOptionChanges();
     this.taskDetails = this.fb.group({
-      customerId: [''],
-      taskType: [''],
-      status: [''],
+      customerId: ['', !this.data ? Validators.required : null],
+      taskType: ['', Validators.required],
+      status: ['', Validators.required],
       assignTo: [''],
       description: [''],
       feedBack: [''],
       followUpDate: [''],
     });
+
+    this.taskDetails.get('status').valueChanges.subscribe((status: any) => {
+      if (status === 'Assigned') {
+        this.taskDetails.get('assignTo').setValidators(Validators.required);
+      } else {
+        this.taskDetails.get('assignTo').clearValidators();
+      }
+      this.taskDetails.get('assignTo').updateValueAndValidity();
+    });
+
     this.getUser();
     this.getCompany();
     this.getCustomers();
@@ -49,6 +60,12 @@ export class AddTaskComponent {
       this.taskDetails.patchValue(this.data);
     }
 
+  }
+
+  selectOption(){
+    console.log(this.selectedOption);
+    this.selectedOption === 'visit' && this.taskDetails.get('taskType').setValidators(Validators.required);
+    this.selectedOption === 'task' && this.taskDetails.get('taskType').clearValidators();
   }
 
   getUser() {

@@ -114,7 +114,7 @@ export class TaskComponent {
         break;
       case 'verified':
         this.tab = 'status=' + tab;
-        this.tableHeaders = data.tableHeaders;
+        this.tableHeaders = data.tableHeadersForVerified;
         this.changeTab = '';
         break;
       case 'visit':

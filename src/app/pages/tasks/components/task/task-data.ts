@@ -50,6 +50,53 @@ export const tableHeaders = [
     }
 ]
 
+export const tableHeadersForVerified = [
+    {
+        name: 'Customer Name',
+        key: 'customerName',
+        sort:true,
+    },
+    {
+        name: 'Created By',
+        key: 'userName',
+        sort:true,
+    },
+    {
+        name: 'Task Type',
+        key: 'taskType',
+        sort:true,
+    },
+    {
+        name: 'Assign To',
+        key: 'assignToName',
+        sort:true,
+    },
+    {
+        name: 'Status',
+        key: 'status',
+        sort:true,
+    },
+    {
+        name: 'Description',
+        key: 'description',
+    },
+    {
+        name: 'Created On',
+        key: 'createdOn',
+        sort:true,
+    },
+    {
+        name: 'Follow-up Date',
+        key: 'followUpDate',
+        sort:true,
+    },
+    {
+        name: 'Feedback',
+        key: 'feedback',
+        feedback: true
+    }
+]
+
 export const tableHeadersForAssigned = [
     {
         name: 'Customer Name',
