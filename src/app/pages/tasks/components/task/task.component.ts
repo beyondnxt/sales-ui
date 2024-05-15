@@ -1,4 +1,9 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AddTaskComponent } from '../add-task/add-task.component';
 import * as data from './task-data';
@@ -7,13 +12,21 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 import { SalesTableComponent } from 'src/app/shared/components/sales-table/sales-table.component';
 import { CommonService } from 'src/app/providers/core/common.service';
 import { CommentsComponent } from '../comments/comments.component';
+import { SearchComponent } from 'src/app/shared/components/search/search.component';
+import { MatSelect } from '@angular/material/select';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-task',
   templateUrl: './task.component.html',
-  styleUrls: ['./task.component.scss']
+  styleUrls: ['./task.component.scss'],
 })
 export class TaskComponent {
+  @ViewChild('customerSearchComp') customerSearchComp!: SearchComponent;
+  @ViewChild('createdBySearchComp') createdBySearchComp!: SearchComponent;
+  @ViewChild('assignedToSearchComp') assignedToSearchComp!: SearchComponent;
+  taskTypeControl = new FormControl();
+
   customerNamePlaceholder: string = 'Customer Name...';
   changeTab: any = 'unassigned';
   pageCount: any;
@@ -26,19 +39,24 @@ export class TaskComponent {
   showOrHide = false;
   date = '';
   cusSearch = '';
-  cbSearch = '';
+  cbSearch: any = '';
   atSearch = '';
-  ttSearch = '';
+  ttSearch: any = '';
   pageSize = this.service.calculatePaginationVal();
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   taskType = [
     { id: 1, name: 'Lead' },
     { id: 2, name: 'Call Back' },
-    { id: 3, name: 'Service' }
+    { id: 3, name: 'Service' },
   ];
-  constructor(private dialog: MatDialog, private taskService: TasksService, private service:CommonService) { }
+  constructor(
+    private dialog: MatDialog,
+    private taskService: TasksService,
+    private service: CommonService,
+    private _cdRef: ChangeDetectorRef
+  ) {}
   @ViewChild('childRef') saledData!: SalesTableComponent;
-  
+
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
   selectedIds: any = [];
@@ -48,29 +66,32 @@ export class TaskComponent {
   }
 
   addTask() {
-    this.dialog.open(AddTaskComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'task-dialog-container',
-    }).afterClosed().subscribe((res) => {
-      if (res) {
-        this.saveNewTask(res);
-      }
-    });
+    this.dialog
+      .open(AddTaskComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'task-dialog-container',
+      })
+      .afterClosed()
+      .subscribe((res) => {
+        if (res) {
+          this.saveNewTask(res);
+        }
+      });
   }
 
   saveNewTask(payload: any) {
     this.taskService.postTask(payload).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Task Created Successfully");
+        this.service.showSnackbar('Task Created Successfully');
         this.getDataBasedOnTabSelection(this.tab);
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
   loadData(tab: any) {
@@ -96,7 +117,7 @@ export class TaskComponent {
         this.tableHeaders = data.tableHeaders;
         this.changeTab = '';
         break;
-        case 'visit':
+      case 'visit':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeadersForVisit;
         this.changeTab = tab;
@@ -109,83 +130,106 @@ export class TaskComponent {
   getDataBasedOnTabSelection(tab: any) {
     this.showOrHide = false;
     this.apiLoader = true;
-    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
-    this.taskService.getTaskList(tab, query, this.searchQuery,this.cusSearch, this.cbSearch, this.atSearch, this.ttSearch, this.date).subscribe({
-      next: (res) => {
-        !res.data.length && (this.showOrHide = true);
-        this.apiLoader = false;
-        this.tableValues = res.data;
-        this.count = res.fetchedCount;
-      }, error: (err) => {
-        this.apiLoader = false;
-      },
-      complete: () => {
-      }
-    })
+    let query = `?pageSize=${this.pageSize}&page=${
+      isNaN(this.currentPage) ? 1 : this.currentPage + 1
+    }`;
+    this.taskService
+      .getTaskList(
+        tab,
+        query,
+        this.searchQuery,
+        this.cusSearch,
+        this.cbSearch,
+        this.atSearch,
+        this.ttSearch,
+        this.date
+      )
+      .subscribe({
+        next: (res) => {
+          !res.data.length && (this.showOrHide = true);
+          this.apiLoader = false;
+          this.tableValues = res.data;
+          this.count = res.fetchedCount;
+        },
+        error: (err) => {
+          this.apiLoader = false;
+        },
+        complete: () => {},
+      });
   }
   delete(data: any) {
-    this.dialog.open(DeleteComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'delete-dialog-container',
-      data: data,
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        this.deleteUser(res);
-      }
-    });
+    this.dialog
+      .open(DeleteComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'delete-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.deleteUser(res);
+        }
+      });
   }
-  deleteUser(id: any){
+  deleteUser(id: any) {
     this.taskService.deleteTask(id).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Task Deleted Successfully");
+        this.service.showSnackbar('Task Deleted Successfully');
         this.getDataBasedOnTabSelection(this.tab);
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
   edit(data: any) {
-    this.dialog.open(AddTaskComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'user-dialog-container',
-      data:data,
-    }).afterClosed().subscribe((result: any[]) => {
-      if (result && result.length === 2) {
-        const userDetails = result[0];
-        const dataId = result[1];
-        this.updateTask(userDetails, dataId);
-      }
-    });
+    this.dialog
+      .open(AddTaskComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'user-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((result: any[]) => {
+        if (result && result.length === 2) {
+          const userDetails = result[0];
+          const dataId = result[1];
+          this.updateTask(userDetails, dataId);
+        }
+      });
   }
 
   updateTask(payload: any, id: any) {
     this.taskService.updateTask(id, payload).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Task Updated Successfully");
+        this.service.showSnackbar('Task Updated Successfully');
         this.getDataBasedOnTabSelection(this.tab);
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
-  }
-  selectAll(data: any){
-    data.forEach((item: any) => {
-      const index = this.selectedIds.indexOf(item);
-      index === -1 ? this.selectedIds.push(item) : this.selectedIds.splice(index, 1);
+      complete: () => {},
     });
   }
-  getIds(ids: any){
+  selectAll(data: any) {
+    data.forEach((item: any) => {
+      const index = this.selectedIds.indexOf(item);
+      index === -1
+        ? this.selectedIds.push(item)
+        : this.selectedIds.splice(index, 1);
+    });
+  }
+  getIds(ids: any) {
     const index = this.selectedIds.indexOf(ids);
-    index === -1 ? this.selectedIds.push(ids) : this.selectedIds.splice(index, 1);
+    index === -1
+      ? this.selectedIds.push(ids)
+      : this.selectedIds.splice(index, 1);
 
     if (this.selectedIds.length == this.saledData.tableValues.length) {
       this.saledData.isSelectAll = true;
@@ -193,27 +237,25 @@ export class TaskComponent {
       this.saledData.isSelectAll = false;
     }
   }
-  Verify(){
+  Verify() {
     this.taskService.verifyTask(this.selectedIds).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Verified Successfully");
+        this.service.showSnackbar('Verified Successfully');
         this.getDataBasedOnTabSelection(this.tab);
       },
       error: (err: any) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-
-      }
-    })
+      complete: () => {},
+    });
   }
   pagination(event: any): void {
     this.currentPage = event;
     this.getDataBasedOnTabSelection(this.tab);
   }
-  searchBox(event: any){
+  searchBox(event: any) {
     this.searchQuery = `&customerName=${event}`;
-    (event) && ( this.currentPage = 0);
+    event && (this.currentPage = 0);
     this.currentPage = 0;
     this.getDataBasedOnTabSelection(this.tab);
   }
@@ -222,7 +264,7 @@ export class TaskComponent {
     this.showFilter = !this.showFilter;
   }
 
-  onFromDateChange(event: any){
+  onFromDateChange(event: any) {
     this.date = this.dateFormat(event.value);
     this.getDataBasedOnTabSelection(this.tab);
   }
@@ -234,52 +276,62 @@ export class TaskComponent {
       const day = ('0' + date.getDate()).slice(-2);
       const formattedDate = `${year}-${month}-${day}`;
       return formattedDate;
-    }
-    else {
+    } else {
       return date;
     }
   }
 
-  customerSearch(event: any){
+  customerSearch(event: any) {
     this.cusSearch = `&customerName=${event}`;
     this.filterAll();
   }
-  createdbySearch(event: any){
+  createdbySearch(event: any) {
     this.cbSearch = `&createdBy=${event}`;
     this.filterAll();
   }
-  assignedToSearch(event: any){
+  assignedToSearch(event: any) {
     this.atSearch = `&assignToName=${event}`;
     this.filterAll();
   }
 
-  gettaskType(event: any){
+  gettaskType(event: any) {
     this.ttSearch = `&taskType=${event.value}`;
     this.filterAll();
   }
 
-  filterAll(){
+  filterAll() {
     this.currentPage = 0;
     this.getDataBasedOnTabSelection(this.tab);
   }
 
-  comments(data: any){
-    this.dialog.open(CommentsComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'delete-dialog-container',
-      data: data,
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        this.getDataBasedOnTabSelection(this.tab);
-      }
-    });
+  comments(data: any) {
+    this.dialog
+      .open(CommentsComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'delete-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.getDataBasedOnTabSelection(this.tab);
+        }
+      });
   }
-  onRefreshClick(){
+  onRefreshClick() {
     this.customerNamePlaceholder = 'Customer Name...';
-    console.log('280----', this.customerNamePlaceholder);
-    this.cusSearch = this.cbSearch = this.atSearch = this.ttSearch = this.date = '';
+    this.cusSearch =
+      this.cbSearch =
+      this.atSearch =
+      this.ttSearch =
+      this.date =
+        '';
+    this.customerSearchComp.search.reset();
+    this.createdBySearchComp.search.reset();
+    this.assignedToSearchComp.search.reset();
+    this.taskTypeControl.reset();
     this.getDataBasedOnTabSelection(this.tab);
   }
 }
