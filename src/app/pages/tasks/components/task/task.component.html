@@ -1,62 +1,135 @@
 <div class="col-lg-12 btnAlign">
-    <div>
-        <div class="tabs-align">
-            <div class="center-align">
+  <div>
+    <div class="tabs-align">
+      <div class="center-align">
+        <input
+          type="radio"
+          name="size"
+          id="size_1"
+          value="small"
+          checked
+          (change)="loadData('unassigned')"
+        />
+        <label for="size_1">Open Tasks</label>
 
-                <input type="radio" name="size" id="size_1" value="small" checked (change)="loadData('unassigned')" />
-                <label for="size_1">Open Tasks</label>
+        <input
+          type="radio"
+          name="size"
+          id="size_2"
+          value="small"
+          (change)="loadData('assigned')"
+        />
+        <label for="size_2">Assigned Tasks</label>
 
-                <input type="radio" name="size" id="size_2" value="small" (change)="loadData('assigned')" />
-                <label for="size_2">Assigned Tasks</label>
+        <input
+          type="radio"
+          name="size"
+          id="size_3"
+          value="small"
+          (change)="loadData('completed')"
+        />
+        <label for="size_3">Completed Tasks</label>
 
-                <input type="radio" name="size" id="size_3" value="small" (change)="loadData('completed')" />
-                <label for="size_3">Completed Tasks</label>
+        <input
+          type="radio"
+          name="size"
+          id="size_4"
+          value="small"
+          (change)="loadData('verified')"
+        />
+        <label for="size_4">Verified Tasks</label>
 
-                <input type="radio" name="size" id="size_4" value="small" (change)="loadData('verified')" />
-                <label for="size_4">Verified Tasks</label>
-
-                <input type="radio" name="size" id="size_5" value="small" (change)="loadData('visit')" />
-                <label for="size_5">Visit Tasks</label>
-
-            </div>
-        </div>
-        <!-- <p class="main-head">Tasks(12)</p> -->
+        <input
+          type="radio"
+          name="size"
+          id="size_5"
+          value="small"
+          (change)="loadData('visit')"
+        />
+        <label for="size_5">Visit Tasks</label>
+      </div>
     </div>
-    
-    <div class="content">
-        
-        <!-- <app-search (searchData)="searchBox($event)"></app-search> -->
-        <span (click)="toggleFilter()"><i class="fa fa-filter filterIcon"></i></span>
+    <!-- <p class="main-head">Tasks(12)</p> -->
+  </div>
 
-        <div class="task" *ngIf="changeTab=='completed'">
-            <app-sales-btn [label]="'Verify'" (action)="Verify()"></app-sales-btn>
-        </div>
-        
-        <div class="mx-2" *ngIf="changeTab=='unassigned'">
-            <app-sales-btn [label]="'+ New Task'" (action)="addTask()"></app-sales-btn>
-        </div>
+  <div class="content">
+    <!-- <app-search (searchData)="searchBox($event)"></app-search> -->
+    <span (click)="toggleFilter()"
+      ><i class="fa fa-filter filterIcon"></i
+    ></span>
+
+    <div class="task" *ngIf="changeTab == 'completed'">
+      <app-sales-btn [label]="'Verify'" (action)="Verify()"></app-sales-btn>
     </div>
+
+    <div class="mx-2" *ngIf="changeTab == 'unassigned'">
+      <app-sales-btn
+        [label]="'+ New Task'"
+        (action)="addTask()"
+      ></app-sales-btn>
+    </div>
+  </div>
 </div>
 <div class="filterClass" *ngIf="showFilter">
-    <app-search (searchData)="customerSearch($event)" [placeholder]="customerNamePlaceholder" ></app-search>
-    <app-search (searchData)="createdbySearch($event)" [placeholder]="'Created By...'"></app-search>
-    <app-search (searchData)="assignedToSearch($event)" [placeholder]="'Assigned To...'"></app-search>
-    <mat-form-field class="taskType">
-        <mat-select placeholder="Task Type" (selectionChange)="gettaskType($event)">
-            <mat-option *ngFor="let option of taskType" [value]="option.name">{{ option.name }}</mat-option>
-        </mat-select>
-    </mat-form-field>
-    <mat-form-field class="full-width datePicker flex-end" >
-        <input #fromDateInput matInput [matDatepicker]="fromDatepicker"
-            placeholder="From date" [(ngModel)]="date"
-            (dateChange)="onFromDateChange($event)">
-        <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
-        <mat-datepicker #fromDatepicker></mat-datepicker>
-    </mat-form-field>
-    <span class="refreshIconSpan"><i (click)="onRefreshClick()" class="fas fa-sync refreshIcon"></i></span>
+  <app-search
+    #customerSearchComp
+    (searchData)="customerSearch($event)"
+    [placeholder]="customerNamePlaceholder"
+  ></app-search>
+  <app-search
+    #createdBySearchComp
+    (searchData)="createdbySearch($event)"
+    [placeholder]="'Created By...'"
+  ></app-search>
+  <app-search
+    #assignedToSearchComp
+    (searchData)="assignedToSearch($event)"
+    [placeholder]="'Assigned To...'"
+  ></app-search>
+  <mat-form-field class="taskType">
+    <mat-select
+      placeholder="Task Type"
+      [formControl]="taskTypeControl"
+      (selectionChange)="gettaskType($event)"
+    >
+      <mat-option *ngFor="let option of taskType" [value]="option.name">{{
+        option.name
+      }}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width datePicker flex-end">
+    <input
+      #fromDateInput
+      matInput
+      [matDatepicker]="fromDatepicker"
+      placeholder="From date"
+      [(ngModel)]="date"
+      (dateChange)="onFromDateChange($event)"
+    />
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="fromDatepicker"
+    ></mat-datepicker-toggle>
+    <mat-datepicker #fromDatepicker></mat-datepicker>
+  </mat-form-field>
+  <span class="refreshIconSpan"
+    ><i (click)="onRefreshClick()" class="fas fa-sync refreshIcon"></i
+  ></span>
 </div>
 
-<app-sales-table #childRef [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)"
-    (delete)="delete($event)" (comment)="comments($event)" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)" [count]="count"
-    (pagination)="pagination($event)" [apiLoader]="apiLoader"></app-sales-table>
-    <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>
+<app-sales-table
+  #childRef
+  [tableHeaders]="tableHeaders"
+  [tableValues]="tableValues"
+  (edit)="edit($event)"
+  (delete)="delete($event)"
+  (comment)="comments($event)"
+  (checkBoxes)="selectAll($event)"
+  (emitIds)="getIds($event)"
+  [count]="count"
+  (pagination)="pagination($event)"
+  [apiLoader]="apiLoader"
+></app-sales-table>
+<div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">
+  No Data Found
+</div>
