@@ -75,7 +75,7 @@ export class AddTaskComponent {
 
   getCustomers() {
     this.searchQuery = '';
-    this.customerService.getCustomers(this.searchQuery).subscribe({
+    this.customerService.getCustomers(this.searchQuery, '').subscribe({
       next: (res) => {
         // console.log('customers-----', res);
         this.customerList = res.data;
@@ -130,7 +130,7 @@ export class AddTaskComponent {
     console.log('134----', searchTerm);
     this.searchQuery = `?name=${searchTerm}`;
 
-    this.customerService.getCustomers(this.searchQuery).subscribe({
+    this.customerService.getCustomers(this.searchQuery, '').subscribe({
       next: (res) => {
         // console.log('customers-----', res);
         this.customerList = res.data;

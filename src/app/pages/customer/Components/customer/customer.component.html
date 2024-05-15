@@ -12,6 +12,6 @@
     </div>
 </div>
 <!-- (pagination)="pagination($event)" -->
-<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" (pagination)="pagination($event)"
+<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" (pagination)="pagination($event)" (edit)="edit($event)" (delete)="delete($event)"
     [apiLoader]="apiLoader"></app-sales-table>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>

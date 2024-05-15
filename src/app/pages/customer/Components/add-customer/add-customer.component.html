@@ -1,0 +1,96 @@
+<div class="dialog-container">
+    <div class="col-lg-12 closeAlign">
+        <div>
+            <p class="pt-3 head">Create Customer</p>
+        </div>
+        <div>
+            <button mat-icon-button mat-dialog-close tabindex="-1" class="close-button">
+                <mat-icon class="closeColor">close</mat-icon></button>
+        </div>
+    </div>
+    <form action="" [formGroup]="customerDetails" class="customerSection">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Customer Name</mat-label>
+                        <input type="text" matInput placeholder=""  formControlName="name">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Contact Person Name</mat-label>
+                        <input type="text" matInput placeholder=""  formControlName="contactPerson">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Email</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="email">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Mobile No</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="contactNo">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Latitude</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="latitude">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Longitude</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="longitude">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Area</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="area">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>City</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="city">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>State</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="state">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Pin Code</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="pinCode">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Country</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="country">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>Address</mat-label>
+                        <textarea matInput placeholder="" formControlName="address"></textarea>
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-12">
+                    <div class="btnEnd">
+                        <app-sales-cancel-btn mat-icon-button mat-dialog-close tabindex="-1" class="close-button"
+                            [label]="'Cancel'"></app-sales-cancel-btn>
+                        <app-sales-btn [label]="!data? '+ Add' : 'Update' " (action)="saveCustomer()"></app-sales-btn>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
