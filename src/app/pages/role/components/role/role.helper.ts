@@ -5,7 +5,6 @@ import { Injectable } from "@angular/core";
 })
 export class RoleHelper {
     mapUserData(serviceData: any) {
-        console.log('role-----', serviceData);
         let template: any = [];
         serviceData.forEach((element: any) => {
             const menuAccessPermissions = this.mapPermissions(element.menuAccess);

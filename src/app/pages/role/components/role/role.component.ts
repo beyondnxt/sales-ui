@@ -74,7 +74,6 @@ export class RoleComponent {
   }
 
   edit(payload: any){
-    // console.log('payload----', payload);
     this.dialog.open(AddRoleComponent, {
       width: '500px',
       height: 'max-content',
@@ -105,8 +104,11 @@ export class RoleComponent {
 
   delete(data: any) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // console.log('107-----', data);
+>>>>>>> features/validation
+=======
 >>>>>>> features/validation
     this.dialog.open(DeleteComponent, {
       width: '500px',
@@ -117,8 +119,11 @@ export class RoleComponent {
     }).afterClosed().subscribe((res: any) => {
       if (res) {
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
         // console.log("hiiii");
+>>>>>>> features/validation
+=======
 >>>>>>> features/validation
         this.deleteRole(res);
       }
@@ -127,8 +132,11 @@ export class RoleComponent {
 
   deleteRole(id: any){
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     // console.log('121-----');
+>>>>>>> features/validation
+=======
 >>>>>>> features/validation
     this.roleService.deleteRole(id).subscribe({
       next: (res) => {
