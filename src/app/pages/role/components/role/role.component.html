@@ -10,4 +10,9 @@
     </div>
 </div>
 <app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)" (delete)="delete($event)" [count]="count" (pagination)="pagination($event)" [apiLoader]="apiLoader"></app-sales-table>
+<div style="display:flex;" class="legends">
+    <p class="legendPara"><i class="circle">V</i> - visible</p>
+    <p class="legendPara"><i class="circle">W</i> - Write</p>
+    <p class="legendPara"><i class="circle">D</i> - Delete</p>
+</div>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>

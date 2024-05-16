@@ -57,12 +57,11 @@
 
                             <ng-container *ngIf="key.role">
                                 <ng-container *ngIf="values && key.key">
-
-                                    <ng-container *ngIf="values[key.key + 'Read'];else readBlock">
-                                        <i class="circle">R</i>
+                                    <ng-container *ngIf="values[key.key + 'IsActive'];else readBlock">
+                                        <i class="circle">V</i>
                                     </ng-container>
                                     <ng-template #readBlock>
-                                        <i class="circle falseItem">R</i>
+                                        <i class="circle falseItem">V</i>
                                     </ng-template>
 
                                     <ng-container *ngIf="values[key.key + 'Write'];else writeBlock">

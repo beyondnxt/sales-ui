@@ -17,3 +17,27 @@
 .content{
     display: flex;
 }
+.legends .circle {
+    // display: inline-block;
+    width: 16px; /* Adjust size as needed */
+    height: 17px; /* Adjust size as needed */
+    font-size: 12px;
+    line-height: 15px; /* Adjust line-height to center text */
+    border-radius: 50%;
+    border: 1px solid blue; /* Add border */
+    font-weight:bold;
+    // color: blue; /* Change text color to match the border */
+    text-align: center; /* Center the text horizontally */
+    background-color: transparent; /* Remove background color */
+    margin-left: 3px;
+    margin-right: 3px;
+    padding:1px 2px;
+  }
+  .legends{
+    display:flex;
+    margin-top:5px;
+  }
+  .legendPara{
+    margin-right:5px;
+    margin-left:5px;
+  }

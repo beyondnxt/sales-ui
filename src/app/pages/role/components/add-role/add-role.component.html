@@ -38,17 +38,24 @@
                             <thead>
                                 <tr>
                                     <th>Menu</th>
-                                    <th>Read</th>
+                                    <th>isActive</th>
+                                    <!-- <th>Read</th> -->
                                     <th>Write</th>
                                     <th>Delete</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr *ngFor="let permission of permissions; let i = index" [formGroupName]="i">
-                                    <td>{{ permission.name }}</td>
                                     <td>
-                                        <mat-checkbox formControlName="read"></mat-checkbox>
+                                        {{ permission.name }}
                                     </td>
+                                    <td>
+                                        <mat-slide-toggle formControlName="status">{{permission.name ?
+                                            'Active' : 'Inactive'}}</mat-slide-toggle>
+                                    </td>
+                                    <!-- <td>
+                                        <mat-checkbox formControlName="read"></mat-checkbox>
+                                    </td> -->
                                     <td>
                                         <mat-checkbox formControlName="write"></mat-checkbox>
                                     </td>
@@ -61,7 +68,7 @@
                     </div>
                 </div>
             </div>
-            
+
 
             <div class="col-lg-12">
                 <div class="btnEnd">

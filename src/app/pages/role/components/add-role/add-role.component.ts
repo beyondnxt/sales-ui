@@ -31,7 +31,8 @@ export class AddRoleComponent {
     menuAccess: this.fb.array(
       this.permissions.map(permission => this.fb.group({
         name: [permission.name],
-        read: [false],
+        status: [false],
+        // read: [false],
         write: [false],
         delete: [false]
       }))
@@ -52,11 +53,13 @@ export class AddRoleComponent {
       const menuAccessArray: any = [];
       this.dialogData.menuAccess.forEach((permission: any) => {
         const permissionName = Object.keys(permission)[0];
-
         const permissions = permission;
+        const isActiveStatus = permissions[permissionName]
+        
         menuAccessArray.push({
             [permissionName]: true,
-            read: permissions.permissions.read,
+            status: isActiveStatus,
+            // read: permissions.permissions.read,
             write: permissions.permissions.write,
             delete: permissions.permissions.delete,
         });
@@ -86,9 +89,10 @@ export class AddRoleComponent {
       const menuName = item.name.toLowerCase();
 
       const transformedItem = {
-        [menuName]: true,
+        [menuName]: item.status,
+        menuName: menuName,
         permissions: {
-          read: item.read,
+          // read: item.read,
           write: item.write,
           delete: item.delete
         }

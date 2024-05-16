@@ -25,15 +25,19 @@ export class RoleHelper {
             menuAccess.forEach((menu: any) => {
                 for (const key in menu) {
                     if (key !== 'permissions') {
+                        // console.log('28----', menu);
+                        permissions[`${key}IsActive`] = menu[key] ? menu[key] : false;
+
                         // const formattedKey = key.charAt(0).toUpperCase() + key.slice(1); // Capitalize the first letter
                         // for (const permission in menu[key]) {
-                            permissions[`${key}Read`] = menu.permissions.read ? menu.permissions.read : false;
+                            // permissions[`${key}Read`] = menu.permissions.read ? menu.permissions.read : false;
                             permissions[`${key}Write`] = menu.permissions.write ? menu.permissions.write : false;
                             permissions[`${key}Delete`] = menu.permissions.delete ? menu.permissions.delete : false;
                         // }
                     } else {
                         for (const permission in menu[key]) {
-                            permissions[`${key}Read`] = permissions.read ? permissions.read : false;
+                            // permissions[`${key}IsActive`] = menu[key] ? menu[key] : false;
+                            // permissions[`${key}Read`] = permissions.read ? permissions.read : false;
                             permissions[`${key}Write`] = permissions.Write ? permissions.read : false;
                             permissions[`${key}Delete`] = permissions.delete ? permissions.read : false;
                         }
