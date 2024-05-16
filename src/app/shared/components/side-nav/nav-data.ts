@@ -9,13 +9,13 @@ export const navBarData = [
         routerlink: 'user',
         icon: 'fal fa-user',
         label: 'Users',
-        menu: 'user'
+        menu: 'users'
     },
     {
         routerlink: 'role',
         icon: 'fal fa-key',
         label: 'Roles',
-        menu: 'role'
+        menu: 'roles'
     },
     {
         routerlink: 'product',
