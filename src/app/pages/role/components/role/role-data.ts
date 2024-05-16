@@ -46,12 +46,18 @@ export const tableHeaders = [
         role:true,
         sort:false,
     },
-    // {
-    //     name: 'Feed back',
-    //     key: 'feedBack',
-    //     sort:false,
-    //     role:true
-    // },
+    {
+        name: 'Approve',
+        key: 'approve',
+        sort:false,
+        role:true
+    },
+    {
+        name: 'Customer',
+        key: 'customer',
+        sort:false,
+        role:true
+    },
     {
         name: 'Action',
         key: 'action',
