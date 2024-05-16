@@ -55,8 +55,10 @@ export class LoginComponent {
       const payload = this.signInForm.getRawValue();
       this.adminService.login(payload).subscribe({
         next: (res) => {
+          console.log('loginComp----------', res);
           this.loadingSpinner = false;
           if (res.token) {
+            console.log('loginComp-----61-----');
             localStorage.setItem('user_id', res.userId);
             localStorage.setItem('user_name', res.userName);
             localStorage.setItem('role_id', res.roleId);
@@ -65,6 +67,7 @@ export class LoginComponent {
             this.router.navigate(['/dashboard']);
             this.service.showSnackbar('LoggedIn Succcessfully');
           } else {
+            console.log('loginComp-----70-----');
             this.loadingSpinner = false;
             this.showSignInResMsg = true;
             this.signInResponseMsg = res.message;
@@ -72,6 +75,7 @@ export class LoginComponent {
           }
         },
         error: (err) => {
+          console.log('loginComp-----78-----');
           this.loadingSpinner = false;
           this.showSignInResMsg = true;
           this.signInResponseMsg = err.error.message;

@@ -6,8 +6,7 @@
         <app-search (searchData)="searchBox($event)"></app-search>
         <div class="mx-2">
             <app-sales-btn [label]="'Approve'" (action)="approve()"></app-sales-btn>
-            <app-sales-btn class="approveBtn" [label]="'Late Check-in'" (action)="lateCheckin()"></app-sales-btn>
-            <app-sales-btn class="approveBtn" [label]="'Early Check-out'" (action)="earlyChecout()"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Reject'" (action)="reject()"></app-sales-btn>
         </div>
     </div>
 </div>

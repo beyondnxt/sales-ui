@@ -28,6 +28,13 @@
           <span class="name">{{ loggedInUserName }}</span>
           <p class="role">{{ loggedInUserRole }}</p>
         </div>
+        <div>
+          <button class="head-menu-item-btn ripple" (click)="redirectToApprovalPage()">
+            <i class="far fa-bell menu-icon">
+                <div class="notification-count">{{notifyCount}}</div>
+            </i>
+        </button>
+        </div>
       </div>
     </div>
   </div>
