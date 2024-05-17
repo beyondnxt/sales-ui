@@ -32,7 +32,11 @@
     </div>
   </div>
   <ul class="sidenav-nav">
-    <li class="sidenav-nav-item" *ngFor="let data of navData">
+    <li
+      class="sidenav-nav-item"
+      *ngFor="let data of navData; let i = index"
+      [ngStyle]="{ display: isMenuVisibility(data, i) ? 'none' : '' }"
+    >
       <ng-container>
         <a
           class="sidenav-nav-link"
@@ -42,7 +46,7 @@
         >
           <i class="sidenav-link-icon" [class]="data.icon"></i>
           <span class="sidenav-link-text" *ngIf="collapsed">{{
-            data.label
+            data?.label
           }}</span>
         </a>
       </ng-container>

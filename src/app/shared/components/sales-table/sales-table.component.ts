@@ -1,4 +1,10 @@
-import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  ViewChild,
+} from '@angular/core';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { AnyCatcher } from 'rxjs/internal/AnyCatcher';
 import { CommonService } from 'src/app/providers/core/common.service';
@@ -6,10 +12,10 @@ import { CommonService } from 'src/app/providers/core/common.service';
 @Component({
   selector: 'app-sales-table',
   templateUrl: './sales-table.component.html',
-  styleUrls: ['./sales-table.component.scss']
+  styleUrls: ['./sales-table.component.scss'],
 })
 export class SalesTableComponent {
-  constructor(public service: CommonService) { }
+  constructor(public service: CommonService) {}
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Output() openConsole = new EventEmitter();
   @Output() edit = new EventEmitter();
@@ -24,6 +30,8 @@ export class SalesTableComponent {
   @Input() count: any;
   @Input() apiLoader: any;
   @Input() headerLength: any;
+  @Input() isDeleteEnabled: any;
+  @Input() isWriteEnabled: any;
   length = 50;
   pageSize = 10;
   pageIndex = 0;
@@ -86,10 +94,8 @@ export class SalesTableComponent {
     // todayWithoutDay.setDate(1);
     if (today >= date) {
       return '#FF001B';
-    }
-    else {
+    } else {
       return '';
     }
   }
-
 }

@@ -1,1 +1,8 @@
-<button type="button" (click)="action.emit()"  class="addBtn">{{label}}</button>
+<button
+  type="button"
+  (click)="action.emit()"
+  class="addBtn"
+  *ngIf="isWriteEnabled"
+>
+  {{ label }}
+</button>

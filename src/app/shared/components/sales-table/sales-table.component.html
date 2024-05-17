@@ -1,104 +1,156 @@
 <div class="container-table">
-    <table class="rwd-table">
-        <tbody>
-            <tr>
-                <ng-container *ngFor="let header of tableHeaders">
-                    <ng-container *ngIf="header.checkboxColumn; else headerCell">
-                        <th><mat-checkbox [(ngModel)]="isSelectAll" (change)="selectAllValues($event)"></mat-checkbox></th>
-                    </ng-container>
-                    <ng-template #headerCell>
-                        <th>{{header.name}} <i *ngIf="header?.sort" class="fas fa-sort"></i></th>
-                    </ng-template>
+  <table class="rwd-table">
+    <tbody>
+      <tr>
+        <ng-container *ngFor="let header of tableHeaders">
+          <ng-container *ngIf="header.checkboxColumn; else headerCell">
+            <th>
+              <mat-checkbox
+                [(ngModel)]="isSelectAll"
+                (change)="selectAllValues($event)"
+              ></mat-checkbox>
+            </th>
+          </ng-container>
+          <ng-template #headerCell>
+            <th>
+              {{ header.name }} <i *ngIf="header?.sort" class="fas fa-sort"></i>
+            </th>
+          </ng-template>
+        </ng-container>
+      </tr>
+      <ng-container *ngFor="let values of tableValues; let j = index">
+        <!-- (click)="openConsole.emit()" -->
+        <tr>
+          <ng-container *ngFor="let key of tableHeaders; let i = index">
+            <td>
+              <ng-container>
+                <ng-container *ngIf="key.key == 'checkBox'">
+                  <mat-checkbox
+                    [checked]="values['checked'] ? true : false"
+                    (change)="onCheckboxChange($event, key.key, values.id)"
+                  ></mat-checkbox>
                 </ng-container>
-            </tr>
-            <ng-container *ngFor="let values of tableValues; let j= index">
-                <!-- (click)="openConsole.emit()" -->
-                <tr>
-                    <ng-container *ngFor="let key of tableHeaders let i= index">
-                        <td>
-                            <ng-container>
-                                <ng-container *ngIf="key.key == 'checkBox'">
-                                    <mat-checkbox [checked]="values['checked'] ? true : false"
-                                        (change)="onCheckboxChange($event,key.key,values.id)"></mat-checkbox>
-                                </ng-container>
 
-                                <span [attr.data-th]="key.name" [ngClass]="{'status':key.key === 'status'}"
-                                    [style.color]="handleStatusColor(values[key.key])">
-                                    <ng-container
-                                        *ngIf="key.key === 'createdOn' || key.key === 'updatedOn' || key.key === 'followUpDate' ; else elseBlock">
-                                        <!-- {{values[key.key]}} -->
-                                        <ng-container *ngIf="key.key === 'followUpDate'">
-                                            <!-- {{values[key.key]}} -->
-                                            <span [style.color]="handleDateColor(values[key.key])">
-                                                {{ values[key.key] ? (values[key.key] | date: 'MMM d, y') : '-' }}
-                                            </span>
-                                        </ng-container>
-                                        <ng-container *ngIf="key.key != 'followUpDate'">
-                                            {{ values[key.key] ? (values[key.key] | date: 'MMM d, y') : '-' }}
-                                        </ng-container>
-                                        <!-- {{ values[key.key] ? (values[key.key] | date: 'MMM d, y') : '-' }} -->
-                                    </ng-container>
-                                    <ng-template #elseBlock>
-                                        {{ values[key.key] }}
-                                    </ng-template>
-                                </span>
-                            </ng-container>
-
-                            <ng-container class="comment" *ngIf="key.feedback">
-                                <i class='far fa-comment-dots' (click)="comment.emit(values)"></i>
-                            </ng-container>
-                            <ng-container *ngIf="key.edit">
-                                <i class="far fa-edit" (click)="edit.emit(values)"></i>
-                                <i class="far fa-trash-alt delIcon" (click)="delete.emit(values.id)"></i>
-                            </ng-container>
-                            <ng-container *ngIf="key.map">
-                                <i class="fas fa-map-marker-alt delIcon" (click)="map.emit(values)"></i>
-                            </ng-container>
-
-                            <ng-container *ngIf="key.role">
-                                <ng-container *ngIf="values && key.key">
-                                    <ng-container *ngIf="values[key.key + 'IsActive'];else readBlock">
-                                        <i class="circle">V</i>
-                                    </ng-container>
-                                    <ng-template #readBlock>
-                                        <i class="circle falseItem">V</i>
-                                    </ng-template>
-
-                                    <ng-container *ngIf="values[key.key + 'Write'];else writeBlock">
-                                        <i class="circle">W</i>
-                                    </ng-container>
-                                    <ng-template #writeBlock>
-                                        <i class="circle falseItem">W</i>
-                                    </ng-template>
-
-                                    <ng-container *ngIf="values[key.key + 'Delete'];else deleteBlock">
-                                        <i class="circle">D</i>
-                                    </ng-container>
-                                    <ng-template #deleteBlock>
-                                        <i class="circle falseItem">D</i>
-                                    </ng-template>
-                                    
-                                </ng-container>
-                                <ng-template #elseBlock>
-                                    hi
-                                </ng-template>
-                            </ng-container>
-
-
-                        </td>
-
+                <span
+                  [attr.data-th]="key.name"
+                  [ngClass]="{ status: key.key === 'status' }"
+                  [style.color]="handleStatusColor(values[key.key])"
+                >
+                  <ng-container
+                    *ngIf="
+                      key.key === 'createdOn' ||
+                        key.key === 'updatedOn' ||
+                        key.key === 'followUpDate';
+                      else elseBlock
+                    "
+                  >
+                    <!-- {{values[key.key]}} -->
+                    <ng-container *ngIf="key.key === 'followUpDate'">
+                      <!-- {{values[key.key]}} -->
+                      <span [style.color]="handleDateColor(values[key.key])">
+                        {{
+                          values[key.key]
+                            ? (values[key.key] | date : "MMM d, y")
+                            : "-"
+                        }}
+                      </span>
                     </ng-container>
-                </tr>
-            </ng-container>
-        </tbody>
-    </table>
+                    <ng-container *ngIf="key.key != 'followUpDate'">
+                      {{
+                        values[key.key]
+                          ? (values[key.key] | date : "MMM d, y")
+                          : "-"
+                      }}
+                    </ng-container>
+                    <!-- {{ values[key.key] ? (values[key.key] | date: 'MMM d, y') : '-' }} -->
+                  </ng-container>
+                  <ng-template #elseBlock>
+                    {{ values[key.key] }}
+                  </ng-template>
+                </span>
+              </ng-container>
+
+              <ng-container class="comment" *ngIf="key.feedback">
+                <i
+                  class="far fa-comment-dots"
+                  (click)="comment.emit(values)"
+                ></i>
+              </ng-container>
+              <ng-container *ngIf="key.edit">
+                <i
+                  *ngIf="isWriteEnabled"
+                  class="far fa-edit"
+                  (click)="edit.emit(values)"
+                ></i>
+                <i
+                  *ngIf="isDeleteEnabled"
+                  class="far fa-trash-alt delIcon"
+                  (click)="delete.emit(values.id)"
+                ></i>
+              </ng-container>
+              <ng-container *ngIf="key.map">
+                <i
+                  class="fas fa-map-marker-alt delIcon"
+                  (click)="map.emit(values)"
+                ></i>
+              </ng-container>
+
+              <ng-container *ngIf="key.role">
+                <ng-container *ngIf="values && key.key">
+                  <ng-container
+                    *ngIf="values[key.key + 'IsActive']; else readBlock"
+                  >
+                    <i class="circle">V</i>
+                  </ng-container>
+                  <ng-template #readBlock>
+                    <i class="circle falseItem">V</i>
+                  </ng-template>
+
+                  <ng-container
+                    *ngIf="values[key.key + 'Write']; else writeBlock"
+                  >
+                    <i class="circle">W</i>
+                  </ng-container>
+                  <ng-template #writeBlock>
+                    <i class="circle falseItem">W</i>
+                  </ng-template>
+
+                  <ng-container
+                    *ngIf="values[key.key + 'Delete']; else deleteBlock"
+                  >
+                    <i class="circle">D</i>
+                  </ng-container>
+                  <ng-template #deleteBlock>
+                    <i class="circle falseItem">D</i>
+                  </ng-template>
+                </ng-container>
+                <ng-template #elseBlock> hi </ng-template>
+              </ng-container>
+            </td>
+          </ng-container>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
 </div>
-<mat-paginator #paginator *ngIf="this.count>this.pageSize" class="demo-paginator" (page)="handlePageEvent($event)"
-    [length]="count" [pageSize]="service.calculatePaginationVal()" [disabled]="disabled"
-    [showFirstLastButtons]="showFirstLastButtons" [hidePageSize]="hidePageSize" [pageIndex]="currentPage"
-    aria-label="Select page">
+<mat-paginator
+  #paginator
+  *ngIf="this.count > this.pageSize"
+  class="demo-paginator"
+  (page)="handlePageEvent($event)"
+  [length]="count"
+  [pageSize]="service.calculatePaginationVal()"
+  [disabled]="disabled"
+  [showFirstLastButtons]="showFirstLastButtons"
+  [hidePageSize]="hidePageSize"
+  [pageIndex]="currentPage"
+  aria-label="Select page"
+>
 </mat-paginator>
 
 <ng-container *ngIf="apiLoader">
-    <app-table-loader [valueColumns]="pageSize" [columns]="tableHeaders.length"></app-table-loader>
+  <app-table-loader
+    [valueColumns]="pageSize"
+    [columns]="tableHeaders.length"
+  ></app-table-loader>
 </ng-container>

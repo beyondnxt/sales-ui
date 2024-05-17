@@ -16,7 +16,6 @@ import { AddRoleComponent } from './components/add-role/add-role.component';
     CommonModule,
     RoleRoutingModule,
     SharedModule
-
   ]
 })
 export class RoleModule { }

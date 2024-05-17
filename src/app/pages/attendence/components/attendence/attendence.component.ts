@@ -19,6 +19,8 @@ import {
 import * as _moment from 'moment';
 // tslint:disable-next-line:no-duplicate-imports
 import { default as _rollupMoment, Moment } from 'moment';
+import { RolesService } from 'src/app/providers/roles/roles.service';
+import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -74,7 +76,9 @@ export class AttendenceComponent {
     private dialog: MatDialog,
     public router: Router,
     public service: CommonService,
-    private attendance: AttendanceService
+    private attendance: AttendanceService,
+    private _roleApiService: RolesService,
+    private _helperFunctionService: HelperFunctionService
   ) {}
   @ViewChild('picker') datePickerElement = MatDatepicker;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
@@ -82,6 +86,9 @@ export class AttendenceComponent {
   tableValues = data.tableValues;
   date: any = '';
   count = 0;
+  userMenuPermissions: any;
+  isDeleteEnabled = true;
+  isWriteEnabled = true;
 
   openConsole(selectedRow: any) {
     let selectedId: NavigationExtras = {
@@ -95,6 +102,7 @@ export class AttendenceComponent {
 
   ngOnInit() {
     this.getTodayAttendance();
+    this.triggerRoleAPI();
   }
 
   getTodayAttendance() {
@@ -204,6 +212,25 @@ export class AttendenceComponent {
         this.service.showSnackbar(err.error.message);
       },
       complete: () => {},
+    });
+  }
+
+  triggerRoleAPI() {
+    // Role API
+    let roleId: any = localStorage.getItem('role_id');
+    this._roleApiService.getRoleById(roleId).subscribe({
+      next: (res) => {
+        this.userMenuPermissions =
+          this._helperFunctionService.getMenuPermissions(
+            res.menuAccess,
+            'attendence'
+          );
+        this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
+        this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+      },
+      error: (err) => {
+        console.log(err);
+      },
     });
   }
 }

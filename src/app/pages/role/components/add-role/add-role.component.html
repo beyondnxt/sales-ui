@@ -1,82 +1,112 @@
 <div class="dialog-container">
-    <div class="col-lg-12 closeAlign">
-        <div>
-            <p class="pt-3 pl">Create role</p>
-        </div>
-        <div>
-            <button mat-icon-button mat-dialog-close tabindex="-1" class="close-button">
-                <mat-icon class="closeColor">close</mat-icon></button>
-        </div>
+  <div class="col-lg-12 closeAlign">
+    <div>
+      <p class="pt-3 pl">Create role</p>
     </div>
-    <div class="col-lg-12 roleSection" [formGroup]="roleData">
-        <div class="row">
-            <div class="col-lg-6">
-                <!-- <label for="" class="label">Role Name</label> -->
-                <mat-form-field class="example-full-width">
-                    <input matInput placeholder="Role Name" formControlName="name">
-                    <mat-error *ngIf="roleData?.get('name')?.hasError('required')">Role Name required</mat-error>
-                </mat-form-field>
-            </div>
-            <div class="col-lg-6">
-                <!-- <label for="" class="label">Description</label> -->
-                <mat-form-field>
-                    <textarea matInput formControlName="description" cdkTextareaAutosize #autosize="cdkTextareaAutosize"
-                        cdkAutosizeMinRows="1" cdkAutosizeMaxRows="5" matInput placeholder="Description"></textarea>
-                </mat-form-field>
-            </div>
+    <div>
+      <button
+        mat-icon-button
+        mat-dialog-close
+        tabindex="-1"
+        class="close-button"
+      >
+        <mat-icon class="closeColor">close</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="col-lg-12 roleSection" [formGroup]="roleData">
+    <div class="row">
+      <div class="col-lg-6">
+        <!-- <label for="" class="label">Role Name</label> -->
+        <mat-form-field class="example-full-width">
+          <input matInput placeholder="Role Name" formControlName="name" />
+          <mat-error *ngIf="roleData?.get('name')?.hasError('required')"
+            >Role Name required</mat-error
+          >
+        </mat-form-field>
+      </div>
+      <div class="col-lg-6">
+        <!-- <label for="" class="label">Description</label> -->
+        <mat-form-field>
+          <textarea
+            matInput
+            formControlName="description"
+            cdkTextareaAutosize
+            #autosize="cdkTextareaAutosize"
+            cdkAutosizeMinRows="1"
+            cdkAutosizeMaxRows="5"
+            matInput
+            placeholder="Description"
+          ></textarea>
+        </mat-form-field>
+      </div>
 
-            <div formGroupName="menuAccess">
-                <div class="row">
-                    <div class="col-lg-6">
-                        <h4>Menu Access</h4>
-                        <mat-error *ngIf="!isMenuAccessValid">Select at least one menu</mat-error>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-12">
-                        <table class="inTimeData">
-                            <thead>
-                                <tr>
-                                    <th>Menu</th>
-                                    <th>isActive</th>
-                                    <!-- <th>Read</th> -->
-                                    <th>Write</th>
-                                    <th>Delete</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr *ngFor="let permission of permissions; let i = index" [formGroupName]="i">
-                                    <td>
-                                        {{ permission.name }}
-                                    </td>
-                                    <td>
-                                        <mat-slide-toggle formControlName="status">{{permission.name ?
-                                            'Active' : 'Inactive'}}</mat-slide-toggle>
-                                    </td>
-                                    <!-- <td>
+      <div formGroupName="menuAccess">
+        <div class="row">
+          <div class="col-lg-6">
+            <h4>Menu Access</h4>
+            <mat-error *ngIf="!isMenuAccessValid"
+              >Select at least one menu</mat-error
+            >
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-12">
+            <table class="inTimeData">
+              <thead>
+                <tr>
+                  <th>Menu</th>
+                  <th>isActive</th>
+                  <!-- <th>Read</th> -->
+                  <th>Write</th>
+                  <th>Delete</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let permission of permissions; let i = index"
+                  [formGroupName]="i"
+                >
+                  <td>
+                    {{ permission.name }}
+                  </td>
+                  <td>
+                    <mat-slide-toggle formControlName="status">{{
+                      permission.name ? "Active" : "Inactive"
+                    }}</mat-slide-toggle>
+                  </td>
+                  <!-- <td>
                                         <mat-checkbox formControlName="read"></mat-checkbox>
                                     </td> -->
-                                    <td>
-                                        <mat-checkbox formControlName="write"></mat-checkbox>
-                                    </td>
-                                    <td>
-                                        <mat-checkbox formControlName="delete"></mat-checkbox>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-lg-12">
-                <div class="btnEnd">
-                    <app-sales-cancel-btn mat-icon-button mat-dialog-close tabindex="-1" class="close-button"
-                        [label]="'Cancel'"></app-sales-cancel-btn>
-                    <app-sales-btn [label]="'Save'" (action)="submit()"></app-sales-btn>
-                </div>
-            </div>
+                  <td>
+                    <mat-checkbox formControlName="write"></mat-checkbox>
+                  </td>
+                  <td>
+                    <mat-checkbox formControlName="delete"></mat-checkbox>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="btnEnd">
+          <app-sales-cancel-btn
+            mat-icon-button
+            mat-dialog-close
+            tabindex="-1"
+            class="close-button"
+            [label]="'Cancel'"
+          ></app-sales-cancel-btn>
+          <app-sales-btn
+            [label]="'Save'"
+            [isWriteEnabled]="isWriteEnabled"
+            (action)="submit()"
+          ></app-sales-btn>
+        </div>
+      </div>
     </div>
+  </div>
 </div>
