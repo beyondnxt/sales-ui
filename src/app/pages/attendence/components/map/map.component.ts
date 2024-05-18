@@ -26,7 +26,7 @@ declare module 'leaflet' {
   styleUrls: ['./map.component.scss'],
 })
 export class MapComponent {
-  @Input() SELECTED_USER_ID: any
+  @Input() SELECTED_USER_ID: any;
   // *--------------------------Global Variable Declaration -------------------------//
   totalWayPoints: any[] = [];
   map!: L.Map;
@@ -38,7 +38,10 @@ export class MapComponent {
   emptyLogLocationIcon = 'assets/icons/emptylog-location-marker.png';
 
   // *--------------------------------Constructor------------------------------------//
-  constructor(private _attendanceApiService: AttendanceService, private router: Router) { }
+  constructor(
+    private _attendanceApiService: AttendanceService,
+    private router: Router
+  ) {}
 
   // *-----------------------------Life Cycle Hooks----------------------------------//
   ngOnInit(): void {
@@ -90,7 +93,8 @@ export class MapComponent {
         }
       )
         .addTo(this.map)
-        .bindTooltip('Punch In').openTooltip();
+        .bindTooltip('Punch In')
+        .openTooltip();
     }
 
     if (attendance[0].punchOut != null) {
@@ -104,22 +108,33 @@ export class MapComponent {
         }
       )
         .addTo(this.map)
-        .bindTooltip('Punch Out').openTooltip();
+        .bindTooltip('Punch Out')
+        .openTooltip();
     }
   }
 
   plotTaskMarker(task: any) {
     task.forEach((element: any) => {
-      const taskMarker = L.marker([element.location.latitude, element.location.longitude], {
-        icon: L.icon({
-          iconSize: [25, 27],
-          iconUrl: this.taskActivityLocationIcon,
-        }),
-      }).addTo(this.map).bindTooltip(`
-      <html><body>
-      <span>Customer:</span><span style="font-weight:bold">${element.customerName}</span><br>
-      <span>Task type:</span><span style="font-weight:bold">${element.taskType}</span>
-      </body></html>`).openTooltip();
+      if (element.location.latitude && element.location.longitude != null) {
+        const taskMarker = L.marker(
+          [element.location.latitude, element.location.longitude],
+          {
+            icon: L.icon({
+              iconSize: [25, 27],
+              iconUrl: this.taskActivityLocationIcon,
+            }),
+          }
+        )
+          .addTo(this.map)
+          .bindTooltip(
+            `
+        <html><body>
+        <span>Customer:</span><span style="font-weight:bold">${element.customerName}</span><br>
+        <span>Task type:</span><span style="font-weight:bold">${element.taskType}</span>
+        </body></html>`
+          )
+          .openTooltip();
+      }
     });
   }
 
@@ -131,11 +146,16 @@ export class MapComponent {
           iconSize: [25, 27],
           iconUrl: this.emptyLogLocationIcon,
         }),
-      }).addTo(this.map).bindTooltip(`
+      })
+        .addTo(this.map)
+        .bindTooltip(
+          `
       <html><body>
       <span>User:</span><span style="font-weight:bold">${data.userName}</span><br>
       <span>Date:</span><span style="font-weight:bold">${element.createdOn}</span>
-      </body></html>`).openTooltip();
+      </body></html>`
+        )
+        .openTooltip();
     });
   }
 
@@ -161,15 +181,17 @@ export class MapComponent {
   getWayPoints(data: any) {
     if (data.task.length > 0) {
       for (let i = 0; i < data.task.length; i++) {
-        let task = data.task[i].location
-        task.createdOn = data.task[i].createdOn;
-        this.totalWayPoints.push(task)
+        let task = data.task[i].location;
+        if (task.latitude && task.longitude != null) {
+          task.createdOn = data.task[i].createdOn;
+          this.totalWayPoints.push(task);
+        }
       }
     }
 
-    if (data.mapLog[0].location.length > 0) {
-      for (let i = 0; i < data.mapLog[0].location.length; i++) {
-        this.totalWayPoints.push(data.mapLog[0].location[i])
+    if (data.mapLog.length > 0) {
+      for (let i = 0; i < data.mapLog.location.length; i++) {
+        this.totalWayPoints.push(data.mapLog.location[i]);
       }
     }
 
@@ -183,21 +205,20 @@ export class MapComponent {
       }
     }
     return this.totalWayPoints;
-
   }
   // *------------------------------API Methods----------------------------------//
   getUserMapData() {
-    this._attendanceApiService.getUserMapDetails(this.SELECTED_USER_ID).subscribe({
-      next: (res) => {
-        console.log(res);
-        this.checkLocationInformation(res.data);
-        this.createRouteLine(this.getWayPoints(res.data))
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    })
+    this._attendanceApiService
+      .getUserMapDetails(this.SELECTED_USER_ID)
+      .subscribe({
+        next: (res) => {
+          console.log(res);
+          this.checkLocationInformation(res.data);
+          this.createRouteLine(this.getWayPoints(res.data));
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
   }
-
 }
-
