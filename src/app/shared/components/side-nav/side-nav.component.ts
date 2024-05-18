@@ -87,14 +87,10 @@ export class SideNavComponent implements OnInit {
 
   triggerRoleAPI() {
     // Role API
-    console.log('called');
-
     let roleId: any = localStorage.getItem('role_id');
     this._roleApiService.getRoleById(roleId).subscribe({
       next: (res) => {
         this.menuLists = res.menuAccess;
-        console.log(this.menuLists);
-        
         this._cdRef.detectChanges();
       },
       error: (err) => {
