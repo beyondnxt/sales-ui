@@ -68,7 +68,7 @@ export class AddRoleComponent {
         const isActiveStatus = permissions[permissionName];
 
         menuAccessArray.push({
-          [permissionName]: true,
+          menu_visibility: true,
           status: isActiveStatus,
           // read: permissions.permissions.read,
           write: permissions.permissions.write,
