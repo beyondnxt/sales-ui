@@ -15,3 +15,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 20px;
     font-weight: 600;
 }
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  
+  @keyframes fadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+  }
+  
+  /* Override MatSnackBar default styles */
+  .mat-mdc-snack-bar-container .mdc-snackbar__surface {
+    background-color: var(--primary) !important;
+    border-radius: 10px !important;
+  }
+  .mat-mdc-snack-bar-container .mdc-snackbar__label{
+    color:#ffffff !important;
+  }

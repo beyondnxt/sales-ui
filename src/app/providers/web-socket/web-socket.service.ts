@@ -16,7 +16,7 @@ export class WebSocketService {
 
     // Use the nullish coalescing operator to provide a default value if authToken is null
     const authorizationHeader = authToken ?? 'empty';
-    this.webSocket = io('http://localhost:8080', {
+    this.webSocket = io('ws://localhost:8080', {
       auth: {
         token: 'test',
       },

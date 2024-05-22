@@ -11,6 +11,13 @@ export class ApproveService {
   constructor(public http:HttpClient) { }
 
   getApprovalList(searchQry: any, page: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/attendance/?isNotify=true`);
+    return this.http.get(environment.BASE_URL + `/attendance/?isNotify=true${page}${searchQry}`);
   }
+  approveAttendance(ids:string): Observable<any> {
+    return this.http.put(environment.BASE_URL + `/attendance/updateMultipleApproval`,ids);
+  }
+  rejectAttendance(ids:string): Observable<any> {
+    return this.http.put(environment.BASE_URL + `/attendance/updateMultipleReject`,ids);
+  }
+
 }

@@ -17,12 +17,12 @@ export const navBarData = [
         label: 'Roles',
         menu: 'roles'
     },
-    {
-        routerlink: 'product',
-        icon: 'fab fa-product-hunt',
-        label: 'Product',
-        menu: 'product'
-    },
+    // {
+    //     routerlink: 'product',
+    //     icon: 'fab fa-product-hunt',
+    //     label: 'Product',
+    //     menu: 'product'
+    // },
     // {
     //     routerlink: 'customer',
     //     icon: 'fal fa-hand-holding-box',

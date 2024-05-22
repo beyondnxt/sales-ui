@@ -99,6 +99,7 @@ export class CommonService {
   showSnackbar(content: string) {
     this.snackBar.open(content, 'Close', {
       duration: 1000,
+      panelClass: ['my-snackbar']
     });
   }
 

@@ -11,6 +11,6 @@
     </div>
 </div>
 <!-- (pagination)="pagination($event)" -->
-<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" 
-    [apiLoader]="apiLoader"></app-sales-table>
+<app-sales-table #childRef [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" 
+    [apiLoader]="apiLoader" (emitIds)="getIds($event)" (checkBoxes)="selectAll($event)" (pagination)="pagination($event)"></app-sales-table>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>
