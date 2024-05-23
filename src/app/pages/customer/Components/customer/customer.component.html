@@ -5,7 +5,7 @@
     <div class="content">
         <app-search (searchData)="searchBox($event)"></app-search>
         <div class="mx-2">
-            <app-sales-btn [label]="'+ Add New'" (action)="newCustomer()"></app-sales-btn>
+            <app-sales-btn [label]="'+ Add New'" (action)="newCustomer()" [isWriteEnabled]="isWriteEnabled"></app-sales-btn>
             <!-- <app-sales-btn class="approveBtn" [label]="'Late Check-in'" (action)="lateCheckin()"></app-sales-btn>
             <app-sales-btn class="approveBtn" [label]="'Early Check-out'" (action)="earlyChecout()"></app-sales-btn> -->
         </div>
@@ -13,5 +13,5 @@
 </div>
 <!-- (pagination)="pagination($event)" -->
 <app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" (pagination)="pagination($event)" (edit)="edit($event)" (delete)="delete($event)"
-    [apiLoader]="apiLoader"></app-sales-table>
+    [apiLoader]="apiLoader"   [isDeleteEnabled]="isDeleteEnabled" [isWriteEnabled]="isWriteEnabled"></app-sales-table>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>

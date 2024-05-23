@@ -5,13 +5,12 @@
     <div class="content">
         <app-search (searchData)="searchBox($event)"></app-search>
         <div class="mx-2">
-            <app-sales-btn [label]="'Approve'" (action)="approve()"></app-sales-btn>
-            <app-sales-btn class="approveBtn" [label]="'Late Check-in'" (action)="lateCheckin()"></app-sales-btn>
-            <app-sales-btn class="approveBtn" [label]="'Early Check-out'" (action)="earlyChecout()"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Approve'" [isWriteEnabled]="isWriteEnabled" (action)="approveAttendance()"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Reject'" [isWriteEnabled]="isWriteEnabled" (action)="rejectAttendance()"></app-sales-btn>
         </div>
     </div>
 </div>
 <!-- (pagination)="pagination($event)" -->
-<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" 
-    [apiLoader]="apiLoader"></app-sales-table>
+<app-sales-table #childRef [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" 
+    [apiLoader]="apiLoader" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)" (pagination)="pagination($event)"></app-sales-table>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>

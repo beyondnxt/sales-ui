@@ -77,6 +77,12 @@
                         <input type="text" matInput placeholder="" formControlName="country">
                     </mat-form-field>
                 </div>
+                <div class="col-lg-4">
+                    <mat-form-field class="example-full-width">
+                        <mat-label>GST Number</mat-label>
+                        <input type="text" matInput placeholder="" formControlName="gstNumber">
+                    </mat-form-field>
+                </div>
                 <div class="col-lg-6">
                     <mat-form-field class="example-full-width">
                         <mat-label>Address</mat-label>
@@ -87,7 +93,7 @@
                     <div class="btnEnd">
                         <app-sales-cancel-btn mat-icon-button mat-dialog-close tabindex="-1" class="close-button"
                             [label]="'Cancel'"></app-sales-cancel-btn>
-                        <app-sales-btn [label]="!data? '+ Add' : 'Update' " (action)="saveCustomer()"></app-sales-btn>
+                        <app-sales-btn [label]="!data? '+ Add' : 'Update' " [isWriteEnabled]="'true'" (action)="saveCustomer()"></app-sales-btn>
                     </div>
                 </div>
             </div>

@@ -42,6 +42,11 @@ export const tableHeaders = [
         sort: true,
     },
     {
+        name: 'GST Number',
+        key: 'gstNumber',
+        sort: true,
+    },
+    {
         name: 'Created Date',
         key: 'createdOn',
         sort: true,

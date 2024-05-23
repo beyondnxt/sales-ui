@@ -23,6 +23,7 @@ export class AddCustomerComponent {
     state: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-/'.]+$/)]],
     pinCode: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
     country: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-]+$/)]],
+    gstNumber:[''],
   });
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<AddCustomerComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
 

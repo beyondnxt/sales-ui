@@ -20,6 +20,8 @@ export class CustomerComponent {
   count = 0;
   currentPage = 0;
   searchQuery = '';
+  isDeleteEnabled = true;
+  isWriteEnabled = true;
 
   constructor(private service: CommonService, private customerService: CustomerService, private dialog: MatDialog) { }
   ngOnInit() {

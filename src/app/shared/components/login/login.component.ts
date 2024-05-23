@@ -55,16 +55,19 @@ export class LoginComponent {
       const payload = this.signInForm.getRawValue();
       this.adminService.login(payload).subscribe({
         next: (res) => {
+          // console.log('58------', res);
           this.loadingSpinner = false;
-          if (res.token) {
-            localStorage.setItem('user_id', res.userId);
-            localStorage.setItem('user_name', res.userName);
-            localStorage.setItem('role_id', res.roleId);
-            localStorage.setItem('role_name', res.roleName);
-            localStorage.setItem('token', res.token);
+          if (res.data.token) {
+            // console.log('61------', res);
+            localStorage.setItem('user_id', res.data.userId);
+            localStorage.setItem('user_name', res.data.userName);
+            localStorage.setItem('role_id', res.data.roleId);
+            localStorage.setItem('role_name', res.data.roleName);
+            localStorage.setItem('token', res.data.token);
             this.router.navigate(['/dashboard']);
             this.service.showSnackbar('LoggedIn Succcessfully');
           } else {
+            // console.log('70------', res);
             this.loadingSpinner = false;
             this.showSignInResMsg = true;
             this.signInResponseMsg = res.message;
