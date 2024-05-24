@@ -6,11 +6,13 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 import { MatDialog } from '@angular/material/dialog';
 import { CompanyHelper } from './company.helper';
 import { AddCompanyComponent } from '../add-company/add-company.component';
+import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
+import { RolesService } from 'src/app/providers/roles/roles.service';
 
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styleUrls: ['./company.component.scss']
+  styleUrls: ['./company.component.scss'],
 })
 export class CompanyComponent {
   companyList: any;
@@ -22,14 +24,27 @@ export class CompanyComponent {
   currentPage = 0;
   showOrHide = false;
   apiLoader = false;
-  constructor(private dialog: MatDialog, private companyService: CompanyService, public service: CommonService, private companyHelper:CompanyHelper) { }
+  userMenuPermissions: any;
+  isDeleteEnabled = true;
+  isWriteEnabled = true;
+  constructor(
+    private dialog: MatDialog,
+    private companyService: CompanyService,
+    public service: CommonService,
+    private companyHelper: CompanyHelper,
+    private _roleApiService: RolesService,
+    private _helperFunctionService: HelperFunctionService
+  ) {}
   ngOnInit() {
     this.getAllCompany();
+    this.triggerRoleAPI();
   }
   getAllCompany() {
     this.showOrHide = false;
     this.apiLoader = true;
-    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
+    let query = `?pageSize=${this.pageSize}&page=${
+      isNaN(this.currentPage) ? 1 : this.currentPage + 1
+    }`;
     this.companyService.getCompanyList(this.searchQuery, query).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
@@ -41,44 +56,47 @@ export class CompanyComponent {
           company.longitude = longitude;
         });
         this.tableValues = this.companyHelper.mapCompanyData(res.data);
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.apiLoader = false;
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
   searchBox(event: any) {
     this.searchQuery = `&userName=${event}`;
-    (event) && (this.currentPage = 0);
+    event && (this.currentPage = 0);
     this.currentPage = 0;
     this.getAllCompany();
   }
 
   addCompany() {
-    this.dialog.open(AddCompanyComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'user-dialog-container',
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        this.postCompany(res);
-      }
-    });
+    this.dialog
+      .open(AddCompanyComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'user-dialog-container',
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.postCompany(res);
+        }
+      });
   }
 
   postCompany(payload: any) {
     this.companyService.postCompany(payload).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Company Created Successfully");
+        this.service.showSnackbar('Company Created Successfully');
         this.getAllCompany();
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
   pagination(event: any): void {
@@ -87,57 +105,89 @@ export class CompanyComponent {
   }
 
   delete(data: any) {
-    this.dialog.open(DeleteComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'delete-dialog-container',
-      data: data,
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        this.deleteUser(res);
-      }
-    });
+    this.dialog
+      .open(DeleteComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'delete-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.deleteUser(res);
+        }
+      });
   }
 
   deleteUser(id: any) {
     this.companyService.deleteCompany(id).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Company Deleted Successfully");
+        this.service.showSnackbar('Company Deleted Successfully');
         this.getAllCompany();
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
   edit(data: any) {
-    this.dialog.open(AddCompanyComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'user-dialog-container',
-      data:data,
-    }).afterClosed().subscribe((result: any[]) => {
-      if (result && result.length === 2) {
-        const userDetails = result[0];
-        const dataId = result[1];
-        this.updateCompany(userDetails, dataId);
-      }
-    });
+    this.dialog
+      .open(AddCompanyComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'user-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((result: any[]) => {
+        if (result && result.length === 2) {
+          const userDetails = result[0];
+          const dataId = result[1];
+          this.updateCompany(userDetails, dataId);
+        }
+      });
   }
 
   updateCompany(payload: any, id: any) {
     this.companyService.updateCompany(id, payload).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Company Updated Successfully");
+        this.service.showSnackbar('Company Updated Successfully');
         this.getAllCompany();
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
+  }
+
+  triggerRoleAPI() {
+    // Role API
+    let roleId: any = localStorage.getItem('role_id');
+    this._roleApiService.getRoleById(roleId).subscribe({
+      next: (res) => {
+        this.userMenuPermissions =
+          this._helperFunctionService.getMenuPermissions(
+            res.menuAccess,
+            'company'
+          );
+        this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
+        this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+        if (!this.isDeleteEnabled && !this.isWriteEnabled) {
+          this.tableHeaders =
+            this._helperFunctionService.removeTableHeaderByKey(
+              this.tableHeaders,
+              'action'
+            );
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }

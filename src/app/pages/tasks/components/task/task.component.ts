@@ -15,6 +15,8 @@ import { CommentsComponent } from '../comments/comments.component';
 import { SearchComponent } from 'src/app/shared/components/search/search.component';
 import { MatSelect } from '@angular/material/select';
 import { FormControl } from '@angular/forms';
+import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
+import { RolesService } from 'src/app/providers/roles/roles.service';
 
 @Component({
   selector: 'app-task',
@@ -26,7 +28,9 @@ export class TaskComponent {
   @ViewChild('createdBySearchComp') createdBySearchComp!: SearchComponent;
   @ViewChild('assignedToSearchComp') assignedToSearchComp!: SearchComponent;
   taskTypeControl = new FormControl();
-
+  userMenuPermissions: any;
+  isDeleteEnabled = true;
+  isWriteEnabled = true;
   customerNamePlaceholder: string = 'Customer Name...';
   changeTab: any = 'unassigned';
   pageCount: any;
@@ -53,7 +57,9 @@ export class TaskComponent {
     private dialog: MatDialog,
     private taskService: TasksService,
     private service: CommonService,
-    private _cdRef: ChangeDetectorRef
+    private _cdRef: ChangeDetectorRef,
+    private _roleApiService: RolesService,
+    private _helperFunctionService: HelperFunctionService
   ) {}
   @ViewChild('childRef') saledData!: SalesTableComponent;
 
@@ -63,6 +69,7 @@ export class TaskComponent {
   tab = 'status=unassigned';
   ngOnInit() {
     this.getDataBasedOnTabSelection(this.tab);
+    this.triggerRoleAPI();
   }
 
   addTask() {
@@ -101,26 +108,31 @@ export class TaskComponent {
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeaders;
         this.changeTab = tab;
+        this.triggerRoleAPI();
         break;
       case 'assigned':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeadersForAssigned;
         this.changeTab = '';
+        this.triggerRoleAPI();
         break;
       case 'completed':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeadersForCompleted;
         this.changeTab = tab;
+        this.triggerRoleAPI();
         break;
       case 'verified':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeadersForVerified;
         this.changeTab = '';
+        this.triggerRoleAPI();
         break;
       case 'visit':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeadersForVisit;
         this.changeTab = tab;
+        this.triggerRoleAPI();
         break;
       default:
     }
@@ -333,5 +345,31 @@ export class TaskComponent {
     this.assignedToSearchComp.search.reset();
     this.taskTypeControl.reset();
     this.getDataBasedOnTabSelection(this.tab);
+  }
+
+  triggerRoleAPI() {
+    // Role API
+    let roleId: any = localStorage.getItem('role_id');
+    this._roleApiService.getRoleById(roleId).subscribe({
+      next: (res) => {
+        this.userMenuPermissions =
+          this._helperFunctionService.getMenuPermissions(
+            res.menuAccess,
+            'task'
+          );
+        this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
+        this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+        if (!this.isDeleteEnabled && !this.isWriteEnabled) {
+          this.tableHeaders =
+            this._helperFunctionService.removeTableHeaderByKey(
+              this.tableHeaders,
+              'action'
+            );
+        }
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 }
