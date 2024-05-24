@@ -59,12 +59,17 @@
     ></span>
 
     <div class="task" *ngIf="changeTab == 'completed'">
-      <app-sales-btn [label]="'Verify'" (action)="Verify()"></app-sales-btn>
+      <app-sales-btn
+        [label]="'Verify'"
+        [isWriteEnabled]="isWriteEnabled"
+        (action)="Verify()"
+      ></app-sales-btn>
     </div>
 
     <div class="mx-2" *ngIf="changeTab == 'unassigned'">
       <app-sales-btn
         [label]="'+ New Task'"
+        [isWriteEnabled]="isWriteEnabled"
         (action)="addTask()"
       ></app-sales-btn>
     </div>
@@ -129,6 +134,8 @@
   [count]="count"
   (pagination)="pagination($event)"
   [apiLoader]="apiLoader"
+  [isDeleteEnabled]="isDeleteEnabled"
+  [isWriteEnabled]="isWriteEnabled"
 ></app-sales-table>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">
   No Data Found

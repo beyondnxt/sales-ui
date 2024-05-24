@@ -1,16 +1,30 @@
 <div class="col-lg-12 btnAlign">
-    <div>
-        <p class="main-head">Company({{count}})</p>
+  <div>
+    <p class="main-head">Company({{ count }})</p>
+  </div>
+  <div class="content">
+    <app-search (searchData)="searchBox($event)"></app-search>
+    <div class="mx-2">
+      <app-sales-btn
+        [isWriteEnabled]="isWriteEnabled"
+        [label]="'+ New Company'"
+        (action)="addCompany()"
+      ></app-sales-btn>
     </div>
-    <div class="content">
-        <app-search (searchData)="searchBox($event)"></app-search>
-        <div class="mx-2">
-            <app-sales-btn [label]="'+ New Company'" (action)="addCompany()"></app-sales-btn>
-        </div>
-    </div>
+  </div>
 </div>
 
-<app-sales-table [tableHeaders]="tableHeaders" [tableValues]="tableValues" (edit)="edit($event)"
-    (delete)="delete($event)" [count]="count" (pagination)="pagination($event)"
-    [apiLoader]="apiLoader"></app-sales-table>
-<div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>
+<app-sales-table
+  [tableHeaders]="tableHeaders"
+  [tableValues]="tableValues"
+  (edit)="edit($event)"
+  (delete)="delete($event)"
+  [count]="count"
+  (pagination)="pagination($event)"
+  [apiLoader]="apiLoader"
+  [isDeleteEnabled]="isDeleteEnabled"
+  [isWriteEnabled]="isWriteEnabled"
+></app-sales-table>
+<div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">
+  No Data Found
+</div>
