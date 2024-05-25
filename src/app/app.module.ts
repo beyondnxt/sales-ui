@@ -13,6 +13,7 @@ import { DashboardComponent } from './shared/components/dashboard/dashboard.comp
 import { PieChartComponent } from './shared/components/pie-chart/pie-chart.component';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './providers/httpinterceptor/http-interceptor.service';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -43,4 +44,13 @@ import { HttpInterceptorService } from './providers/httpinterceptor/http-interce
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule { 
+  constructor() {
+    let hostName: any = window.location.hostname;
+    if (['117.221.69.35'].includes(hostName)) {
+      environment.BASE_URL = 'http://117.221.69.35:8080';
+    } else if (['localhost', '192.168.1.21'].includes(hostName)) {
+      environment.BASE_URL = 'http://192.168.1.21:8080';
+    }
+  }
+}
