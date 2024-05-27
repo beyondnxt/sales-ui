@@ -88,7 +88,7 @@
               [disabled]="taskDetails.get('status')?.value === 'Unassigned'"
             >
               <mat-option *ngFor="let user of userList" [value]="user.id">{{
-                user.firstName
+                user.firstName + " " + user.lastName
               }}</mat-option>
             </mat-select>
           </mat-form-field>
