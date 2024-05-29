@@ -161,7 +161,8 @@ export class TaskComponent {
           !res.data.length && (this.showOrHide = true);
           this.apiLoader = false;
           this.tableValues = res.data;
-          this.count = res.fetchedCount;
+          console.log('164--', res);
+          this.count = res.total;
         },
         error: (err) => {
           this.apiLoader = false;

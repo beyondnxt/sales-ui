@@ -51,6 +51,7 @@ export class AddTaskComponent {
   ) {}
 
   ngOnInit() {
+    console.log('details----', this.data);
     // this.selectedOptionChanges();
     this.taskDetails = this.fb.group({
       customerId: ['', !this.data ? Validators.required : null],
@@ -116,7 +117,7 @@ export class AddTaskComponent {
 
   getCustomers() {
     this.searchQuery = '';
-    this.customerService.getCustomers(this.searchQuery, '').subscribe({
+    this.customerService.getAllCustomers(this.searchQuery, '').subscribe({
       next: (res) => {
         // console.log('customers-----', res);
         this.customerList = res.data;

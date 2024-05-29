@@ -52,6 +52,10 @@
     }
   }
   
+  .change-color{
+    width: 100px; /* Adjust as needed */
+    color: var(--font-primary-color) !important;
+  }
   .sidenav-collapsed {
     width: 13rem;
   }

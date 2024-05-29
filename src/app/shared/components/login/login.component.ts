@@ -58,7 +58,7 @@ export class LoginComponent {
           // console.log('58------', res);
           this.loadingSpinner = false;
           if (res.data.token) {
-            // console.log('61------', res);
+            console.log('61------', res);
             localStorage.setItem('user_id', res.data.userId);
             localStorage.setItem('user_name', res.data.userName);
             localStorage.setItem('role_id', res.data.roleId);

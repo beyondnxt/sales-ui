@@ -36,7 +36,7 @@ export const tableHeaders = [
     {
         name: 'Action',
         key: 'action',
-        edit:'true',
+        edit:'false',
         map:'true'
     }
 ]

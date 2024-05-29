@@ -30,7 +30,7 @@ export class AddRoleComponent {
     { name: 'Users' },
     { name: 'Roles' },
     { name: 'Product' },
-    { name: 'Attendence' },
+    { name: 'Attendance' },
     { name: 'Task' },
     { name: 'Company' },
     { name: 'Approve' },

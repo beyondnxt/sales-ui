@@ -50,6 +50,7 @@ export class RoleComponent {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.tableValues = this.roleHelper.mapUserData(res.data);
+        // console.log('53------', this.tableValues);
         this.count = res.fetchedCount;
       },
       error: (err) => {

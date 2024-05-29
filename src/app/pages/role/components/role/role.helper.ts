@@ -22,24 +22,28 @@ export class RoleHelper {
     mapPermissions(menuAccess: any): any {
         const permissions: any = {};
         if (menuAccess) {
+            // console.log('25------', menuAccess);
             menuAccess.forEach((menu: any) => {
+                // console.log('27--------', menu);
                 for (const key in menu) {
+                    // console.log('29---------', key);
                     if (key !== 'permissions') {
-                        // console.log('28----', menu);
-                        permissions[`${key}IsActive`] = menu[key] ? menu[key] : false;
+                        // console.log('31----', key);
+                        permissions[`${menu.menuName}IsActive`] = menu[key] ? menu[key] : false;
 
                         // const formattedKey = key.charAt(0).toUpperCase() + key.slice(1); // Capitalize the first letter
                         // for (const permission in menu[key]) {
                             // permissions[`${key}Read`] = menu.permissions.read ? menu.permissions.read : false;
-                            permissions[`${key}Write`] = menu.permissions.write ? menu.permissions.write : false;
-                            permissions[`${key}Delete`] = menu.permissions.delete ? menu.permissions.delete : false;
+                            permissions[`${menu.menuName}Write`] = menu.permissions.write ? menu.permissions.write : false;
+                            permissions[`${menu.menuName}Delete`] = menu.permissions.delete ? menu.permissions.delete : false;
                         // }
                     } else {
                         for (const permission in menu[key]) {
+                            // console.log('42----', menu);
                             // permissions[`${key}IsActive`] = menu[key] ? menu[key] : false;
                             // permissions[`${key}Read`] = permissions.read ? permissions.read : false;
-                            permissions[`${key}Write`] = permissions.Write ? permissions.read : false;
-                            permissions[`${key}Delete`] = permissions.delete ? permissions.read : false;
+                            permissions[`${menu.menuName}Write`] = menu.permissions.write ? menu.permissions.write : false;
+                            permissions[`${menu.menuName}Delete`] = menu.permissions.delete ? menu.permissions.delete : false;
                         }
                     }
                 }

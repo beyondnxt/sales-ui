@@ -2,6 +2,10 @@
   <div class="logo-container">
     <button class="logo" (click)="toggleCollapse()">S</button>
     <div class="logo-txt" *ngIf="collapsed">Sales</div>
+<!-- 
+    <button class="logo" (click)="toggleCollapse()">S</button>
+    <div class="logo-txt" *ngIf="collapsed"><img src="./../../../../assets/images/Lingam_logo.png" alt="" width="100" class="change-color"></div> -->
+
     <button *ngIf="collapsed" class="btnclose" (click)="closeSideNav()">
       <svg
         xmlns="http://www.w3.org/2000/svg"
