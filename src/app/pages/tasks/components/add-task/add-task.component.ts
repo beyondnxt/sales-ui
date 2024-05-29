@@ -96,7 +96,7 @@ export class AddTaskComponent {
   }
 
   getUser() {
-    this.userService.getUsers('', '').subscribe({
+    this.userService.getAllUsers().subscribe({
       next: (res) => {
         this.userList = res.data;
       },
