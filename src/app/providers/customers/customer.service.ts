@@ -4,21 +4,26 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CustomerService {
-
-  constructor(public http:HttpClient) { }
+  constructor(public http: HttpClient) {}
   getCustomers(searchQry: any, query: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/customers${query}${searchQry}`);
+    return this.http.get(
+      environment.BASE_URL + `/customers${query}${searchQry}`
+    );
   }
-  newCustomerCreation(payload: any){
+  newCustomerCreation(payload: any) {
     return this.http.post(environment.BASE_URL + '/customers', payload);
   }
-  updateCustomer(id:string,payload:any): Observable<any> {
-    return this.http.put(environment.BASE_URL + `/customers/${id}`,payload);
+  updateCustomer(id: string, payload: any): Observable<any> {
+    return this.http.put(environment.BASE_URL + `/customers/${id}`, payload);
   }
-  deleteCustomer(id:string): Observable<any> {
+  deleteCustomer(id: string): Observable<any> {
     return this.http.delete(environment.BASE_URL + `/customers/${id}`);
+  }
+
+  sortCustomer(sort: string): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/customers?sortOrder=${sort}`);
   }
 }

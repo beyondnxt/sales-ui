@@ -9,7 +9,7 @@ import { DeleteComponent } from 'src/app/shared/components/delete/delete.compone
 @Component({
   selector: 'app-customer',
   templateUrl: './customer.component.html',
-  styleUrls: ['./customer.component.scss']
+  styleUrls: ['./customer.component.scss'],
 })
 export class CustomerComponent {
   tableHeaders = data.tableHeaders;
@@ -23,7 +23,11 @@ export class CustomerComponent {
   isDeleteEnabled = true;
   isWriteEnabled = true;
 
-  constructor(private service: CommonService, private customerService: CustomerService, private dialog: MatDialog) { }
+  constructor(
+    private service: CommonService,
+    private customerService: CustomerService,
+    private dialog: MatDialog
+  ) {}
   ngOnInit() {
     this.getAllCustomers();
   }
@@ -31,19 +35,21 @@ export class CustomerComponent {
   getAllCustomers() {
     this.showOrHide = false;
     this.apiLoader = true;
-    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
+    let query = `?pageSize=${this.pageSize}&page=${
+      isNaN(this.currentPage) ? 1 : this.currentPage + 1
+    }`;
     this.customerService.getCustomers(this.searchQuery, query).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.count = res.totalCount;
         this.tableValues = res.data;
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.apiLoader = false;
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
   pagination(event: any): void {
@@ -52,92 +58,116 @@ export class CustomerComponent {
   }
 
   newCustomer() {
-    this.dialog.open(AddCustomerComponent, {
-      width: '700px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'user-dialog-container',
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        this.createNewCustomer(res);
-      }
-    });
+    this.dialog
+      .open(AddCustomerComponent, {
+        width: '700px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'user-dialog-container',
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.createNewCustomer(res);
+        }
+      });
   }
 
-  createNewCustomer(payload: any){
+  createNewCustomer(payload: any) {
     this.customerService.newCustomerCreation(payload).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Customer Created Successfully");
+        this.service.showSnackbar('Customer Created Successfully');
         this.getAllCustomers();
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
   searchBox(event: any) {
     this.searchQuery = `&name=${event}`;
-    (event) && (this.currentPage = 0);
+    event && (this.currentPage = 0);
     this.currentPage = 0;
     this.getAllCustomers();
   }
 
-  edit(data: any){
-    this.dialog.open(AddCustomerComponent, {
-      width: '700px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'user-dialog-container',
-      data:data,
-    }).afterClosed().subscribe((result: any[]) => {
-      if (result && result.length === 2) {
-        const customerDetails = result[0];
-        const customerId = result[1];
-        this.editCustomer(customerDetails, customerId);
-      }
-    });
+  edit(data: any) {
+    this.dialog
+      .open(AddCustomerComponent, {
+        width: '700px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'user-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((result: any[]) => {
+        if (result && result.length === 2) {
+          const customerDetails = result[0];
+          const customerId = result[1];
+          this.editCustomer(customerDetails, customerId);
+        }
+      });
   }
 
-  editCustomer(customerDetails: any, customerId: any){
+  editCustomer(customerDetails: any, customerId: any) {
     this.customerService.updateCustomer(customerId, customerDetails).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Customer Updated Successfully");
+        this.service.showSnackbar('Customer Updated Successfully');
         this.getAllCustomers();
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
   delete(data: any) {
-    this.dialog.open(DeleteComponent, {
-      width: '500px',
-      height: 'max-content',
-      disableClose: true,
-      panelClass: 'delete-dialog-container',
-      data: data,
-    }).afterClosed().subscribe((res: any) => {
-      if (res) {
-        this.deleteCustomer(res);
-      }
-    });
+    this.dialog
+      .open(DeleteComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'delete-dialog-container',
+        data: data,
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.deleteCustomer(res);
+        }
+      });
   }
 
   deleteCustomer(id: any) {
     this.customerService.deleteCustomer(id).subscribe({
       next: (res) => {
-        this.service.showSnackbar("Customer Deleted Successfully");
+        this.service.showSnackbar('Customer Deleted Successfully');
         this.getAllCustomers();
-      }, error: (err) => {
+      },
+      error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {
-      }
-    })
+      complete: () => {},
+    });
   }
 
+  sortType: any = 'ASC';
+  sort(data: any) {
+    this.apiLoader = true;
+    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.customerService.sortCustomer(this.sortType).subscribe({
+      next: (res) => {
+        this.apiLoader = false;
+        this.count = res.totalCount;
+        this.tableValues = res.data;
+      },
+      error: (err) => {
+        this.apiLoader = false;
+      },
+    });
+  }
 }

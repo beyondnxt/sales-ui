@@ -12,8 +12,13 @@
             </th>
           </ng-container>
           <ng-template #headerCell>
-            <th>
-              {{ header.name }} <i *ngIf="header?.sort" class="fas fa-sort"></i>
+            <th (click)="sort.emit(header)">
+              {{ header.name }}
+              <i
+                *ngIf="header?.sort"
+                class="fas fa-sort"
+                style="cursor: pointer"
+              ></i>
             </th>
           </ng-template>
         </ng-container>
