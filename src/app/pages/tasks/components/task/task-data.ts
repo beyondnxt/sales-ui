@@ -310,3 +310,7 @@ export const tableValues = [
     //     des:'A sample is a subset of a larger population.',
     // },
 ]
+
+export function map(arg0: (item: any) => any): never[] {
+  throw new Error('Function not implemented.')
+}

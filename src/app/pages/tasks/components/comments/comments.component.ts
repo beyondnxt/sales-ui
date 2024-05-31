@@ -1,4 +1,5 @@
-import { Component, Inject } from '@angular/core';
+import { Component, ElementRef, Inject, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { CommonService } from 'src/app/providers/core/common.service';
 import { TasksService } from 'src/app/providers/tasks/tasks.service';
@@ -9,10 +10,20 @@ import { TasksService } from 'src/app/providers/tasks/tasks.service';
   styleUrls: ['./comments.component.scss']
 })
 export class CommentsComponent {
-
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any, private taskService: TasksService, private service: CommonService, public dialogRef: MatDialogRef<CommentsComponent>) { }
+  taskDetails: FormGroup;
+  @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
+  @ViewChild('feedbackTextarea') feedbackTextarea!: ElementRef;
+  currentDate: Date = new Date();
+  
+  constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private taskService: TasksService, private service: CommonService, public dialogRef: MatDialogRef<CommentsComponent>) {
+    this.taskDetails = this.fb.group({
+      followUpDate: [this.currentDate, Validators.required],
+      feedBack: ['', Validators.required]
+    });
+   }
   isAddingFeedback: any;
   dataArray: any;
+
   // data: any = {
   //   "data": [
   //     {
@@ -49,6 +60,7 @@ export class CommentsComponent {
   //   "total": 14
   // }
 
+  
   ngOnInit() {
     if (this.data.feedBack) {
       this.dataArray = this.data.feedBack;
@@ -61,7 +73,14 @@ export class CommentsComponent {
   addFeedBack() {
     this.isAddingFeedback = !this.isAddingFeedback;
   }
-  saveFeedback(feedback: any) {
+  saveFeedback() {
+
+    const feedback = this.feedbackTextarea.nativeElement.value;
+    const followUpDate = this.fromDateInput.nativeElement.value;
+
+    console.log('Feedback:', feedback);
+    console.log('Follow-up Date:', followUpDate);
+
     if (Object.keys(this.dataArray).length === 0) {
       this.dataArray = {
         "feedBack": [{
@@ -75,6 +94,7 @@ export class CommentsComponent {
       this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('user_id'),createdByName:localStorage.getItem('user_name') });
       this.dataArray = { feedBack: this.dataArray };
     }
+    this.updateFeedback(followUpDate);
     this.isAddingFeedback = false;
     this.taskService.saveFeedBack(this.data.id, this.dataArray).subscribe({
       next: (res) => {
@@ -86,6 +106,20 @@ export class CommentsComponent {
       complete: () => {
       }
     })
+  }
+
+  updateFeedback(followUpDate: any){
+    
+      const id = this.data.id;
+      this.taskService.updateFeedback(id, this.taskDetails.getRawValue()).subscribe({
+        next: (res) => {
+          return true;
+        },
+        error: (err) => {
+          this.service.showSnackbar(err.error.message);
+        },
+        complete: () => {},
+      });
   }
 
 }

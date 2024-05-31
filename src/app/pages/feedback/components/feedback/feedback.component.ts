@@ -12,6 +12,7 @@ export class FeedbackComponent {
   constructor(private dialog: MatDialog) { }
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
+  isWriteEnabled = true;
   addFeedBack(){
     this.dialog.open(AddFeedbackComponent, {
       width: '500px',

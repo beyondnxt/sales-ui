@@ -62,7 +62,7 @@
         </div>
         <div class="col-lg-6">
           <mat-form-field>
-            <mat-label>{{ !data || data.status === 'Unassigned' ? 'Unassigned' : data.status }}</mat-label>
+            <mat-label>Status</mat-label>
             <mat-select formControlName="status">
               <mat-option *ngIf="!data" value="Unassigned"
                 >Unassigned</mat-option
@@ -86,6 +86,7 @@
             <mat-select
               formControlName="assignTo"
               [disabled]="taskDetails.get('status')?.value === 'Unassigned'"
+              (selectionChange)="onAssignToChange($event)"
             >
               <mat-option *ngFor="let user of userList" [value]="user.id">{{
                 user.firstName + " " + user.lastName

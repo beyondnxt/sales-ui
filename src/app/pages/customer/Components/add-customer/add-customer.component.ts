@@ -11,18 +11,18 @@ export class AddCustomerComponent {
 
 
   customerDetails = this.fb.group({
-    name: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(\s[a-zA-Z]+)*$/)]],
-    contactPerson: ['', [Validators.required, Validators.pattern(/^[a-zA-Z]+(\s[a-zA-Z]+)*$/)]],
+    name: ['', Validators.required],
+    contactPerson: [''],
     email: [''],
     contactNo: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
     latitude: [''],
     longitude: [''],
     address: [''],
-    area: ['', [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s\-/.,']+$/)]],
-    city: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-/'.]+$/)]],
+    area: [''],
+    city: [''],
     state: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-/'.]+$/)]],
-    pinCode: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-    country: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-]+$/)]],
+    pinCode: [''],
+    country: [''],
     gstNumber:[''],
   });
   constructor(private fb: FormBuilder, public dialogRef: MatDialogRef<AddCustomerComponent>, @Inject(MAT_DIALOG_DATA) public data: any) { }
@@ -38,7 +38,7 @@ export class AddCustomerComponent {
     if (this.customerDetails.invalid) {
       return;
     } else {
-
+      console.log('data-----', this.customerDetails.getRawValue());
       if (this.data) {
         this.dialogRef.close([this.customerDetails.getRawValue(), this.data.id]);
       } else {

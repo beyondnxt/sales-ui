@@ -41,6 +41,11 @@ export const tableHeaders = [
         key: 'country',
         sort: true,
     },
+    // {
+    //     name: 'State',
+    //     key: 'state',
+    //     sort: true,
+    // },
     {
         name: 'Created Date',
         key: 'createdOn',

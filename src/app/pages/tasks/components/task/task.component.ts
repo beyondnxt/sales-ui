@@ -160,8 +160,14 @@ export class TaskComponent {
         next: (res) => {
           !res.data.length && (this.showOrHide = true);
           this.apiLoader = false;
-          this.tableValues = res.data;
-          console.log('164--', res);
+
+          this.tableValues = res.data.map((item: any) => ({
+            ...item,
+            assignToName: item.assignToName && item.lastName ? `${item.assignToName} ${item.lastName}` : '-'
+        }));
+
+          // this.tableValues = res.data;
+          console.log('164--', this.tableValues);
           this.count = res.total;
         },
         error: (err) => {
@@ -320,7 +326,7 @@ export class TaskComponent {
   comments(data: any) {
     this.dialog
       .open(CommentsComponent, {
-        width: '500px',
+        width: '600px',
         height: 'max-content',
         disableClose: true,
         panelClass: 'delete-dialog-container',

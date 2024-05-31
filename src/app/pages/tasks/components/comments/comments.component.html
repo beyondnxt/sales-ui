@@ -1,37 +1,48 @@
-<div class="col-lg-12 closeAlign head">
-    <div>
-        <p class="pt-3 pl">Test</p>
+<div class="commentWindow">
+    <div class="col-lg-12 closeAlign head closeSection">
+        <div>
+            <p class="pt-3 pl">Feedback</p>
+        </div>
+        <div>
+            <button mat-icon-button mat-dialog-close tabindex="-1" class="close-button"><mat-icon
+                    class="closeColor">close</mat-icon></button>
+        </div>
     </div>
-    <div>
-        <button mat-icon-button mat-dialog-close tabindex="-1" class="close-button"><mat-icon
-                class="closeColor">close</mat-icon></button>
-    </div>
-</div>
     <div class="row commentSection">
         <div class="col-lg-12">
             <div class="inTimeData d-flex justify-content-center">
                 <table class="tableData centered-table">
                     <tr class="headerClass">
-                        <th>Feedback</th>
-                        <th>Created Date</th>
-                        <th>Created By</th>
+                        <th class="feedBackHeader">Feedback</th>
+                        <th class="createdDateHeader">Created Date</th>
+                        <th class="createdNameHeader">Created By</th>
                     </tr>
-                    <tr *ngFor="let data of dataArray">
-                        <td>{{data.feedback}}</td>
-                        <td>{{data.createdDate | date:'HH:mm:ss'}}</td>
-                        <td>{{data.createdByName}}</td>
+                    <tr *ngFor="let data of dataArray" class="bodyClass">
+                        <td class="feedBack">{{data.feedback}}</td>
+                        <td class="createdDate">{{data.createdDate | date:'MMM d, y'}}</td>
+                        <td class="createdName">{{data.createdByName}}</td>
                     </tr>
                 </table>
             </div>
         </div>
-            <div class="d-flex justify-content-end w-100 mb-2">
-                <app-sales-btn [label]="'Add'" (action)="addFeedBack()"></app-sales-btn>
-            </div>
-            
-            <div *ngIf="isAddingFeedback" class="addingFeedBack">
-                <textarea #feedbackTextarea class="form-control"></textarea>
-                <app-sales-btn class="saveFeedback" [label]="'Save'" (action)="saveFeedback(feedbackTextarea.value)"></app-sales-btn>
-                <!-- <button mat-button (click)="saveFeedback(feedbackTextarea.value)">Save</button> -->
-            </div>
-    </div>
+        <div class="d-flex justify-content-end w-100 mb-2">
+            <app-sales-btn [label]="'Add'" (action)="addFeedBack()" [isWriteEnabled]="'true'"></app-sales-btn>
+        </div>
 
+        <div *ngIf="isAddingFeedback" class="followDate">
+            <form [formGroup]="taskDetails" class="addingFeedBack">
+                <textarea #feedbackTextarea class="form-control textArea"></textarea>
+
+                <mat-form-field class="full-width flex-end">
+                    <input #fromDateInput matInput formControlName="followUpDate" [matDatepicker]="fromDatepicker"
+                        placeholder="From date" />
+                    <mat-datepicker-toggle matSuffix [for]="fromDatepicker"></mat-datepicker-toggle>
+                    <mat-datepicker #fromDatepicker></mat-datepicker>
+                </mat-form-field>
+
+                <app-sales-btn class="saveFeedback" [label]="'Save'" (action)="saveFeedback()"
+                    [isWriteEnabled]="'true'"></app-sales-btn>
+            </form>
+        </div>
+    </div>
+</div>

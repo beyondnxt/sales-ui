@@ -1,77 +1,195 @@
 .closeAlign {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 }
-.dialog-container{
-    padding: 10px;
+
+.dialog-container {
+  padding: 10px;
 }
 
 ::ng-deep .mdc-text-field--filled:not(.mdc-text-field--disabled) {
-    background-color: white !important;
-    padding-left: 5px !important;
-  }
-  ::ng-deep .commentSection .mat-mdc-form-field {
-    width: 100%;
-  }
-  .btnEnd{
-    display: flex;
-    justify-content: end;
-  }
-  .head{
-    // background: #2F4FCD;
-    margin: auto;
-    // color: white;
-    display: flex;
-    justify-content: space-between;
-    padding:2px;
+  background-color: white !important;
+  padding-left: 5px !important;
 }
-.pl{
-    padding-left: 10px;
+
+::ng-deep .commentSection .mat-mdc-form-field {
+  width: 100%;
 }
-.inputFields{
-    width:100%;
-    padding:0px 10px 0px 10px;
+
+::ng-deep .followDate .mat-mdc-form-field {
+  width: 50%;
+  margin-left: 10px;
 }
-.addUser{
-    padding:10px;
-    border-radius:10px;
-    background-color:#0d6efd;
-    border:1px solid #0d6efd;
-    color:#FFFFFF;
+
+.btnEnd {
+  display: flex;
+  justify-content: end;
 }
+
+.head {
+  // background: #2F4FCD;
+  margin: auto;
+  // color: white;
+  display: flex;
+  justify-content: space-between;
+  padding: 2px;
+}
+
+.pl {
+  padding-left: 10px;
+}
+
+.inputFields {
+  width: 100%;
+  padding: 0px 10px 0px 10px;
+}
+
+.addUser {
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #0d6efd;
+  border: 1px solid #0d6efd;
+  color: #FFFFFF;
+}
+
 .btnAlign {
-    display: grid; 
-    place-items: end;
-    padding:10px;
+  display: grid;
+  place-items: end;
+  padding: 10px;
 }
+
 .row {
-    width:100%;
+  max-width: 100%;
+  // min-width:70%;
+  // max-height:500px;
 }
-.inTimeData{
-    margin:15px;
+
+.inTimeData {
+  margin: 15px;
 }
-.tableData{
-    width:100%;
+
+.tableData {
+  width: 100%;
+  border-collapse: collapse;
 }
-.tableData tbody, td, tfoot, th, thead, tr{
-    padding:5px;
+
+.tableData tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  padding: 5px;
 }
-.tableData .headerClass{
-    border-bottom:1px solid #ccc;
+
+.tableData .headerClass {
+  border-bottom: 1px solid #ccc;
 }
+
+.bodyClass {
+  border-bottom: 1px solid #f3eeee;
+}
+
 // .closeAlign {
 //     display: flex;
 //     justify-content: space-between;
 // }
-::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface{
-    --mdc-dialog-container-shape:20px!important;
-    border-radius:var(--mdc-dialog-container-shape, 4px);
+::ng-deep .mat-mdc-dialog-container .mdc-dialog__surface {
+  --mdc-dialog-container-shape: 20px !important;
+  border-radius: var(--mdc-dialog-container-shape, 4px);
+  max-width: 100%;
+  min-width: 50%;
 }
-.addingFeedBack{
+
+.addingFeedBack {
   display: flex;
   justify-content: space-between;
-  margin:10px;
+  margin: 10px;
 }
-.saveFeedback{
-  padding:5px;
+
+.saveFeedback {
+  padding: 5px;
+  /* margin-top: auto; */
+  padding-top: 1rem;
+  /* border-top: 1px solid #ccc; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50px;
+  margin-left: 5px;
+}
+
+/* Ensure text within table cells wraps correctly */
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  // border: 1px solid #ddd;
+  // padding: 8px;
+  word-wrap: break-word;
+  /* Deprecated, use word-break instead */
+  word-break: break-word;
+  /* Ensures long words break and wrap */
+  // max-width: 150px; /* Adjust as needed */
+  // white-space: normal; /* Allow text wrapping */
+}
+
+.commentWindow {
+  position: relative;
+  /* Ensure the container establishes the containing block for absolutely positioned elements */
+  // max-height: 500px; /* Set the height of the container as needed */
+  // overflow-y: auto;
+}
+
+.closeSection {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+.commentSection {
+  position: sticky;
+  top: 50px;
+  /* Adjust the top value to account for the height of .closeSection */
+  max-height: calc(75vh - 50px);
+  /* Set maximum height minus the height of .closeSection */
+  overflow-y: auto;
+}
+
+.headerClass {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1;
+}
+
+.headerClass,
+.bodyClass {
+  display: flex;
+}
+
+.feedBackHeader,
+.feedBack {
+  width: 50%;
+  /* 70% width */
+}
+
+.createdDateHeader,
+.createdDate {
+  width: 25%;
+  /* 15% width */
+}
+
+.createdNameHeader,
+.createdName {
+  width: 25%;
+  /* 15% width */
+}
+
+.textArea {
+  height: 60px !important;
 }

@@ -12,7 +12,7 @@ export const tableHeaders = [
     },
     {
         name: 'Mobile Number',
-        key: 'phoneNo',
+        key: 'contactNo',
         sort: true,
     },
     
@@ -39,6 +39,11 @@ export const tableHeaders = [
     {
         name: 'Country',
         key: 'country',
+        sort: true,
+    },
+    {
+        name: 'State',
+        key: 'state',
         sort: true,
     },
     {

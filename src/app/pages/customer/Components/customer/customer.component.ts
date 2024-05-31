@@ -65,6 +65,7 @@ export class CustomerComponent {
   }
 
   createNewCustomer(payload: any){
+    console.log('phone------', payload);
     this.customerService.newCustomerCreation(payload).subscribe({
       next: (res) => {
         this.service.showSnackbar("Customer Created Successfully");

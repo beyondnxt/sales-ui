@@ -21,6 +21,7 @@ export class CompanyHelper {
                 street: element?.address ? element?.address.street : '',
                 city: element?.address ? element?.address.city : '',
                 zipCode: element?.address ? element?.address.zipCode : '',
+                // state: element?.address ? element?.address.state : '',
                 country: element?.address ? element?.address.country : '',
                 latitude: element?.latitude ? element?.latitude : '',
                 longitude: element?.longitude ? element?.longitude : '',
@@ -37,6 +38,7 @@ export class CompanyHelper {
           street: companyData.street,
           city: companyData.city,
           zipCode: companyData.zipCode,
+          // state: companyData.state,
           country: companyData.country
         });
         data.companyName = companyData.companyName;

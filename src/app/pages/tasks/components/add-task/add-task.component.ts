@@ -36,8 +36,11 @@ export class AddTaskComponent {
   filteredCustomer: any;
   userMenuPermissions: any;
   isWriteEnabled: any;
+  isEditing: boolean = false;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
+  currentDate: Date = new Date();
+
   constructor(
     private service: CommonService,
     private customerService: CustomerService,
@@ -51,16 +54,16 @@ export class AddTaskComponent {
   ) {}
 
   ngOnInit() {
-    console.log('details----', this.data);
+    // console.log('currentDate----', this.currentDate);
     // this.selectedOptionChanges();
     this.taskDetails = this.fb.group({
       customerId: ['', !this.data ? Validators.required : null],
       taskType: ['', Validators.required],
       status: ['', Validators.required],
       assignTo: [''],
-      description: [''],
+      description: ['', Validators.required],
       feedBack: [''],
-      followUpDate: [''],
+      followUpDate: [this.currentDate, Validators.required],
     });
 
     this.taskDetails.get('status').valueChanges.subscribe((status: any) => {
@@ -84,7 +87,9 @@ export class AddTaskComponent {
         this.taskDetails.get('assignTo').disable();
       this.taskDetails.patchValue(this.data);
     }
+
     this.triggerRoleAPI();
+    (this.data.status === 'Assigned') && (this.taskDetails.get('status').setValue('Completed'));
   }
 
   selectOption() {
@@ -121,7 +126,7 @@ export class AddTaskComponent {
       next: (res) => {
         // console.log('customers-----', res);
         this.customerList = res.data;
-        console.log('customers-----', this.customerList);
+        // console.log('customers-----', this.customerList);
       },
       error: (err) => {},
       complete: () => {},
@@ -190,6 +195,7 @@ export class AddTaskComponent {
             res.menuAccess,
             'task'
           );
+          console.log('permission---', this.userMenuPermissions.permissions.write);
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
       },
       error: (err) => {
@@ -197,4 +203,11 @@ export class AddTaskComponent {
       },
     });
   }
+
+  onAssignToChange(event: any) {
+    if (event.value) {
+      this.taskDetails.get('status').setValue('Assigned');
+    }
+  }
+  
 }

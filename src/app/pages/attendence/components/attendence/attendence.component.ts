@@ -101,13 +101,20 @@ export class AttendenceComponent {
   addAttendence() {}
 
   ngOnInit() {
-    this.getTodayAttendance();
+    // this.getTodayAttendance();
     this.triggerRoleAPI();
+    this.getTodayRecord();
   }
-
+  
+  getTodayRecord(){
+    MY_FORMATS.display.dateInput = 'DD-MM-YYYY';
+    this.date = this.service.dateFormat(this.startDate);
+    this.getTodayAttendance();
+  }
   getTodayAttendance() {
     this.showOrHide = false;
     this.apiLoader = true;
+
     let query = `pageSize=${this.pageSize}&page=${
       isNaN(this.currentPage) ? 1 : this.currentPage + 1
     }`;
