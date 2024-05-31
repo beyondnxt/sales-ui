@@ -19,6 +19,7 @@ export class SalesTableComponent {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @Output() openConsole = new EventEmitter();
   @Output() edit = new EventEmitter();
+  @Output() sort = new EventEmitter();
   @Output() delete = new EventEmitter();
   @Output() map = new EventEmitter();
   @Output() emitIds = new EventEmitter();
