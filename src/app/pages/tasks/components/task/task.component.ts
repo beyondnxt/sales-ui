@@ -47,6 +47,9 @@ export class TaskComponent {
   atSearch = '';
   ttSearch: any = '';
   pageSize = this.service.calculatePaginationVal();
+  sortType:any;
+  soryByValue: any;
+
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   taskType = [
     { id: 1, name: 'Lead' },
@@ -163,7 +166,7 @@ export class TaskComponent {
 
           this.tableValues = res.data.map((item: any) => ({
             ...item,
-            assignToName: item.assignToName && item.lastName ? `${item.assignToName} ${item.lastName}` : '-'
+            assignToName: item.assignToName ? `${item.assignToName}` : '-'
         }));
 
           // this.tableValues = res.data;
@@ -364,8 +367,11 @@ export class TaskComponent {
             res.menuAccess,
             'task'
           );
+          console.log('370-----', this.userMenuPermissions);
         this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+        console.log('372-----', this.isDeleteEnabled);
+        console.log('373  -----', this.isWriteEnabled);
         if (!this.isDeleteEnabled && !this.isWriteEnabled) {
           this.tableHeaders =
             this._helperFunctionService.removeTableHeaderByKey(
@@ -379,4 +385,23 @@ export class TaskComponent {
       },
     });
   }
+
+  sort(data: any) {
+    // console.log('sorting-----', data);
+    this.apiLoader = true;
+    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.taskService.sortTask(this.soryByValue).subscribe({
+      next: (res) => {
+        this.apiLoader = false;
+        this.count = res.totalCount;
+        this.tableValues = res.data;
+      },
+      error: (err) => {
+        this.apiLoader = false;
+      },
+    });
+  }
+
 }

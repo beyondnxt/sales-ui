@@ -31,4 +31,7 @@ export class TasksService {
   saveFeedBack(id:string,payload:any): Observable<any> {
     return this.http.put(environment.BASE_URL + `/task/${id}`,payload);
   }
+  sortTask(sort: string): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/task?${sort}`);
+  }
 }

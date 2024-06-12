@@ -29,7 +29,7 @@ export class AddRoleComponent {
     { name: 'Dashboard' },
     { name: 'Users' },
     { name: 'Roles' },
-    { name: 'Product' },
+    // { name: 'Product' },
     { name: 'Attendance' },
     { name: 'Task' },
     { name: 'Company' },
@@ -68,7 +68,7 @@ export class AddRoleComponent {
         const isActiveStatus = permissions[permissionName];
 
         menuAccessArray.push({
-          menu_visibility: true,
+          menu_visibility: false,
           status: isActiveStatus,
           // read: permissions.permissions.read,
           write: permissions.permissions.write,
@@ -99,6 +99,7 @@ export class AddRoleComponent {
     const transformedMenuAccess = formData.menuAccess.map((item: any) => {
       const menuName = item.name.toLowerCase();
 
+      // console.log('menu-----', item);
       const transformedItem = {
         menu_visibility: item.status,
         menuName: menuName,

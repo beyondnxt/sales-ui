@@ -14,6 +14,23 @@ interface sideNavToggle {
   screenWidth: number;
   collapsed: boolean;
 }
+
+interface NavData {
+  routerlink: string;
+  icon: string;
+  label: string;
+  menu: string;
+}
+
+interface MenuList {
+  menu_visibility: boolean;
+  menuName: string;
+  permissions: {
+    write: boolean;
+    delete: boolean;
+  };
+}
+
 @Component({
   selector: 'app-side-nav',
   templateUrl: './side-nav.component.html',
@@ -23,10 +40,12 @@ export class SideNavComponent implements OnInit {
   @Output() onToggleSideNav: EventEmitter<sideNavToggle> = new EventEmitter();
   collapsed = true;
   screenWidth = 0;
-  navData = navBarData;
+  navData: NavData[] = navBarData;
   loggedInUserName: string | null = '';
   loggedInUserRole: string | null = '';
-  menuLists: any[] = [];
+  menuLists: MenuList[] = [];
+  filteredNavData: NavData[] = [];
+  
 
   @HostListener('window:resize', ['$event'])
   onreSize(event: any) {
@@ -72,18 +91,21 @@ export class SideNavComponent implements OnInit {
     this.router.navigate(['/login']);
   }
 
-  isMenuVisibility(data: any, index: any): boolean {
-    if (
-      data.menu == this.menuLists[index]?.menuName &&
-      !this.menuLists[index]?.menu_visibility &&
-      this.menuLists.length > 0 &&
-      this.menuLists != null
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  }
+  // isMenuVisibility(data: any, index: any): boolean {
+  //   console.log('111');
+  //   if (
+  //     data.menu == this.menuLists[index]?.menuName &&
+  //     !this.menuLists[index]?.menu_visibility &&
+  //     this.menuLists.length > 0 &&
+  //     this.menuLists != null
+  //   ) {
+  //     console.log('true');
+  //     return true;
+  //   } else {
+  //     console.log('false');
+  //     return false;
+  //   }
+  // }
 
   triggerRoleAPI() {
     // Role API
@@ -91,6 +113,7 @@ export class SideNavComponent implements OnInit {
     this._roleApiService.getRoleById(roleId).subscribe({
       next: (res) => {
         this.menuLists = res.menuAccess;
+        this.filterNavData();
         this._cdRef.detectChanges();
       },
       error: (err) => {
@@ -98,4 +121,12 @@ export class SideNavComponent implements OnInit {
       },
     });
   }
+
+  filterNavData() {
+    this.filteredNavData = this.navData.filter((navItem: any) => {
+      const menu = this.menuLists.find(menuItem => menuItem.menuName === navItem.menu);
+      return menu ? menu.menu_visibility : false;
+    });
+  }
+
 }

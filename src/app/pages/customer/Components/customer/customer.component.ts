@@ -5,6 +5,8 @@ import { CustomerService } from 'src/app/providers/customers/customer.service';
 import { AddCustomerComponent } from '../add-customer/add-customer.component';
 import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
+import { RolesService } from 'src/app/providers/roles/roles.service';
+import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
 
 @Component({
   selector: 'app-customer',
@@ -22,14 +24,19 @@ export class CustomerComponent {
   searchQuery = '';
   isDeleteEnabled = true;
   isWriteEnabled = true;
+  soryByValue: any;
+  userMenuPermissions: any;
 
   constructor(
     private service: CommonService,
     private customerService: CustomerService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private _roleApiService: RolesService, 
+    private _helperFunctionService: HelperFunctionService
   ) {}
   ngOnInit() {
     this.getAllCustomers();
+    this.triggerRoleAPI();
   }
 
   getAllCustomers() {
@@ -158,8 +165,12 @@ export class CustomerComponent {
   sortType: any = 'ASC';
   sort(data: any) {
     this.apiLoader = true;
+    // if(data.name == 'Company Name') { this.sortData = 'name'; }
+    // else if data.name == 'Company Name') { this.sortData = 'name'; }
     this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
-    this.customerService.sortCustomer(this.sortType).subscribe({
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.customerService.sortCustomer(this.soryByValue).subscribe({
       next: (res) => {
         this.apiLoader = false;
         this.count = res.totalCount;
@@ -170,4 +181,25 @@ export class CustomerComponent {
       },
     });
   }
+
+  triggerRoleAPI() {
+    // Role API
+    let roleId: any = localStorage.getItem('role_id');
+    this._roleApiService.getRoleById(roleId).subscribe({
+      next: (res) => {
+        this.userMenuPermissions =
+          this._helperFunctionService.getMenuPermissions(
+            res.menuAccess,
+            'customer'
+          );
+          console.log('customer-----', this.userMenuPermissions);
+        this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
+        this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+  }
+
 }

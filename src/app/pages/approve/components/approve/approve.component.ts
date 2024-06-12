@@ -3,6 +3,8 @@ import * as data from './approve.data';
 import { CommonService } from 'src/app/providers/core/common.service';
 import { ApproveService } from 'src/app/providers/approve/approve.service';
 import { SalesTableComponent } from 'src/app/shared/components/sales-table/sales-table.component';
+import { RolesService } from 'src/app/providers/roles/roles.service';
+import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
 
 @Component({
   selector: 'app-approve',
@@ -22,12 +24,14 @@ export class ApproveComponent {
   isDeleteEnabled = true;
   isWriteEnabled = true;
   selectedIds: any = [];
+  userMenuPermissions: any;
 
-  constructor(private service:CommonService, private approveService: ApproveService) {}
+  constructor(private service:CommonService, private approveService: ApproveService,private _roleApiService: RolesService, private _helperFunctionService: HelperFunctionService) {}
   @ViewChild('childRef') saledData!: SalesTableComponent;
   
   ngOnInit() {
     this.approvelList();
+    this.triggerRoleAPI();
   }
 
   approvelList() {
@@ -50,7 +54,6 @@ export class ApproveComponent {
     })
   }
   approveAttendance() {
-    console.log('ids------', this.selectedIds);
     this.approveService.approveAttendance(this.selectedIds).subscribe({
       next: (res) => {
         this.service.showSnackbar('Approved Successfully');
@@ -105,6 +108,26 @@ export class ApproveComponent {
   pagination(event: any): void {
     this.currentPage = event;
     this.approvelList();
+  }
+
+  triggerRoleAPI() {
+    // Role API
+    let roleId: any = localStorage.getItem('role_id');
+    this._roleApiService.getRoleById(roleId).subscribe({
+      next: (res) => {
+        this.userMenuPermissions =
+          this._helperFunctionService.getMenuPermissions(
+            res.menuAccess,
+            'approve'
+          );
+          console.log('approve-----', this.userMenuPermissions);
+        this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
+        this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
   }
 
 }

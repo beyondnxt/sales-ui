@@ -198,16 +198,19 @@ export class AttendenceComponent {
     normalizedMonthAndYear: Moment,
     datepicker: MatDatepicker<Moment>
   ) {
+    // console.log('201------', normalizedMonthAndYear);
     MY_FORMATS.display.dateInput = 'MMM YYYY';
     const month = normalizedMonthAndYear.month();
     const year = normalizedMonthAndYear.year();
     const newDate = moment({ year, month });
+    // console.log('206------', newDate);
     this.myDate.setValue(newDate);
     datepicker.close();
 
     const reportDate = `${normalizedMonthAndYear.year()}-${
       normalizedMonthAndYear.month() + 1
     }`;
+    // console.log('213---------', reportDate);
     this.attendance.attendanceReport(reportDate).subscribe({
       next: (res: any) => {
         !res.data.length && (this.showOrHide = true);
@@ -230,8 +233,9 @@ export class AttendenceComponent {
         this.userMenuPermissions =
           this._helperFunctionService.getMenuPermissions(
             res.menuAccess,
-            'attendence'
+            'attendance'
           );
+          console.log('attendance-----', this.userMenuPermissions);
         this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
       },

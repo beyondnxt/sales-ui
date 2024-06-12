@@ -153,7 +153,7 @@ export const tableHeadersForCompleted = [
     {
         name: '#',
         key: 'checkBox',
-        checkboxColumn: true,
+        checkboxColumn: false,
     },
     {
         name: 'Customer Name',

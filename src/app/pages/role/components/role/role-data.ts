@@ -22,12 +22,12 @@ export const tableHeaders = [
         sort:false,
         role:true
     },
-    {
-        name: 'Product',
-        key: 'product',
-        sort:false,
-        role:true
-    },
+    // {
+    //     name: 'Product',
+    //     key: 'product',
+    //     sort:false,
+    //     role:true
+    // },
     {
         name: 'Attendance',
         key: 'attendance',

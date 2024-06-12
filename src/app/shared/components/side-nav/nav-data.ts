@@ -39,7 +39,7 @@ export const navBarData: any = [
     routerlink: 'attendence',
     icon: 'fas fa-calendar-alt',
     label: 'Attendence',
-    menu: 'attendence',
+    menu: 'attendance',
   },
   {
     routerlink: 'tasks',

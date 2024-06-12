@@ -112,9 +112,11 @@ export class AddUserComponent {
         this.userMenuPermissions =
           this._helperFunctionService.getMenuPermissions(
             res.menuAccess,
-            'roles'
+            'users'
           );
+          // console.log('users----', this.userMenuPermissions);
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+        console.log('this.isWriteEnabled 118', this.isWriteEnabled );
       },
       error: (err) => {
         console.log(err);

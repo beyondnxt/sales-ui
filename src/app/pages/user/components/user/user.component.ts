@@ -175,6 +175,7 @@ export class UserComponent {
           );
         this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
+        // console.log('this.isWriteEnabled ', this.isWriteEnabled );
         if (!this.isDeleteEnabled && !this.isWriteEnabled) {
           this.tableHeaders =
             this._helperFunctionService.removeTableHeaderByKey(

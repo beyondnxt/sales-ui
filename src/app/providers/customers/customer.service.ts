@@ -13,6 +13,9 @@ export class CustomerService {
       environment.BASE_URL + `/customers${query}${searchQry}`
     );
   }
+  getAllCustomers(searchQry: any, query: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/customers/all${query}${searchQry}`);
+  }
   newCustomerCreation(payload: any) {
     return this.http.post(environment.BASE_URL + '/customers', payload);
   }
@@ -24,6 +27,6 @@ export class CustomerService {
   }
 
   sortCustomer(sort: string): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/customers?sortOrder=${sort}`);
+    return this.http.get(environment.BASE_URL + `/customers?${sort}`);
   }
 }

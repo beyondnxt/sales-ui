@@ -14,7 +14,11 @@ export const tableHeaders = [
     key: 'phoneNo',
     sort: false,
   },
-
+  {
+    name: 'Contact Person',
+    key: 'contactPerson',
+    sort: true,
+  },
   {
     name: 'Latitude',
     key: 'latitude',
@@ -48,12 +52,12 @@ export const tableHeaders = [
   {
     name: 'Created Date',
     key: 'createdOn',
-    sort: false,
+    sort: true,
   },
   {
     name: 'Action',
     key: 'action',
-    edit: false,
+    edit: true,
   },
 ];
 
