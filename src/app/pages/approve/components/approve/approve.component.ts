@@ -5,6 +5,9 @@ import { ApproveService } from 'src/app/providers/approve/approve.service';
 import { SalesTableComponent } from 'src/app/shared/components/sales-table/sales-table.component';
 import { RolesService } from 'src/app/providers/roles/roles.service';
 import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddCompanyComponent } from 'src/app/pages/company/components/add-company/add-company.component';
+import { ConfirmationComponent } from 'src/app/shared/components/confirmation/confirmation.component';
 
 @Component({
   selector: 'app-approve',
@@ -26,7 +29,7 @@ export class ApproveComponent {
   selectedIds: any = [];
   userMenuPermissions: any;
 
-  constructor(private service:CommonService, private approveService: ApproveService,private _roleApiService: RolesService, private _helperFunctionService: HelperFunctionService) {}
+  constructor(private service:CommonService, private approveService: ApproveService,private _roleApiService: RolesService, private _helperFunctionService: HelperFunctionService, private dialog: MatDialog) {}
   @ViewChild('childRef') saledData!: SalesTableComponent;
   
   ngOnInit() {
@@ -53,6 +56,23 @@ export class ApproveComponent {
       }
     })
   }
+  approveAttendanceConfirmation(from: any){
+    this.dialog
+    .open(ConfirmationComponent, {
+      width: '500px',
+      height: 'max-content',
+      disableClose: true,
+      panelClass: 'user-dialog-container',
+      data: `Are you sure, you want to ${from}?`
+    })
+    .afterClosed()
+    .subscribe((res: any) => {
+      if (res) {
+        this.approveAttendance();
+      }
+    });
+  }
+
   approveAttendance() {
     this.approveService.approveAttendance(this.selectedIds).subscribe({
       next: (res) => {
@@ -65,6 +85,7 @@ export class ApproveComponent {
       complete: () => {},
     });
   }
+
   rejectAttendance() {
     this.approveService.rejectAttendance(this.selectedIds).subscribe({
       next: (res) => {

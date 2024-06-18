@@ -5,8 +5,8 @@
     <div class="content">
         <app-search (searchData)="searchBox($event)"></app-search>
         <div class="mx-2">
-            <app-sales-btn class="approveBtn" [label]="'Approve'" [isWriteEnabled]="isWriteEnabled" (action)="approveAttendance()"></app-sales-btn>
-            <app-sales-btn class="approveBtn" [label]="'Reject'" [isWriteEnabled]="isWriteEnabled" (action)="rejectAttendance()"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Approve'" [isWriteEnabled]="isWriteEnabled" (action)="approveAttendanceConfirmation('approve')"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Reject'" [isWriteEnabled]="isWriteEnabled" (action)="approveAttendanceConfirmation('reject')"></app-sales-btn>
         </div>
     </div>
 </div>

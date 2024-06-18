@@ -1,6 +1,7 @@
 .closeAlign {
     display: flex;
     justify-content: space-between;
+    border-bottom: 1px solid #edebeb;
 }
 .dialog-container{
     padding: 10px;
@@ -9,4 +10,7 @@
   .btnEnd{
     display: flex;
     justify-content: end;
+  }
+  .deleteDiv{
+    margin-top:10px;
   }

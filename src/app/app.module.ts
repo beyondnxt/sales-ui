@@ -14,6 +14,7 @@ import { PieChartComponent } from './shared/components/pie-chart/pie-chart.compo
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { HttpInterceptorService } from './providers/httpinterceptor/http-interceptor.service';
 import { environment } from 'src/environments/environment';
+import { ConfirmationComponent } from './shared/components/confirmation/confirmation.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { environment } from 'src/environments/environment';
     BarChartComponent,
     DashboardComponent,
     PieChartComponent,
+    ConfirmationComponent,
     
     ],
   imports: [

@@ -2,38 +2,38 @@ export const tableHeaders = [
     {
         name: 'First Name',
         key: 'firstName',
-        sort: true,
+        sort: false,
 
     },
     {
         name: 'Last Name',
         key: 'lastName',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Phone Number',
         key: 'phoneNumber',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Email',
         key: 'email',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Role',
         key: 'roleName',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Company',
         key: 'companyName',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Created On',
         key: 'createdOn',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Action',
