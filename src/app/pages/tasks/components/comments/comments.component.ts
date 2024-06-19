@@ -16,6 +16,7 @@ export class CommentsComponent {
   currentDate: Date = new Date();
   isAddingFeedback: boolean = false;
   dataArray: any = { feedBack: [] };
+  userName = localStorage.getItem('user_name')+' '+localStorage.getItem('last_name');
 
   constructor(private fb: FormBuilder, @Inject(MAT_DIALOG_DATA) public data: any, private taskService: TasksService, private service: CommonService, public dialogRef: MatDialogRef<CommentsComponent>) {
     this.taskDetails = this.fb.group({
@@ -49,40 +50,38 @@ export class CommentsComponent {
       return; // Exit the function early if any required data is missing
     }
 
-      if (Object.keys(this.dataArray).length === 0) {
-        console.log('85-------');
-        this.dataArray = {
-          feedBack: [{
-            feedback: feedback,
-            createdDate: new Date(),
-            createdBy: localStorage.getItem('user_id'),
-            createdByName: localStorage.getItem('user_name')
-          }]
-        };
-      } else {
-        this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('user_id'), createdByName: localStorage.getItem('user_name') });
-        this.dataArray = { feedBack: this.dataArray };
-      }
-      // this.updateFeedback(followUpDate);
-      this.isAddingFeedback = false;
+    if (!this.dataArray) {
+      this.dataArray = {
+        feedBack: [{
+          feedback: feedback,
+          createdDate: new Date(),
+          createdBy: localStorage.getItem('user_id'),
+          createdByName: this.userName
+        }]
+      };
+    } else {
+      this.dataArray.push({ feedback, createdDate: new Date(), createdBy: localStorage.getItem('user_id'), createdByName: this.userName });
+      this.dataArray = { feedBack: this.dataArray };
+    }
+    this.isAddingFeedback = false;
 
-      this.taskService.saveFeedBack(this.data.id, this.dataArray).subscribe({
-        next: (res) => {
-          this.service.showSnackbar("Feedback Added Successfully");
-          this.dialogRef.close(res);
-        }, error: (err) => {
-          this.service.showSnackbar(err.error.message);
-        },
-        complete: () => {
-        }
-      })
+    this.taskService.saveFeedBack(this.data.id, this.dataArray).subscribe({
+      next: (res) => {
+        this.updateFeedback(followUpDate);
+        this.service.showSnackbar("Feedback Added Successfully");
+        this.dialogRef.close(res);
+      }, error: (err) => {
+        this.service.showSnackbar(err.error.message);
+      },
+      complete: () => {
+      }
+    })
   }
 
   updateFeedback(followUpDate: any) {
 
-    console.log('rawvalues-------', this.taskDetails.getRawValue());
     const id = this.data.id;
-    this.taskService.updateFeedback(id, this.taskDetails.getRawValue()).subscribe({
+    this.taskService.updateFeedback(id, followUpDate).subscribe({
       next: (res) => {
         return true;
       },

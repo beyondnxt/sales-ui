@@ -58,7 +58,7 @@
       ><i class="fa fa-filter filterIcon"></i
     ></span>
 
-    <div class="task" *ngIf="changeTab == 'completed'">
+    <div class="task" *ngIf="changeTab == 'completed' && roleName == 'admin'">
       <app-sales-btn
         [label]="'Verify'"
         [isWriteEnabled]="isWriteEnabled"

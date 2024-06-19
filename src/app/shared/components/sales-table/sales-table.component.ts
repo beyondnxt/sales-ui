@@ -33,6 +33,7 @@ export class SalesTableComponent {
   @Input() headerLength: any;
   @Input() isDeleteEnabled: any;
   @Input() isWriteEnabled: any;
+  roleName = localStorage.getItem('role_name')?.toLowerCase();
   length = 50;
   pageSize = 10;
   pageIndex = 0;

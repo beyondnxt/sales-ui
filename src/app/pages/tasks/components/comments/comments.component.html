@@ -17,11 +17,14 @@
                         <th class="createdDateHeader">Created Date</th>
                         <th class="createdNameHeader">Created By</th>
                     </tr>
-                    <tr *ngFor="let data of dataArray" class="bodyClass">
-                        <td class="feedBack">{{data.feedback}}</td>
-                        <td class="createdDate">{{data.createdDate | date:'MMM d, y'}}</td>
-                        <td class="createdName">{{data.createdByName}}</td>
-                    </tr>
+                    <ng-container *ngIf="dataArray?.length > 0">
+                        <tr *ngFor="let data of dataArray" class="bodyClass">
+                            <td class="feedBack">{{data.feedback}}</td>
+                            <td class="createdDate">{{data.createdDate | date:'MMM d, y'}}</td>
+                            <td class="createdName">{{data.createdByName}}</td>
+                        </tr>
+                    </ng-container>
+
                 </table>
             </div>
         </div>

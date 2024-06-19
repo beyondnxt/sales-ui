@@ -91,6 +91,7 @@ export class LoginComponent {
             localStorage.setItem('role_id', res.data.roleId);
             localStorage.setItem('role_name', res.data.roleName);
             localStorage.setItem('token', res.data.token);
+            localStorage.setItem('last_name', res.data.lastName);
             this.triggerRoleAPI();
             // this.router.navigate(['/dashboard']);
             this.service.showSnackbar('LoggedIn Succcessfully');

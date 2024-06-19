@@ -2,54 +2,54 @@ export const tableHeaders = [
     {
         name: 'Company Name',
         key: 'companyName',
-        sort: true,
+        sort: false,
 
     },
     {
         name: 'Email',
         key: 'email',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Mobile Number',
         key: 'phoneNo',
-        sort: true,
+        sort: false,
     },
     
     {
         name: 'Latitude',
         key: 'latitude',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Longitude',
         key: 'longitude',
-        sort: true,
+        sort: false,
     },
     {
         name: 'City',
         key: 'city',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Street',
         key: 'street',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Country',
         key: 'country',
-        sort: true,
+        sort: false,
     },
     // {
     //     name: 'State',
     //     key: 'state',
-    //     sort: true,
+    //     sort: false,
     // },
     {
         name: 'Created Date',
         key: 'createdOn',
-        sort: true,
+        sort: false,
     },
     {
         name: 'Action',

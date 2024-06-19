@@ -157,4 +157,29 @@
 .comment{
   text-align:center;
 }
+.tree-description {
+  max-width: 200px; /* Adjust as needed */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.truncated-text {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.truncated-text:hover {
+  white-space: normal;
+  position: absolute;
+  z-index: 1;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  padding: 5px;
+  border-radius: 5px;
+  max-width: 300px; /* Adjust tooltip width */
+}
   

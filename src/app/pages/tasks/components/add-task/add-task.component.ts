@@ -40,6 +40,9 @@ export class AddTaskComponent {
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
   currentDate: Date = new Date();
+  roleName:any;
+  userId: any;
+  loggedInUserName: string | null = '';
 
   constructor(
     private service: CommonService,
@@ -54,8 +57,10 @@ export class AddTaskComponent {
   ) {}
 
   ngOnInit() {
-    // console.log('currentDate----', this.currentDate);
-    // this.selectedOptionChanges();
+    this.roleName= localStorage.getItem('role_name');
+    this.userId= localStorage.getItem('user_id');
+    this.loggedInUserName = localStorage.getItem('user_name')+' '+localStorage.getItem('last_name');
+
     this.taskDetails = this.fb.group({
       customerId: ['', !this.data ? Validators.required : null],
       taskType: ['', Validators.required],
@@ -86,10 +91,12 @@ export class AddTaskComponent {
       this.data.status === 'Assigned' &&
         this.taskDetails.get('assignTo').disable();
       this.taskDetails.patchValue(this.data);
+      (this.roleName != 'Admin' && this.userId != this.data.assignTo && this.data.status == 'Assigned') && this.taskDetails.get('status').disable();
+
     }
 
     this.triggerRoleAPI();
-    (this.data.status === 'Assigned') && (this.taskDetails.get('status').setValue('Completed'));
+    (this.data.status === 'Assigned' && (this.roleName == 'Admin' || this.userId == this.data.assignTo)) && (this.taskDetails.get('status').setValue('Completed'));
   }
 
   selectOption() {
@@ -103,7 +110,14 @@ export class AddTaskComponent {
   getUser() {
     this.userService.getAllUsers().subscribe({
       next: (res) => {
-        this.userList = res.data;
+        console.log('roleName----', this.roleName);
+        this.userList = (this.roleName.toLowerCase() === 'admin') ? res.data : [{
+          id: this.userId, // Assuming 0 or some unique id for the current user
+          firstName: this.loggedInUserName,
+          lastName: ''
+        }];
+
+        console.log('userList-----', this.userList);
       },
       error: (err) => {},
       complete: () => {},
@@ -149,7 +163,7 @@ export class AddTaskComponent {
             {
               feedback: taskDetails.feedBack,
               createdDate: new Date().toISOString(),
-              createdBy: localStorage.getItem('userId'),
+              createdByName: this.loggedInUserName,
             },
           ];
         } else {

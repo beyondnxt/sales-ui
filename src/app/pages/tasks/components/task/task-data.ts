@@ -151,9 +151,9 @@ export const tableHeadersForAssigned = [
 
 export const tableHeadersForCompleted = [
     {
-        name: '#',
+        name: '',
         key: 'checkBox',
-        checkboxColumn: false,
+        checkboxColumn: localStorage.getItem('role_name')?.toLowerCase() === 'admin',
     },
     {
         name: 'Customer Name',

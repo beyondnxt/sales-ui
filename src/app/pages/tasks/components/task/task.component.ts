@@ -49,6 +49,7 @@ export class TaskComponent {
   pageSize = this.service.calculatePaginationVal();
   sortType:any;
   soryByValue: any;
+  roleName = localStorage.getItem('role_name')?.toLowerCase();
 
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   taskType = [
@@ -105,6 +106,7 @@ export class TaskComponent {
   }
 
   loadData(tab: any) {
+    this.currentPage = 0;
     this.tableValues = [];
     switch (tab) {
       case 'unassigned':
@@ -170,7 +172,6 @@ export class TaskComponent {
         }));
 
           // this.tableValues = res.data;
-          console.log('164--', this.tableValues);
           this.count = res.total;
         },
         error: (err) => {
@@ -367,11 +368,8 @@ export class TaskComponent {
             res.menuAccess,
             'task'
           );
-          console.log('370-----', this.userMenuPermissions);
         this.isDeleteEnabled = this.userMenuPermissions.permissions.delete;
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
-        console.log('372-----', this.isDeleteEnabled);
-        console.log('373  -----', this.isWriteEnabled);
         if (!this.isDeleteEnabled && !this.isWriteEnabled) {
           this.tableHeaders =
             this._helperFunctionService.removeTableHeaderByKey(
