@@ -40,9 +40,10 @@ export class AddTaskComponent {
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   date = '';
   currentDate: Date = new Date();
-  roleName:any;
+  roleName: any;
   userId: any;
   loggedInUserName: string | null = '';
+  showSaveBtn: boolean = true;
 
   constructor(
     private service: CommonService,
@@ -54,12 +55,13 @@ export class AddTaskComponent {
     @Inject(MAT_DIALOG_DATA) public data: any,
     private _roleApiService: RolesService,
     private _helperFunctionService: HelperFunctionService
-  ) {}
+  ) { }
 
   ngOnInit() {
-    this.roleName= localStorage.getItem('role_name');
-    this.userId= localStorage.getItem('user_id');
-    this.loggedInUserName = localStorage.getItem('user_name')+' '+localStorage.getItem('last_name');
+    this.showSaveBtn = true;
+    this.roleName = localStorage.getItem('role_name');
+    this.userId = localStorage.getItem('user_id');
+    this.loggedInUserName = localStorage.getItem('user_name') + ' ' + localStorage.getItem('last_name');
 
     this.taskDetails = this.fb.group({
       customerId: ['', !this.data ? Validators.required : null],
@@ -91,7 +93,11 @@ export class AddTaskComponent {
       this.data.status === 'Assigned' &&
         this.taskDetails.get('assignTo').disable();
       this.taskDetails.patchValue(this.data);
-      (this.roleName != 'Admin' && this.userId != this.data.assignTo && this.data.status == 'Assigned') && this.taskDetails.get('status').disable();
+      // (this.roleName != 'Admin' && this.userId != this.data.assignTo && this.data.status == 'Assigned') && this.taskDetails.get('status').disable();
+      if(this.roleName != 'Admin' && this.userId != this.data.assignTo && this.data.status == 'Assigned'){
+        this.taskDetails.get('status').disable();
+        this.showSaveBtn = false;
+      }
 
     }
 
@@ -119,8 +125,8 @@ export class AddTaskComponent {
 
         console.log('userList-----', this.userList);
       },
-      error: (err) => {},
-      complete: () => {},
+      error: (err) => { },
+      complete: () => { },
     });
   }
 
@@ -129,8 +135,8 @@ export class AddTaskComponent {
       next: (res) => {
         this.companyList = res.data;
       },
-      error: (err) => {},
-      complete: () => {},
+      error: (err) => { },
+      complete: () => { },
     });
   }
 
@@ -142,8 +148,8 @@ export class AddTaskComponent {
         this.customerList = res.data;
         // console.log('customers-----', this.customerList);
       },
-      error: (err) => {},
-      complete: () => {},
+      error: (err) => { },
+      complete: () => { },
     });
   }
 
@@ -195,8 +201,8 @@ export class AddTaskComponent {
         this.customerList = res.data;
         console.log('customers-----', this.customerList);
       },
-      error: (err) => {},
-      complete: () => {},
+      error: (err) => { },
+      complete: () => { },
     });
   }
   triggerRoleAPI() {
@@ -209,7 +215,7 @@ export class AddTaskComponent {
             res.menuAccess,
             'task'
           );
-          console.log('permission---', this.userMenuPermissions.permissions.write);
+        console.log('permission---', this.userMenuPermissions.permissions.write);
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
       },
       error: (err) => {
@@ -223,5 +229,5 @@ export class AddTaskComponent {
       this.taskDetails.get('status').setValue('Assigned');
     }
   }
-  
+
 }

@@ -87,8 +87,9 @@
           <div class="btnEnd">
             <app-sales-cancel-btn mat-icon-button mat-dialog-close tabindex="-1" class="close-button"
               [label]="'Cancel'"></app-sales-cancel-btn>
-            <app-sales-btn *ngIf="data.status === 'Assigned' && (this.roleName == 'Admin' || userId == data.assignTo)" [label]="'Save'"
-              [isWriteEnabled]="isWriteEnabled" (action)="saveTask()"></app-sales-btn>
+            <!-- <ng-container *ngIf="data.status === 'Assigned' && (this.roleName == 'Admin' || userId == data.assignTo)"> -->
+              <app-sales-btn *ngIf="showSaveBtn" [label]="'Save'" [isWriteEnabled]="isWriteEnabled" (action)="saveTask()"></app-sales-btn>
+            <!-- </ng-container> -->
           </div>
         </div>
       </div>
