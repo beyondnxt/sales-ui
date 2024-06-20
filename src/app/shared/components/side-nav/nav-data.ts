@@ -65,4 +65,10 @@ export const navBarData: any = [
     label: 'Customer',
     menu: 'customer',
   },
+  {
+    routerlink: 'teams',
+    icon: 'fas fa-tasks',
+    label: 'Teams',
+    menu: 'teams',
+  }
 ];

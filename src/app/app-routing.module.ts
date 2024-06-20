@@ -89,6 +89,12 @@ const routes: Routes = [
               import('./pages/customer/customer.module').then(m => m.CustomerModule),
             canActivate: [AuthGuardService]
           },
+          {
+            path: 'teams',
+            loadChildren: () =>
+              import('./pages/teams/teams.module').then(m => m.TeamsModule),
+            canActivate: [AuthGuardService]
+          },
         ]
       }
     ]

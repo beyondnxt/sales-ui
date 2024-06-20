@@ -1,0 +1,36 @@
+@import url('../../../../../styles.scss');
+::ng-deep .mat-mdc-tab-labels {
+    background-color: white !important;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: var(--primary) !important;
+}
+
+::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
+    border-color:  var(--primary) !important;
+}
+
+.wrapper {
+    min-height: calc(100vh - 14.5rem) !important;
+}
+.btnAlign{
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background-color: white;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+.main-head{
+    font-size: 20px;
+    color: var(--primary);
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+}
+.content{
+    display: flex;
+}

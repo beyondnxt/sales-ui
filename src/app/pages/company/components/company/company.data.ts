@@ -6,16 +6,25 @@ export const tableHeaders = [
 
     },
     {
-        name: 'Email',
-        key: 'email',
+        name: 'Created On',
+        key: 'createdOn',
         sort: false,
     },
     {
-        name: 'Mobile Number',
-        key: 'phoneNo',
+        name: 'Created By',
+        key: 'createdBy',
         sort: false,
     },
-    
+    {
+        name: 'Last Modified On',
+        key: 'updatedOn',
+        sort: false,
+    },
+    {
+        name: 'Last Modified By',
+        key: 'updatedBy',
+        sort: false,
+    },
     {
         name: 'Latitude',
         key: 'latitude',
@@ -27,28 +36,13 @@ export const tableHeaders = [
         sort: false,
     },
     {
-        name: 'City',
-        key: 'city',
+        name: 'Opening Time',
+        key: 'openingTime',
         sort: false,
     },
     {
-        name: 'Street',
-        key: 'street',
-        sort: false,
-    },
-    {
-        name: 'Country',
-        key: 'country',
-        sort: false,
-    },
-    // {
-    //     name: 'State',
-    //     key: 'state',
-    //     sort: false,
-    // },
-    {
-        name: 'Created Date',
-        key: 'createdOn',
+        name: 'Closing Time',
+        key: 'closingTime',
         sort: false,
     },
     {

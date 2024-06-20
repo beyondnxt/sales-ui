@@ -35,6 +35,7 @@ export class AddRoleComponent {
     { name: 'Company' },
     { name: 'Approve' },
     { name: 'Customer' },
+    { name: 'Teams' },
   ];
 
   roleData = this.fb.group({

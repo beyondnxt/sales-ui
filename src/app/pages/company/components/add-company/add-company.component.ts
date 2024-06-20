@@ -19,18 +19,20 @@ export class AddCompanyComponent {
       '',
       [Validators.required, Validators.pattern(/^[a-zA-Z]+(\s[a-zA-Z]+)*$/)],
     ],
-    email: [''],
-    phoneNo: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
-    latitude: [''],
-    longitude: [''],
+    latitude: ['', Validators.required],
+    longitude: ['', Validators.required],
+    openingTime: ['09:00:00', Validators.required],
+    closingTime: ['20:00:00', Validators.required],
+    // email: [''],
+    // phoneNo: ['', [Validators.required, Validators.pattern(/^[0-9]{10}$/)]],
     // address: [''],
-    street: [
-      '',
-      [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s\-/.,']+$/)],
-    ],
-    city: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-/'.]+$/)]],
-    zipCode: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
-    country: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-]+$/)]],
+    // street: [
+    //   '',
+    //   [Validators.required, Validators.pattern(/^[a-zA-Z0-9\s\-/.,']+$/)],
+    // ],
+    // city: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-/'.]+$/)]],
+    // zipCode: ['', [Validators.required, Validators.pattern(/^[0-9]+$/)]],
+    // country: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s\-]+$/)]],
   });
   constructor(
     private fb: FormBuilder,
@@ -54,16 +56,11 @@ export class AddCompanyComponent {
     if (this.companyDetails.invalid) {
       return;
     } else {
-      const companyata = this.companyHelper.mapBoxData(
-        this.companyDetails.getRawValue()
-      );
+      const companyata = this.companyDetails.getRawValue();
 
       if (this.data) {
         this.dialogRef.close([companyata, this.data.id]);
       } else {
-        const companyata = this.companyHelper.mapBoxData(
-          this.companyDetails.getRawValue()
-        );
         this.dialogRef.close(companyata);
       }
     }

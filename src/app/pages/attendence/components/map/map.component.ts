@@ -41,7 +41,7 @@ export class MapComponent {
   constructor(
     private _attendanceApiService: AttendanceService,
     private router: Router
-  ) {}
+  ) { }
 
   // *-----------------------------Life Cycle Hooks----------------------------------//
   ngOnInit(): void {
@@ -69,20 +69,27 @@ export class MapComponent {
   }
 
   checkLocationInformation(data: any) {
-    if (data.attendance.length > 0) {
+    // console.log('72----', data);
+    
+    if (data.attendance?.length > 0) {
+      // console.log('attendance-----', data.attendance);
       this.plotAttendanceMarker(data.attendance);
     }
-    if (data.task.length > 0) {
+    if (data.task?.length > 0) {
+      // console.log('task-----', data.task);
       this.plotTaskMarker(data.task);
     }
 
-    if (data.mapLog.length > 0) {
+    if (data.mapLog?.length > 0) {
+      console.log('mapLog-----', data.mapLog);
       this.plotEmptyLogMarker(data.mapLog[0]);
     }
   }
 
   plotAttendanceMarker(attendance: any) {
+    console.log('90------', attendance[0].punchIn);
     if (attendance[0].punchIn != null) {
+      console.log('92------');
       const punchInMarker = L.marker(
         [attendance[0].punchIn.latitude, attendance[0].punchIn.longitude],
         {
@@ -140,7 +147,9 @@ export class MapComponent {
 
   plotEmptyLogMarker(data: any) {
     let emptyLog = data.location;
+    console.log('emptyLog-----', emptyLog);
     emptyLog.forEach((element: any) => {
+      console.log('152------', element);
       const emptyLogMarker = L.marker([element.latitude, element.longitude], {
         icon: L.icon({
           iconSize: [25, 27],
@@ -212,7 +221,7 @@ export class MapComponent {
       .getUserMapDetails(this.SELECTED_USER_ID)
       .subscribe({
         next: (res) => {
-          console.log(res);
+          console.log('215--------', res);
           this.checkLocationInformation(res.data);
           this.createRouteLine(this.getWayPoints(res.data));
         },
