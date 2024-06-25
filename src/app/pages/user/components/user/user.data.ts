@@ -1,23 +1,7 @@
 export const tableHeaders = [
     {
-        name: 'First Name',
-        key: 'firstName',
-        sort: false,
-
-    },
-    {
-        name: 'Last Name',
-        key: 'lastName',
-        sort: false,
-    },
-    {
-        name: 'Phone Number',
-        key: 'phoneNumber',
-        sort: false,
-    },
-    {
-        name: 'Email',
-        key: 'email',
+        name: 'User Name',
+        key: 'userName',
         sort: false,
     },
     {
@@ -26,13 +10,38 @@ export const tableHeaders = [
         sort: false,
     },
     {
+        name: 'Created On',
+        key: 'createdOn',
+        sort: false,
+    },
+    {
+        name: 'Created By',
+        key: 'createdBy',
+        sort: false,
+    },
+    {
+        name: 'Last Modified On',
+        key: 'createdBy',
+        sort: false,
+    },
+    {
+        name: 'Last Modified By',
+        key: 'updatedBy',
+        sort: false,
+    },
+    {
         name: 'Company',
         key: 'companyName',
         sort: false,
     },
     {
-        name: 'Created On',
-        key: 'createdOn',
+        name: 'Team Name',
+        key: 'teamName',
+        sort: false,
+    },
+    {
+        name: 'Is Active',
+        key: 'status',
         sort: false,
     },
     {

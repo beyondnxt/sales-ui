@@ -34,7 +34,7 @@ export class CompanyComponent {
     private companyHelper: CompanyHelper,
     private _roleApiService: RolesService,
     private _helperFunctionService: HelperFunctionService
-  ) {}
+  ) { }
   ngOnInit() {
     this.getAllCompany();
     this.triggerRoleAPI();
@@ -42,9 +42,8 @@ export class CompanyComponent {
   getAllCompany() {
     this.showOrHide = false;
     this.apiLoader = true;
-    let query = `?pageSize=${this.pageSize}&page=${
-      isNaN(this.currentPage) ? 1 : this.currentPage + 1
-    }`;
+    let query = `?pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1
+      }`;
     this.companyService.getCompanyList(this.searchQuery, query).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
@@ -60,7 +59,7 @@ export class CompanyComponent {
       error: (err) => {
         this.apiLoader = false;
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
   searchBox(event: any) {
@@ -95,7 +94,7 @@ export class CompanyComponent {
       error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 
@@ -130,7 +129,7 @@ export class CompanyComponent {
       error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
   edit(data: any) {
@@ -161,7 +160,7 @@ export class CompanyComponent {
       error: (err) => {
         this.service.showSnackbar(err.error.message);
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 

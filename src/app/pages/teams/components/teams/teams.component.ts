@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { MatTabChangeEvent } from '@angular/material/tabs';
 import * as data from './teams-data'
 import { TeamsService } from 'src/app/providers/teams/teams.service';
+import { MatDialog } from '@angular/material/dialog';
+import { AddTeamsComponent } from '../add-teams/add-teams.component';
 
 @Component({
   selector: 'app-teams',
@@ -12,13 +14,13 @@ export class TeamsComponent {
   activeCategory = 'Teams';
   tableHeaders: any = data.tableHeadersForTeams;
   tableValues: any = [];
-  constructor(private teamsService:TeamsService){}
+  constructor(private teamsService: TeamsService, private dialog: MatDialog,) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.getTeamsData()
   }
 
-  getTeamsData(){
+  getTeamsData() {
 
     this.teamsService.getTeamData().subscribe({
       next: (res) => {
@@ -27,7 +29,7 @@ export class TeamsComponent {
       },
       error: (err) => {
       },
-      complete: () => {},
+      complete: () => { },
     });
   }
 
@@ -36,10 +38,26 @@ export class TeamsComponent {
     // this.getCategoryData();
   }
 
-  searchBox(event: any){
+  searchBox(event: any) {
 
   }
-  createNewTeam(){
-    
+  
+  createNewTeam() {
+    this.dialog.open(AddTeamsComponent, {
+        width: '500px',
+        height: 'max-content',
+        disableClose: true,
+        panelClass: 'user-dialog-container',
+      })
+      .afterClosed()
+      .subscribe((res: any) => {
+        if (res) {
+          this.postTeamData(res);
+        }
+      });
+  }
+
+  postTeamData(data: any){
+
   }
 }
