@@ -115,6 +115,7 @@ export class MapComponent {
 
   plotTaskMarker(task: any) {
     task.forEach((element: any) => {
+      console.log('element-----', element);
       if (element.location.latitude && element.location.longitude != null) {
         const taskMarker = L.marker(
           [element.location.latitude, element.location.longitude],
@@ -130,7 +131,7 @@ export class MapComponent {
             `
         <html><body>
         <span>Customer:</span><span style="font-weight:bold">${element.customerName}</span><br>
-        <span>Task type:</span><span style="font-weight:bold">${element.taskType}</span>
+        <span>Task type:</span><span style="font-weight:bold">${element.taskType}</span><br>
         </body></html>`
           )
           .openTooltip();

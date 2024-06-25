@@ -8,6 +8,7 @@ import { FormBuilder } from '@angular/forms';
 })
 export class SearchComponent {
   constructor(private fb: FormBuilder) { }
+  @Input() disabled: boolean = false;
   @Output() searchData = new EventEmitter();
   @Input() placeholder: string = 'Search...'; 
   search = this.fb.group({

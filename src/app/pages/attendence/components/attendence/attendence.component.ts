@@ -21,6 +21,7 @@ import * as _moment from 'moment';
 import { default as _rollupMoment, Moment } from 'moment';
 import { RolesService } from 'src/app/providers/roles/roles.service';
 import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
+import { MatTabChangeEvent } from '@angular/material/tabs';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -62,6 +63,7 @@ export const MY_FORMATS = {
   ],
 })
 export class AttendenceComponent {
+  activeCategory = 'Attendance';
   pageCount: any;
   totalCount = 0;
   currentPage = 0;
@@ -70,7 +72,8 @@ export class AttendenceComponent {
   searchQuery = '';
   showOrHide = false;
 
-  startDate = new Date(); // Set initial view to current month and year
+  startDate = new Date();
+   // Set initial view to current month and year
 
   constructor(
     private dialog: MatDialog,
@@ -85,10 +88,12 @@ export class AttendenceComponent {
   tableHeaders = data.tableHeaders;
   tableValues = data.tableValues;
   date: any = '';
+  monthAndYear: any = '';
   count = 0;
   userMenuPermissions: any;
   isDeleteEnabled = true;
   isWriteEnabled = true;
+  query: any;
 
   openConsole(selectedRow: any) {
     let selectedId: NavigationExtras = {
@@ -106,6 +111,13 @@ export class AttendenceComponent {
     this.getTodayRecord();
   }
   
+  tabChanged(tabChangeEvent: MatTabChangeEvent): void {
+    this.activeCategory = tabChangeEvent.tab.textLabel;
+    this.currentPage = 0;
+    console.log('currentPage------', this.currentPage);
+    this.getTodayAttendance();
+  }
+  
   getTodayRecord(){
     MY_FORMATS.display.dateInput = 'DD-MM-YYYY';
     this.date = this.service.dateFormat(this.startDate);
@@ -114,24 +126,51 @@ export class AttendenceComponent {
   getTodayAttendance() {
     this.showOrHide = false;
     this.apiLoader = true;
-
-    let query = `pageSize=${this.pageSize}&page=${
+    this.query = `pageSize=${this.pageSize}&page=${
       isNaN(this.currentPage) ? 1 : this.currentPage + 1
     }`;
+    console.log('pagination------', this.query);
+    this.activeCategory == 'Attendance' ? this.getAttendance() : this.getReport()
+
+  }
+
+  getAttendance(){
+    this.tableHeaders = data.tableHeaders;
     this.attendance
-      .getTodayAttendance(this.date, query, this.searchQuery)
-      .subscribe({
-        next: (res) => {
-          !res.data.length && (this.showOrHide = true);
-          this.apiLoader = false;
-          this.tableValues = res.data;
-          this.count = res.total;
-        },
-        error: (err) => {
-          this.apiLoader = false;
-        },
-        complete: () => {},
-      });
+    .getTodayAttendance(this.date, this.query, this.searchQuery)
+    .subscribe({
+      next: (res) => {
+        !res.data.length && (this.showOrHide = true);
+        this.apiLoader = false;
+        this.tableValues = res.data;
+        this.count = res.total;
+      },
+      error: (err) => {
+        this.apiLoader = false;
+      },
+      complete: () => {},
+    });
+  }
+  getReport(){
+    this.tableHeaders = data.reportHeaders;
+    MY_FORMATS.display.dateInput = 'MMM YYYY';
+    this.monthAndYear = this.service.dateFormat(this.startDate);
+    const currentMonthAndYear = `${this.startDate.getFullYear()}-${this.startDate.getMonth() + 1
+    }`;
+    this.attendance
+    .getReport(currentMonthAndYear, this.query)
+    .subscribe({
+      next: (res) => {
+        !res.data.length && (this.showOrHide = true);
+        this.apiLoader = false;
+        this.tableValues = res.data;
+        this.count = res.fetchedCount;
+      },
+      error: (err) => {
+        this.apiLoader = false;
+      },
+      complete: () => {},
+    });
   }
 
   delete(data: any) {
@@ -167,6 +206,7 @@ export class AttendenceComponent {
   edit(data: any) {}
 
   onFromDateChange(event: any) {
+    this.currentPage = 0;
     MY_FORMATS.display.dateInput = 'DD-MM-YYYY';
     this.date = this.dateFormat(event.value);
     this.getTodayAttendance();

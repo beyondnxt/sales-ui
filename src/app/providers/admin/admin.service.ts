@@ -16,7 +16,7 @@ export class UsersService {
     return this.http.post(environment.BASE_URL + '/auth/signup', payload);
   }
   getUsers(query: string, searchQry: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/user?${query}${searchQry}`);
+    return this.http.get(environment.BASE_URL + `/user${query}${searchQry}`);
   }
   getAllUsers(): Observable<any> {
     return this.http.get(environment.BASE_URL + `/user/all`);

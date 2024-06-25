@@ -67,7 +67,7 @@ export class SalesTableComponent {
       case 'Present':
         return '#06CF0C';
       default:
-        return '#000000';
+        return 'var(--secondary)';
     }
   }
   selectAllValues(event: any) {

@@ -118,7 +118,7 @@ export class TaskComponent {
       case 'assigned':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeadersForAssigned;
-        this.changeTab = '';
+        this.changeTab = tab;
         this.triggerRoleAPI();
         break;
       case 'completed':
@@ -130,7 +130,7 @@ export class TaskComponent {
       case 'verified':
         this.tab = 'status=' + tab;
         this.tableHeaders = data.tableHeadersForVerified;
-        this.changeTab = '';
+        this.changeTab = tab;
         this.triggerRoleAPI();
         break;
       case 'visit':
@@ -344,6 +344,7 @@ export class TaskComponent {
       });
   }
   onRefreshClick() {
+    console.log("enter into  refresh");
     this.customerNamePlaceholder = 'Customer Name...';
     this.cusSearch =
       this.cbSearch =
@@ -353,7 +354,7 @@ export class TaskComponent {
         '';
     this.customerSearchComp.search.reset();
     this.createdBySearchComp.search.reset();
-    this.assignedToSearchComp.search.reset();
+    this.assignedToSearchComp?.search.reset();
     this.taskTypeControl.reset();
     this.getDataBasedOnTabSelection(this.tab);
   }

@@ -86,12 +86,12 @@
     (searchData)="createdbySearch($event)"
     [placeholder]="'Created By...'"
   ></app-search>
-  <app-search
+  <app-search *ngIf="changeTab != 'visit'"
     #assignedToSearchComp
     (searchData)="assignedToSearch($event)"
     [placeholder]="'Assigned To...'"
   ></app-search>
-  <mat-form-field class="taskType">
+  <mat-form-field class="taskType" *ngIf="changeTab != 'visit'">
     <mat-select
       placeholder="Task Type"
       [formControl]="taskTypeControl"

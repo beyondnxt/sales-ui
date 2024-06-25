@@ -51,3 +51,23 @@
 .attendanceFilter{
     display:flex;
 }
+::ng-deep .mat-mdc-tab-labels {
+    background-color: white !important;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+    color: var(--primary) !important;
+}
+
+::ng-deep .mat-mdc-tab .mdc-tab-indicator__content--underline {
+    border-color:  var(--primary) !important;
+}
+
+.wrapper {
+    min-height: calc(100vh - 14.5rem) !important;
+}
+::ng-deep mat-tab-group table td {
+    font-weight: 400 !important; /* Change this to your desired color */
+  }

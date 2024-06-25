@@ -26,10 +26,8 @@ export class RoleHelper {
             menuAccess.forEach((menu: any) => {
                 // console.log('27--------', menu);
                 for (const key in menu) {
-                    // console.log('29---------', key);
                     if (key !== 'permissions') {
-                        // console.log('31----', key);
-                        permissions[`${menu.menuName}IsActive`] = menu[key] ? menu[key] : false;
+                        permissions[`${menu.menuName}IsActive`] = menu.menu_visibility ? menu.menu_visibility : false;
 
                         // const formattedKey = key.charAt(0).toUpperCase() + key.slice(1); // Capitalize the first letter
                         // for (const permission in menu[key]) {

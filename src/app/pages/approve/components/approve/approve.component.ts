@@ -57,6 +57,10 @@ export class ApproveComponent {
     })
   }
   approveAttendanceConfirmation(from: any){
+    if (this.selectedIds.length <= 0) {
+      this.service.showSnackbar('Please select atlease one record');
+      return;
+    }
     this.dialog
     .open(ConfirmationComponent, {
       width: '500px',
@@ -68,7 +72,7 @@ export class ApproveComponent {
     .afterClosed()
     .subscribe((res: any) => {
       if (res) {
-        this.approveAttendance();
+        (from == 'approve') ? this.approveAttendance() : this.rejectAttendance();
       }
     });
   }

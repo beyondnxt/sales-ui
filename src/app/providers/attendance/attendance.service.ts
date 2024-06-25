@@ -23,4 +23,7 @@ export class AttendanceService {
   getUserMapDetails(id: any): Observable<any> {
     return this.http.get(environment.BASE_URL + `/attendance/${id}`);
   }
+  getReport(date: any, query: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/attendance/report?startDate=${date}&${query}`);
+  }
 }

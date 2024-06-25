@@ -3,11 +3,15 @@ export const tableHeaders = [
         name: 'First Name',
         key: 'firstName',
         sort: false,
-
     },
     {
         name: 'Last Name',
         key: 'lastName',
+        sort: false,
+    },
+    {
+        name: 'Role',
+        key: 'roleName',
         sort: false,
     },
     {
@@ -18,11 +22,6 @@ export const tableHeaders = [
     {
         name: 'Email',
         key: 'email',
-        sort: false,
-    },
-    {
-        name: 'Role',
-        key: 'roleName',
         sort: false,
     },
     {

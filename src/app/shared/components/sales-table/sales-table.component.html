@@ -99,12 +99,17 @@
                   class="fas fa-map-marker-alt delIcon"
                   (click)="map.emit(values)"
                 ></i>
+                <i
+                *ngIf="isDeleteEnabled"
+                class="far fa-trash-alt delIcon"
+                (click)="delete.emit(values.id)"
+              ></i>
               </ng-container>
 
               <ng-container *ngIf="key.role">
                 <ng-container *ngIf="values && key.key">
-                  <!-- {{key | json}}
-                  {{values | json}} -->
+                  <!-- {{key.key | json}} -->
+                  <!-- {{values | json}} -->
                   <ng-container
                     *ngIf="values[key.key + 'IsActive']; else readBlock"
                   >

@@ -28,6 +28,7 @@
                 [label]="'Cancel'"
               ></app-sales-cancel-btn>
               <app-sales-btn
+                [isWriteEnabled]="isWriteEnabled"
                 [label]="'Confirm'"
                 (click)="confirm()"
               ></app-sales-btn>
