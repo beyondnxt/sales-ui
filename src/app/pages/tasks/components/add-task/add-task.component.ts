@@ -118,7 +118,7 @@ export class AddTaskComponent {
       next: (res) => {
         console.log('roleName----', this.roleName);
         this.userList = (this.roleName.toLowerCase() === 'admin') ? res.data : [{
-          id: this.userId, // Assuming 0 or some unique id for the current user
+          id: Number(this.userId), // Assuming 0 or some unique id for the current user
           firstName: this.loggedInUserName,
           lastName: ''
         }];

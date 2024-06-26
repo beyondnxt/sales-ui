@@ -158,13 +158,13 @@ export class AttendenceComponent {
     const currentMonthAndYear = `${this.startDate.getFullYear()}-${this.startDate.getMonth() + 1
     }`;
     this.attendance
-    .getReport(currentMonthAndYear, this.query)
+    .getReport(currentMonthAndYear, this.query, this.searchQuery)
     .subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.tableValues = res.data;
-        this.count = res.fetchedCount;
+        this.count = res.total;
       },
       error: (err) => {
         this.apiLoader = false;
@@ -251,12 +251,12 @@ export class AttendenceComponent {
       normalizedMonthAndYear.month() + 1
     }`;
     // console.log('213---------', reportDate);
-    this.attendance.attendanceReport(reportDate).subscribe({
+    this.attendance.getReport(reportDate, this.query, this.searchQuery).subscribe({
       next: (res: any) => {
         !res.data.length && (this.showOrHide = true);
         this.tableHeaders = data.reportHeaders;
         this.tableValues = res.data;
-        this.count = res.fetchedCount;
+        this.count = res.total;
       },
       error: (err) => {
         this.service.showSnackbar(err.error.message);

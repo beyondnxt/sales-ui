@@ -52,9 +52,11 @@
           </mat-form-field>
         </div>
         <div class="col-lg-6">
+          <!-- {{userList | json}} -->
+          <!-- {{data.assignTo}} -->
           <mat-form-field>
             <mat-label>Assign To</mat-label>
-            <mat-select formControlName="assignTo" [disabled]="taskDetails.get('status')?.value === 'Unassigned'"
+            <mat-select formControlName="assignTo" 
               (selectionChange)="onAssignToChange($event)">
               <mat-option *ngFor="let user of userList" [value]="user.id">{{
                 user.firstName + " " + user.lastName

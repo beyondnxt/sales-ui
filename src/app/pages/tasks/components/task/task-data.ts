@@ -22,7 +22,7 @@ export const tableHeaders = [
     {
         name: 'Status',
         key: 'status',
-        sort:true,
+        sort:false,
     },
     {
         name: 'Description',
@@ -74,7 +74,7 @@ export const tableHeadersForVerified = [
     {
         name: 'Status',
         key: 'status',
-        sort:true,
+        sort:false,
     },
     {
         name: 'Description',
@@ -121,7 +121,7 @@ export const tableHeadersForAssigned = [
     {
         name: 'Status',
         key: 'status',
-        sort:true,
+        sort:false,
     },
     {
         name: 'Description',
@@ -178,7 +178,7 @@ export const tableHeadersForCompleted = [
     {
         name: 'Status',
         key: 'status',
-        sort:true,
+        sort:false,
     },
     {
         name: 'Description',
@@ -210,7 +210,7 @@ export const tableHeadersForVisit = [
     {
         name: 'Status',
         key: 'status',
-        sort:true,
+        sort:false,
     },
     {
         name: 'Description',

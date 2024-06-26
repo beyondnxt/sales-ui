@@ -86,7 +86,7 @@
     (searchData)="createdbySearch($event)"
     [placeholder]="'Created By...'"
   ></app-search>
-  <app-search *ngIf="changeTab != 'visit'"
+  <app-search [disabled]="changeTab === 'visit'"
     #assignedToSearchComp
     (searchData)="assignedToSearch($event)"
     [placeholder]="'Assigned To...'"
@@ -132,6 +132,7 @@
   (checkBoxes)="selectAll($event)"
   (emitIds)="getIds($event)"
   [count]="count"
+  [currentPage]="currentPage"
   (pagination)="pagination($event)"
   (sort)="sort($event)"
   [apiLoader]="apiLoader"

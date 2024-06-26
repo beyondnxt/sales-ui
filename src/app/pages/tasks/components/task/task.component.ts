@@ -391,7 +391,7 @@ export class TaskComponent {
     this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
     this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
     this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
-    this.taskService.sortTask(this.soryByValue).subscribe({
+    this.taskService.sortTask(this.soryByValue, this.changeTab).subscribe({
       next: (res) => {
         this.apiLoader = false;
         this.count = res.totalCount;

@@ -33,11 +33,10 @@ export class SalesTableComponent {
   @Input() headerLength: any;
   @Input() isDeleteEnabled: any;
   @Input() isWriteEnabled: any;
+  @Input() currentPage: any;
   roleName = localStorage.getItem('role_name')?.toLowerCase();
   length = 50;
   pageSize = 10;
-  pageIndex = 0;
-  currentPage = 0;
   hidePageSize = false;
   showPageSizeOptions = true;
   showFirstLastButtons = true;
@@ -46,6 +45,7 @@ export class SalesTableComponent {
   isSelectAll: boolean = false;
   handlePageEvent(e: PageEvent) {
     this.currentPage = this.paginator.pageIndex;
+    console.log('cp-----',this.currentPage);
     this.pagination.emit(this.currentPage);
   }
   handleStatusColor(status: string) {

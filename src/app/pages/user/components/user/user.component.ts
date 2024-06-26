@@ -81,6 +81,7 @@ export class UserComponent {
     });
   }
   getUser() {
+    console.log('current page from get user------', this.currentPage);
     this.showOrHide = false;
     this.apiLoader = true;
     let query = `?pageSize=${this.pageSize}&page=${
@@ -152,6 +153,7 @@ export class UserComponent {
 
   pagination(event: any): void {
     this.currentPage = event;
+    console.log('currentPage from pagination-------', this.currentPage);
     this.getUser();
   }
 

@@ -58,13 +58,18 @@ export const reportHeaders = [
         sort:true,
     },
     {
-        name: 'Late Punch-In',
+        name: 'No of irregular punch-ins',
         key: 'totalLatePunchIn',
         sort:true,
     },
     {
-        name: 'Early Punch-Out',
+        name: 'No of irregular punch-outs',
         key: 'totalEarlyPunchout',
+        sort:true,
+    },
+    {
+        name: 'No of unapproved days',
+        key: 'totalUnapprovedDays',
         sort:true,
     }
 ]

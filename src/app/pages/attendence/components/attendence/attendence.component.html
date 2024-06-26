@@ -19,7 +19,7 @@
       </div>
 
       <app-sales-table (map)="openConsole($event)" (delete)="delete($event)" (edit)="edit($event)"
-        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" (pagination)="pagination($event)"
+        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count"   [currentPage]="currentPage" (pagination)="pagination($event)"
         [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled" [isWriteEnabled]="isWriteEnabled"></app-sales-table>
     </mat-tab>
     <mat-tab label="Report">
@@ -40,7 +40,7 @@
 
       </div>
       <app-sales-table (map)="openConsole($event)" (delete)="delete($event)" (edit)="edit($event)"
-        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" (pagination)="pagination($event)"
+        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count"   [currentPage]="currentPage" (pagination)="pagination($event)"
         [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled" [isWriteEnabled]="isWriteEnabled"></app-sales-table>
     </mat-tab>
   </mat-tab-group>
