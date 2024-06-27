@@ -85,11 +85,11 @@ export const tableHeadersForVerified = [
         key: 'createdOn',
         sort:true,
     },
-    {
-        name: 'Follow-up Date',
-        key: 'followUpDate',
-        sort:true,
-    },
+    // {
+    //     name: 'Follow-up Date',
+    //     key: 'followUpDate',
+    //     sort:true,
+    // },
     {
         name: 'Feedback',
         key: 'feedback',

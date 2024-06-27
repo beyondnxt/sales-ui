@@ -116,14 +116,14 @@ export class AddTaskComponent {
   getUser() {
     this.userService.getAllUsers().subscribe({
       next: (res) => {
-        console.log('roleName----', this.roleName);
+        // console.log('roleName----', this.roleName);
         this.userList = (this.roleName.toLowerCase() === 'admin') ? res.data : [{
           id: Number(this.userId), // Assuming 0 or some unique id for the current user
           firstName: this.loggedInUserName,
           lastName: ''
         }];
 
-        console.log('userList-----', this.userList);
+        // console.log('userList-----', this.userList);
       },
       error: (err) => { },
       complete: () => { },
@@ -192,14 +192,14 @@ export class AddTaskComponent {
 
   onInputChange(event: any) {
     const searchTerm = event.target.value;
-    console.log('134----', searchTerm);
+    // console.log('134----', searchTerm);
     this.searchQuery = `?name=${searchTerm}`;
 
     this.customerService.getCustomers(this.searchQuery, '').subscribe({
       next: (res) => {
         // console.log('customers-----', res);
         this.customerList = res.data;
-        console.log('customers-----', this.customerList);
+        // console.log('customers-----', this.customerList);
       },
       error: (err) => { },
       complete: () => { },
@@ -215,7 +215,7 @@ export class AddTaskComponent {
             res.menuAccess,
             'task'
           );
-        console.log('permission---', this.userMenuPermissions.permissions.write);
+        // console.log('permission---', this.userMenuPermissions.permissions.write);
         this.isWriteEnabled = this.userMenuPermissions.permissions.write;
       },
       error: (err) => {

@@ -47,12 +47,12 @@ import { ConfirmationComponent } from './shared/components/confirmation/confirma
   bootstrap: [AppComponent]
 })
 export class AppModule { 
-//   constructor() {
-//     let hostName: any = window.location.hostname;
-//     if (['117.221.69.35'].includes(hostName)) {
-//       environment.BASE_URL = 'http://117.221.69.35:8080';
-//     } else if (['localhost', '192.168.1.21'].includes(hostName)) {
-//       environment.BASE_URL = 'http://192.168.1.21:8080';
-//     }
-//   }
+  constructor() {
+    let hostName: any = window.location.hostname;
+    if (['117.221.69.35'].includes(hostName)) {
+      environment.BASE_URL = 'http://117.221.69.35:8080';
+    } else if (['localhost', '192.168.1.21'].includes(hostName)) {
+      environment.BASE_URL = 'http://192.168.1.21:8080';
+    }
+  }
 }

@@ -11,7 +11,7 @@ export const tableHeaders = [
   },
   {
     name: 'Mobile Number',
-    key: 'phoneNo',
+    key: 'contactNo',
     sort: false,
   },
   {
@@ -29,18 +29,23 @@ export const tableHeaders = [
     key: 'longitude',
     sort: false,
   },
-  {
-    name: 'City',
-    key: 'city',
-    sort: false,
-  },
-  {
-    name: 'Street',
-    key: 'street',
-    sort: false,
-  },
+  // {
+  //   name: 'City',
+  //   key: 'city',
+  //   sort: false,
+  // },
+  // {
+  //   name: 'Street',
+  //   key: 'area',
+  //   sort: false,
+  // },
   {
     name: 'Country',
+    key: 'state',
+    sort: false,
+  },
+  {
+    name: 'State',
     key: 'country',
     sort: false,
   },
