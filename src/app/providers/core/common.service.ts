@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { BehaviorSubject, Observable } from 'rxjs';
+import * as XLSX from 'xlsx';
+
 
 @Injectable({
   providedIn: 'root'
@@ -113,6 +115,13 @@ export class CommonService {
     else {
       return date;
     }
+  }
+
+  exportToExcel(data: any[], fileName: string, sheetName: string){
+    const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet(data);
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, sheetName);
+    XLSX.writeFile(wb, `${fileName}.xlsx`);
   }
 
 

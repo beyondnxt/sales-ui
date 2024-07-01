@@ -22,6 +22,7 @@ import { default as _rollupMoment, Moment } from 'moment';
 import { RolesService } from 'src/app/providers/roles/roles.service';
 import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
 import { MatTabChangeEvent } from '@angular/material/tabs';
+import { AttendanceHelper } from './attendance.helper';
 
 const moment = _rollupMoment || _moment;
 export const MY_FORMATS = {
@@ -71,8 +72,10 @@ export class AttendenceComponent {
   pageSize = this.service.calculatePaginationVal();
   searchQuery = '';
   showOrHide = false;
-
+  excel: boolean = false;
+  excelData: any;
   startDate = new Date();
+  reportDate: any;
    // Set initial view to current month and year
 
   constructor(
@@ -81,7 +84,8 @@ export class AttendenceComponent {
     public service: CommonService,
     private attendance: AttendanceService,
     private _roleApiService: RolesService,
-    private _helperFunctionService: HelperFunctionService
+    private _helperFunctionService: HelperFunctionService,
+    private attendanceHelper: AttendanceHelper
   ) {}
   @ViewChild('picker') datePickerElement = MatDatepicker;
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
@@ -123,6 +127,7 @@ export class AttendenceComponent {
     this.date = this.service.dateFormat(this.startDate);
     this.getTodayAttendance();
   }
+
   getTodayAttendance() {
     this.showOrHide = false;
     this.apiLoader = true;
@@ -144,6 +149,11 @@ export class AttendenceComponent {
         this.apiLoader = false;
         this.tableValues = res.data;
         this.count = res.total;
+        if (this.excel) {
+          this.excelData = this.attendanceHelper.exportJsonToExcelAttendance(res.data);
+          this.service.exportToExcel(this.excelData, 'Attendance', 'Sheet1');
+          this.excel=false;
+        }
       },
       error: (err) => {
         this.apiLoader = false;
@@ -155,16 +165,21 @@ export class AttendenceComponent {
     this.tableHeaders = data.reportHeaders;
     MY_FORMATS.display.dateInput = 'MMM YYYY';
     this.monthAndYear = this.service.dateFormat(this.startDate);
-    const currentMonthAndYear = `${this.startDate.getFullYear()}-${this.startDate.getMonth() + 1
-    }`;
+    !this.reportDate && (this.reportDate = `${this.startDate.getFullYear()}-${this.startDate.getMonth() + 1
+    }`);
     this.attendance
-    .getReport(currentMonthAndYear, this.query, this.searchQuery)
+    .getReport(this.reportDate, this.query, this.searchQuery)
     .subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.tableValues = res.data;
         this.count = res.total;
+        if (this.excel) {
+          this.excelData = this.attendanceHelper.exportJsonToExcelReport(res.data);
+          this.service.exportToExcel(this.excelData, 'Reports', 'Sheet1');
+          this.excel=false;
+        }
       },
       error: (err) => {
         this.apiLoader = false;
@@ -247,11 +262,11 @@ export class AttendenceComponent {
     this.myDate.setValue(newDate);
     datepicker.close();
 
-    const reportDate = `${normalizedMonthAndYear.year()}-${
+    this.reportDate = `${normalizedMonthAndYear.year()}-${
       normalizedMonthAndYear.month() + 1
     }`;
     // console.log('213---------', reportDate);
-    this.attendance.getReport(reportDate, this.query, this.searchQuery).subscribe({
+    this.attendance.getReport(this.reportDate, this.query, this.searchQuery).subscribe({
       next: (res: any) => {
         !res.data.length && (this.showOrHide = true);
         this.tableHeaders = data.reportHeaders;
@@ -283,5 +298,9 @@ export class AttendenceComponent {
         console.log(err);
       },
     });
+  }
+  exportAsExcel(from: any){
+    this.excel=true;
+    this.getTodayAttendance();
   }
 }

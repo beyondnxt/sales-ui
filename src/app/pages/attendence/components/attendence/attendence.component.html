@@ -1,4 +1,4 @@
-<div class="pt-3">
+<div class="">
   <mat-tab-group mat-stretch-tabs="false" mat-align-tabs="start" #tabGroup (selectedTabChange)="tabChanged($event)">
     <mat-tab label="Attendance">
 
@@ -14,13 +14,19 @@
             <mat-datepicker #fromDatepicker></mat-datepicker>
           </mat-form-field>
           <app-search (searchData)="searchBox($event)"></app-search>
+          <div class="exportBtn">
+            <app-sales-btn [label]="'Export'" [isWriteEnabled]="'true'"
+              (action)="exportAsExcel('attendance')"></app-sales-btn>
+          </div>
+
         </div>
 
       </div>
 
       <app-sales-table (map)="openConsole($event)" (delete)="delete($event)" (edit)="edit($event)"
-        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count"   [currentPage]="currentPage" (pagination)="pagination($event)"
-        [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled" [isWriteEnabled]="isWriteEnabled"></app-sales-table>
+        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" [currentPage]="currentPage"
+        (pagination)="pagination($event)" [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled"
+        [isWriteEnabled]="isWriteEnabled"></app-sales-table>
     </mat-tab>
     <mat-tab label="Report">
       <div class="col-lg-12 btnAlign">
@@ -28,7 +34,8 @@
 
         <div class="attendanceFilter">
           <mat-form-field class="full-width datePicker1 flex-end">
-            <input matInput [matDatepicker]="dp" [formControl]="myDate" placeholder="Month & Year" [(ngModel)]="monthAndYear"/>
+            <input matInput [matDatepicker]="dp" [formControl]="myDate" placeholder="Month & Year"
+              [(ngModel)]="monthAndYear" />
             <mat-datepicker-toggle matIconSuffix [for]="dp"></mat-datepicker-toggle>
             <mat-datepicker #dp startView="multi-year" (monthSelected)="setMonthAndYear($event, dp)"
               panelClass="example-month-picker">
@@ -36,12 +43,18 @@
           </mat-form-field>
 
           <app-search (searchData)="searchBox($event)"></app-search>
+          <div class="exportBtn">
+            <app-sales-btn [label]="'Export'" [isWriteEnabled]="'true'"
+              (action)="exportAsExcel('report')"></app-sales-btn>
+          </div>
+
         </div>
 
       </div>
       <app-sales-table (map)="openConsole($event)" (delete)="delete($event)" (edit)="edit($event)"
-        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count"   [currentPage]="currentPage" (pagination)="pagination($event)"
-        [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled" [isWriteEnabled]="isWriteEnabled"></app-sales-table>
+        [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" [currentPage]="currentPage"
+        (pagination)="pagination($event)" [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled"
+        [isWriteEnabled]="isWriteEnabled"></app-sales-table>
     </mat-tab>
   </mat-tab-group>
 </div>

@@ -5,7 +5,7 @@ export const tableHeaders = [
         sort:true,
     },
     {
-        name: 'date',
+        name: 'Date',
         key: 'createdOn',
         sort:true,
     },

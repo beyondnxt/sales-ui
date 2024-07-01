@@ -11,6 +11,13 @@
         (action)="addUser()"
       ></app-sales-btn>
     </div>
+    <div class="mx-2">
+      <app-sales-btn
+        [label]="'Export'"
+        [isWriteEnabled]="'true'"
+        (action)="exportAsExcel()"
+      ></app-sales-btn>
+    </div>
   </div>
 </div>
 

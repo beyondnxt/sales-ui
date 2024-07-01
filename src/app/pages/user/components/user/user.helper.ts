@@ -20,4 +20,22 @@ export class UserHelper {
         });
         return template;
     }
+
+    exportJsonToExcel(data: any[]): any[] {
+        let flattenedData: any[] = [];
+
+        data.forEach((item: any) => {
+            flattenedData.push({
+                'First Name': item?.firstName ? item?.firstName : '',
+                'Last Name':item?.lastName ? item?.lastName : '',
+                'Role':item?.roleName ? item?.roleName : '',
+                'Phone Number':item?.phoneNumber ? item?.phoneNumber : '',
+                'Email':item?.email ? item.email : '',
+                'Company':item?.companyName ? item.companyName : '',
+                'Created On':item?.createdOn ? item.createdOn : '',
+             })
+        });
+        return flattenedData;
+    }
 }
+

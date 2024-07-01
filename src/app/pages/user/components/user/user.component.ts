@@ -22,6 +22,8 @@ export class UserComponent {
   pageSize = this.service.calculatePaginationVal();
   showOrHide = false;
   searchQuery = '';
+  excel: boolean = false;
+  excelData: any;
   constructor(
     private dialog: MatDialog,
     private adminService: UsersService,
@@ -93,6 +95,11 @@ export class UserComponent {
         this.apiLoader = false;
         this.tableValues = res.data;
         this.count = res.total;
+        if (this.excel) {
+          this.excelData = this.userHelper.exportJsonToExcel(res.data);
+          this.service.exportToExcel(this.excelData, 'users', 'Sheet1');
+          this.excel=false;
+        }
       },
       error: (err) => {
         this.apiLoader = false;
@@ -190,5 +197,9 @@ export class UserComponent {
         console.log(err);
       },
     });
+  }
+  exportAsExcel(){
+    this.excel=true;
+    this.getUser();
   }
 }
