@@ -89,6 +89,12 @@ const routes: Routes = [
               import('./pages/customer/customer.module').then(m => m.CustomerModule),
             canActivate: [AuthGuardService]
           },
+          {
+            path: 'asset',
+            loadChildren: () =>
+              import('./pages/asset/asset.module').then(m => m.AssetModule),
+            canActivate: [AuthGuardService]
+          },
         ]
       }
     ]

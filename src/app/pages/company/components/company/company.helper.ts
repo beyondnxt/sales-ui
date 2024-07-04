@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { format } from "date-fns";
 
 @Injectable({
     providedIn: 'root'
@@ -48,4 +49,26 @@ export class CompanyHelper {
         data.longitude = companyData.longitude;
         return data;
       }
+
+      exportJsonToExcel(data: any[]): any[] {
+        let flattenedData: any[] = [];
+
+        data.forEach((item: any) => {
+          const formattedDate = item?.createdOn ? format(new Date(item.createdOn), 'MMM d, y') : '';
+
+            flattenedData.push({
+                'Company Name': item?.companyName ? item?.companyName : '',
+                'Email':item?.email ? item?.email : '',
+                'Mobile Number':item?.phoneNo ? item?.phoneNo : '',
+                'Latitude':item?.latitude ? item?.latitude : '',
+                'Longitude':item?.longitude ? item.longitude : '',
+                'City':item?.city ? item.city : '',
+                'Street':item?.street ? item.street : '',
+                'Country':item?.country ? item.country : '',
+                'Created Date':formattedDate ? formattedDate : '',
+             })
+        });
+        return flattenedData;
+    }
+    
 }

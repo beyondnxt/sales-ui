@@ -8,6 +8,7 @@ import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-functi
 import { MatDialog } from '@angular/material/dialog';
 import { AddCompanyComponent } from 'src/app/pages/company/components/add-company/add-company.component';
 import { ConfirmationComponent } from 'src/app/shared/components/confirmation/confirmation.component';
+import { ApproveHelper } from './approve.helper';
 
 @Component({
   selector: 'app-approve',
@@ -28,8 +29,11 @@ export class ApproveComponent {
   isWriteEnabled = true;
   selectedIds: any = [];
   userMenuPermissions: any;
+  excel: boolean = false;
+  excelData: any;
+  soryByValue: any='';
 
-  constructor(private service:CommonService, private approveService: ApproveService,private _roleApiService: RolesService, private _helperFunctionService: HelperFunctionService, private dialog: MatDialog) {}
+  constructor(private service:CommonService, private approveService: ApproveService,private _roleApiService: RolesService, private _helperFunctionService: HelperFunctionService, private dialog: MatDialog, private approveHelper: ApproveHelper) {}
   @ViewChild('childRef') saledData!: SalesTableComponent;
   
   ngOnInit() {
@@ -43,12 +47,17 @@ export class ApproveComponent {
     this.showOrHide = false;
     this.apiLoader = true;
     let query = `&pageSize=${this.pageSize}&page=${isNaN(this.currentPage) ? 1 : this.currentPage + 1}`
-    this.approveService.getAllPendingApprovalList(this.searchQuery, query).subscribe({
+    this.approveService.getAllPendingApprovalList(this.searchQuery, query, this.soryByValue).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
         this.count = res.fetchedCount;
         this.tableValues = res.data;
+        if (this.excel) {
+          this.excelData = this.approveHelper.exportJsonToExcel(res.data);
+          this.service.exportToExcel(this.excelData, 'Approve', 'Sheet1');
+          this.excel=false;
+        }
       }, error: (err) => {
         this.apiLoader = false;
       },
@@ -153,6 +162,20 @@ export class ApproveComponent {
         console.log(err);
       },
     });
+  }
+
+  exportAsExcel(){
+    this.excel=true;
+    this.approvelList();
+  }
+
+  sortType: any = 'ASC';
+  sort(data: any) {
+    this.apiLoader = true;
+    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.approvelList();
   }
 
 }

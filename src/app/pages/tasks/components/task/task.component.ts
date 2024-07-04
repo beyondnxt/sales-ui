@@ -17,6 +17,7 @@ import { MatSelect } from '@angular/material/select';
 import { FormControl } from '@angular/forms';
 import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
 import { RolesService } from 'src/app/providers/roles/roles.service';
+import { TaskHelper } from './task.helper';
 
 @Component({
   selector: 'app-task',
@@ -50,6 +51,8 @@ export class TaskComponent {
   sortType:any;
   soryByValue: any;
   roleName = localStorage.getItem('role_name')?.toLowerCase();
+  excel: boolean = false;
+  excelData: any;
 
   @ViewChild('fromDateInput') fromDateInput!: ElementRef<HTMLInputElement>;
   taskType = [
@@ -63,7 +66,8 @@ export class TaskComponent {
     private service: CommonService,
     private _cdRef: ChangeDetectorRef,
     private _roleApiService: RolesService,
-    private _helperFunctionService: HelperFunctionService
+    private _helperFunctionService: HelperFunctionService,
+    private taskHelper: TaskHelper
   ) {}
   @ViewChild('childRef') saledData!: SalesTableComponent;
 
@@ -173,6 +177,11 @@ export class TaskComponent {
 
           // this.tableValues = res.data;
           this.count = res.total;
+          if (this.excel) {
+            this.excelData = this.taskHelper.exportJsonToExcel(res.data, this.changeTab);
+            this.service.exportToExcel(this.excelData, this.changeTab, 'Sheet1');
+            this.excel=false;
+          }
         },
         error: (err) => {
           this.apiLoader = false;
@@ -403,4 +412,8 @@ export class TaskComponent {
     });
   }
 
+  exportAsExcel(){
+    this.excel=true;
+    this.getDataBasedOnTabSelection(this.tab);
+  }
 }

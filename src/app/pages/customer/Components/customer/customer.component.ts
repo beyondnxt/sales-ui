@@ -7,6 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { DeleteComponent } from 'src/app/shared/components/delete/delete.component';
 import { RolesService } from 'src/app/providers/roles/roles.service';
 import { HelperFunctionService } from 'src/app/shared/utils/helper/helper-function.service';
+import { CustomerHelper } from './customer.helper';
 
 @Component({
   selector: 'app-customer',
@@ -26,13 +27,16 @@ export class CustomerComponent {
   isWriteEnabled = true;
   soryByValue: any;
   userMenuPermissions: any;
+  excel: boolean = false;
+  excelData: any;
 
   constructor(
     private service: CommonService,
     private customerService: CustomerService,
     private dialog: MatDialog,
     private _roleApiService: RolesService, 
-    private _helperFunctionService: HelperFunctionService
+    private _helperFunctionService: HelperFunctionService,
+    private customerHelper: CustomerHelper
   ) {}
   ngOnInit() {
     this.getAllCustomers();
@@ -51,6 +55,11 @@ export class CustomerComponent {
         this.apiLoader = false;
         this.count = res.totalCount;
         this.tableValues = res.data;
+        if (this.excel) {
+          this.excelData = this.customerHelper.exportJsonToExcel(res.data);
+          this.service.exportToExcel(this.excelData, 'Customer', 'Sheet1');
+          this.excel=false;
+        }
       },
       error: (err) => {
         this.apiLoader = false;
@@ -200,6 +209,11 @@ export class CustomerComponent {
         console.log(err);
       },
     });
+  }
+
+  exportAsExcel(){
+    this.excel=true;
+    this.getAllCustomers();
   }
 
 }

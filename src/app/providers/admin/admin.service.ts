@@ -15,8 +15,8 @@ export class UsersService {
   postRegiter(payload: any): Observable<any> {
     return this.http.post(environment.BASE_URL + '/auth/signup', payload);
   }
-  getUsers(query: string, searchQry: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/user${query}${searchQry}`);
+  getUsers(query: string, searchQry: any, sort: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/user${query}${searchQry}&${sort}`);
   }
   getAllUsers(): Observable<any> {
     return this.http.get(environment.BASE_URL + `/user/all`);
@@ -26,5 +26,8 @@ export class UsersService {
   }
   updateUser(id: string, payload: any): Observable<any> {
     return this.http.put(environment.BASE_URL + `/user/${id}`, payload);
+  }
+  sortUsers(query: any, sort: string): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/user${query}&${sort}`);
   }
 }

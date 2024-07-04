@@ -9,8 +9,8 @@ import { environment } from 'src/environments/environment';
 export class RolesService {
   constructor(public http: HttpClient) {}
 
-  getRole(query: any, searchQry: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/role?${query}${searchQry}`);
+  getRole(query: any, searchQry: any, sort: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/role?${query}${searchQry}&${sort}`);
   }
   postRoleData(payload: any): Observable<any> {
     return this.http.post(environment.BASE_URL + '/role', payload);

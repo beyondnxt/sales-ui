@@ -10,8 +10,8 @@ export class CompanyService {
 
   constructor(public http:HttpClient) { }
 
-  getCompanyList(searchQry: any, page: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/company${page}${searchQry}`);
+  getCompanyList(searchQry: any, page: any, sort: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/company${page}${searchQry}&${sort}`);
   }
   deleteCompany(id:string): Observable<any> {
     return this.http.delete(environment.BASE_URL + `/company/${id}`);

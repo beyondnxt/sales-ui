@@ -10,8 +10,8 @@ export class AttendanceService {
 
   constructor(public http: HttpClient) { }
 
-  getTodayAttendance(date: any, query: any, searchQry: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/attendance?startDate=${date}&${query}${searchQry}`);
+  getTodayAttendance(date: any, query: any, searchQry: any, sort: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/attendance?startDate=${date}&${query}${searchQry}&${sort}`);
   }
   deleteAttendance(id: string): Observable<any> {
     return this.http.delete(environment.BASE_URL + `/attendance/${id}`);
@@ -23,7 +23,7 @@ export class AttendanceService {
   getUserMapDetails(id: any): Observable<any> {
     return this.http.get(environment.BASE_URL + `/attendance/${id}`);
   }
-  getReport(date: any, query: any, search: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/attendance/report?startDate=${date}&${query}${search}`);
+  getReport(date: any, query: any, search: any, sort: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/attendance/report?startDate=${date}&${query}${search}&${sort}`);
   }
 }

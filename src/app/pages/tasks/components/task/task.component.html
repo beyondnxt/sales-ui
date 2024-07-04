@@ -73,6 +73,15 @@
         (action)="addTask()"
       ></app-sales-btn>
     </div>
+
+    <div class="mx-2">
+      <app-sales-btn
+        [label]="'Excel'"
+        [isWriteEnabled]="'true'"
+        (action)="exportAsExcel()"
+      ></app-sales-btn>
+    </div>
+
   </div>
 </div>
 <div class="filterClass" *ngIf="showFilter">

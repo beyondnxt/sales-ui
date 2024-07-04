@@ -41,12 +41,12 @@ export const tableHeaders = [
   // },
   {
     name: 'Country',
-    key: 'state',
+    key: 'country',
     sort: false,
   },
   {
     name: 'State',
-    key: 'country',
+    key: 'state',
     sort: false,
   },
   {

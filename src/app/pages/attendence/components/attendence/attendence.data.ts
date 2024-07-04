@@ -32,6 +32,7 @@ export const tableHeaders = [
     {
         name: 'Status',
         key: 'status',
+        sort:true,
     },
     {
         name: 'Action',

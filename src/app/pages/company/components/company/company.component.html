@@ -11,6 +11,13 @@
         (action)="addCompany()"
       ></app-sales-btn>
     </div>
+    <div class="mx-2">
+      <app-sales-btn
+        [isWriteEnabled]="'true'"
+        [label]="'Excel'"
+        (action)="exportAsExcel()"
+      ></app-sales-btn>
+    </div>
   </div>
 </div>
 
@@ -25,6 +32,7 @@
   [apiLoader]="apiLoader"
   [isDeleteEnabled]="isDeleteEnabled"
   [isWriteEnabled]="isWriteEnabled"
+  (sort)="sort($event)"
 ></app-sales-table>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">
   No Data Found

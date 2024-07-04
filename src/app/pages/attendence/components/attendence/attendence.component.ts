@@ -76,6 +76,7 @@ export class AttendenceComponent {
   excelData: any;
   startDate = new Date();
   reportDate: any;
+  soryByValue: any='';
    // Set initial view to current month and year
 
   constructor(
@@ -142,7 +143,7 @@ export class AttendenceComponent {
   getAttendance(){
     this.tableHeaders = data.tableHeaders;
     this.attendance
-    .getTodayAttendance(this.date, this.query, this.searchQuery)
+    .getTodayAttendance(this.date, this.query, this.searchQuery, this.soryByValue)
     .subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
@@ -168,7 +169,7 @@ export class AttendenceComponent {
     !this.reportDate && (this.reportDate = `${this.startDate.getFullYear()}-${this.startDate.getMonth() + 1
     }`);
     this.attendance
-    .getReport(this.reportDate, this.query, this.searchQuery)
+    .getReport(this.reportDate, this.query, this.searchQuery, this.soryByValue)
     .subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
@@ -266,7 +267,7 @@ export class AttendenceComponent {
       normalizedMonthAndYear.month() + 1
     }`;
     // console.log('213---------', reportDate);
-    this.attendance.getReport(this.reportDate, this.query, this.searchQuery).subscribe({
+    this.attendance.getReport(this.reportDate, this.query, this.searchQuery, this.soryByValue).subscribe({
       next: (res: any) => {
         !res.data.length && (this.showOrHide = true);
         this.tableHeaders = data.reportHeaders;
@@ -302,5 +303,13 @@ export class AttendenceComponent {
   exportAsExcel(from: any){
     this.excel=true;
     this.getTodayAttendance();
+  }
+  sortType: any = 'ASC';
+  sort(data: any) {
+    this.apiLoader = true;
+    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.getTodayRecord();
   }
 }

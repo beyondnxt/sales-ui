@@ -26,7 +26,7 @@
       <app-sales-table (map)="openConsole($event)" (delete)="delete($event)" (edit)="edit($event)"
         [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" [currentPage]="currentPage"
         (pagination)="pagination($event)" [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled"
-        [isWriteEnabled]="isWriteEnabled"></app-sales-table>
+        [isWriteEnabled]="isWriteEnabled" (sort)="sort($event)"></app-sales-table>
     </mat-tab>
     <mat-tab label="Report">
       <div class="col-lg-12 btnAlign">
@@ -54,7 +54,7 @@
       <app-sales-table (map)="openConsole($event)" (delete)="delete($event)" (edit)="edit($event)"
         [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count" [currentPage]="currentPage"
         (pagination)="pagination($event)" [apiLoader]="apiLoader" [isDeleteEnabled]="isDeleteEnabled"
-        [isWriteEnabled]="isWriteEnabled"></app-sales-table>
+        [isWriteEnabled]="isWriteEnabled" (sort)="sort($event)"></app-sales-table>
     </mat-tab>
   </mat-tab-group>
 </div>

@@ -24,6 +24,7 @@ export class UserComponent {
   searchQuery = '';
   excel: boolean = false;
   excelData: any;
+  soryByValue: any='';
   constructor(
     private dialog: MatDialog,
     private adminService: UsersService,
@@ -37,8 +38,9 @@ export class UserComponent {
   apiLoader = false;
   count = 0;
   userMenuPermissions: any;
-  isDeleteEnabled = true;
-  isWriteEnabled = true;
+  isDeleteEnabled: any;
+  isWriteEnabled: any;
+  query: any
   ngOnInit() {
     this.getUser();
     this.triggerRoleAPI();
@@ -86,10 +88,10 @@ export class UserComponent {
     console.log('current page from get user------', this.currentPage);
     this.showOrHide = false;
     this.apiLoader = true;
-    let query = `?pageSize=${this.pageSize}&page=${
+    this.query = `?pageSize=${this.pageSize}&page=${
       isNaN(this.currentPage) ? 1 : this.currentPage + 1
     }`;
-    this.adminService.getUsers(query, this.searchQuery).subscribe({
+    this.adminService.getUsers(this.query, this.searchQuery, this.soryByValue).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
@@ -202,4 +204,24 @@ export class UserComponent {
     this.excel=true;
     this.getUser();
   }
+
+  sortType: any = 'ASC';
+  sort(data: any) {
+    this.apiLoader = true;
+    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.getUser();
+    // this.adminService.sortUsers(this.query, this.soryByValue).subscribe({
+    //   next: (res) => {
+    //     this.apiLoader = false;
+    //     this.count = res.total;
+    //     this.tableValues = res.data;
+    //   },
+    //   error: (err) => {
+    //     this.apiLoader = false;
+    //   },
+    // });
+  }
+
 }

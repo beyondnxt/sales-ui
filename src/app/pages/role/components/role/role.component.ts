@@ -24,6 +24,7 @@ export class RoleComponent {
   userMenuPermissions: any;
   isDeleteEnabled = true;
   isWriteEnabled = true;
+  soryByValue: any='';
   constructor(
     private dialog: MatDialog,
     private roleService: RolesService,
@@ -45,7 +46,7 @@ export class RoleComponent {
     let query = `?pageSize=${this.pageSize}&page=${
       isNaN(this.currentPage) ? 1 : this.currentPage + 1
     }`;
-    this.roleService.getRole(query, this.searchQuery).subscribe({
+    this.roleService.getRole(query, this.searchQuery, this.soryByValue).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
@@ -189,4 +190,14 @@ export class RoleComponent {
       },
     });
   }
+
+  sortType: any = 'ASC';
+  sort(data: any) {
+    this.apiLoader = true;
+    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.getRoles();
+  }
+
 }

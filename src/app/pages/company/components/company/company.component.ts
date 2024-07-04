@@ -27,6 +27,9 @@ export class CompanyComponent {
   userMenuPermissions: any;
   isDeleteEnabled = true;
   isWriteEnabled = true;
+  excel: boolean = false;
+  excelData: any;
+  soryByValue: any='';
   constructor(
     private dialog: MatDialog,
     private companyService: CompanyService,
@@ -45,7 +48,7 @@ export class CompanyComponent {
     let query = `?pageSize=${this.pageSize}&page=${
       isNaN(this.currentPage) ? 1 : this.currentPage + 1
     }`;
-    this.companyService.getCompanyList(this.searchQuery, query).subscribe({
+    this.companyService.getCompanyList(this.searchQuery, query, this.soryByValue).subscribe({
       next: (res) => {
         !res.data.length && (this.showOrHide = true);
         this.apiLoader = false;
@@ -56,6 +59,11 @@ export class CompanyComponent {
           company.longitude = longitude;
         });
         this.tableValues = this.companyHelper.mapCompanyData(res.data);
+        if (this.excel) {
+          this.excelData = this.companyHelper.exportJsonToExcel(res.data);
+          this.service.exportToExcel(this.excelData, 'Company', 'Sheet1');
+          this.excel=false;
+        }
       },
       error: (err) => {
         this.apiLoader = false;
@@ -190,4 +198,18 @@ export class CompanyComponent {
       },
     });
   }
+  exportAsExcel(){
+    this.excel=true;
+    this.getAllCompany();
+  }
+
+  sortType: any = 'ASC';
+  sort(data: any) {
+    this.apiLoader = true;
+    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.getAllCompany();
+  }
+
 }

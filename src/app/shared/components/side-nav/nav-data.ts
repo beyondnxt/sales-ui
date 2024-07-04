@@ -65,4 +65,10 @@ export const navBarData: any = [
     label: 'Customer',
     menu: 'customer',
   },
+  {
+    routerlink: 'asset',
+    icon: 'fal fa-chart-bar',
+    label: 'Asset',
+    menu: 'asset',
+  },
 ];

@@ -13,6 +13,13 @@
       <!-- <app-sales-btn class="approveBtn" [label]="'Late Check-in'" (action)="lateCheckin()"></app-sales-btn>
             <app-sales-btn class="approveBtn" [label]="'Early Check-out'" (action)="earlyChecout()"></app-sales-btn> -->
     </div>
+    <div class="mx-2">
+      <app-sales-btn
+        [label]="'Export'"
+        [isWriteEnabled]="'true'"
+        (action)="exportAsExcel()"
+      ></app-sales-btn>
+    </div>
   </div>
 </div>
 <!-- (pagination)="pagination($event)" -->

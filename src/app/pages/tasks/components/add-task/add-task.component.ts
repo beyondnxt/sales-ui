@@ -131,7 +131,7 @@ export class AddTaskComponent {
   }
 
   getCompany() {
-    this.companyService.getCompanyList('', '').subscribe({
+    this.companyService.getCompanyList('', '', '').subscribe({
       next: (res) => {
         this.companyList = res.data;
       },

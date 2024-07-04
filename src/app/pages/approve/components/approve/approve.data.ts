@@ -7,36 +7,37 @@ export const tableHeaders = [
     {
         name: 'User Name',
         key: 'userName',
-        sort:false,
+        sort:true,
     },
     {
         name: 'Date',
         key: 'createdOn',
-        sort:false,
+        sort:true,
     },
     {
         name: 'Check In',
         key: 'punchIn',
-        sort:false,
+        sort:true,
     },
     {
         name: 'Check In Distance',
         key: 'punchInDistanceFromOffice',
-        sort:false,
+        sort:true,
     },
     {
         name: 'Check Out',
         key: 'punchOut',
-        sort:false,
+        sort:true,
     },
     {
         name: 'Check Out Distance',
         key: 'punchOutDistanceFromOffice',
-        sort:false,
+        sort:true,
     },
     {
         name: 'Status',
         key: 'status',
+        sort:true,
     }
 ]
 

@@ -23,6 +23,7 @@
     "@angular/router": "^16.1.0",
     "@auth0/angular-jwt": "^5.2.0",
     "apexcharts": "^3.48.0",
+    "date-fns": "^3.6.0",
     "leaflet": "^1.9.4",
     "leaflet-routing-machine": "^3.2.12",
     "moment": "^2.30.1",

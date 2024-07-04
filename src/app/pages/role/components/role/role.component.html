@@ -24,6 +24,7 @@
   [apiLoader]="apiLoader"
   [isDeleteEnabled]="isDeleteEnabled"
   [isWriteEnabled]="isWriteEnabled"
+  (sort)="sort($event)"
 ></app-sales-table>
 <div style="display: flex" class="legends">
   <p class="legendPara"><i class="circle">V</i> - visible</p>

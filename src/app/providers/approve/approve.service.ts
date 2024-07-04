@@ -10,8 +10,8 @@ export class ApproveService {
 
   constructor(public http:HttpClient) { }
 
-  getAllPendingApprovalList(searchQry: any, page: any): Observable<any> {
-    return this.http.get(environment.BASE_URL + `/attendance?isNotify=true${page}${searchQry}`);
+  getAllPendingApprovalList(searchQry: any, page: any, sort: any): Observable<any> {
+    return this.http.get(environment.BASE_URL + `/attendance?isNotify=true${page}${searchQry}&${sort}`);
   }
 
   approveAttendance(ids:string): Observable<any> {

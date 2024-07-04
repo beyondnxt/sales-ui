@@ -66,7 +66,7 @@ export class AddUserComponent {
   }
 
   getRoles() {
-    this.roleService.getRole('', '').subscribe({
+    this.roleService.getRole('', '', '').subscribe({
       next: (res) => {
         this.roleList = res.data;
       },
@@ -76,7 +76,7 @@ export class AddUserComponent {
   }
 
   getCompanyList() {
-    this.companyService.getCompanyList('', '').subscribe({
+    this.companyService.getCompanyList('', '', '').subscribe({
       next: (res) => {
         console.log('companyList----', res);
         this.companyList = res.data;

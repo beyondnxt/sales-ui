@@ -7,10 +7,11 @@
         <div class="mx-2">
             <app-sales-btn class="approveBtn" [label]="'Approve'" [isWriteEnabled]="isWriteEnabled" (action)="approveAttendanceConfirmation('approve')"></app-sales-btn>
             <app-sales-btn class="approveBtn" [label]="'Reject'" [isWriteEnabled]="isWriteEnabled" (action)="approveAttendanceConfirmation('reject')"></app-sales-btn>
+            <app-sales-btn class="approveBtn" [label]="'Excel'" [isWriteEnabled]="'true'" (action)="exportAsExcel()"></app-sales-btn>
         </div>
     </div>
 </div>
 <!-- (pagination)="pagination($event)" -->
 <app-sales-table #childRef [tableHeaders]="tableHeaders" [tableValues]="tableValues" [count]="count"   [currentPage]="currentPage" 
-    [apiLoader]="apiLoader" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)" (pagination)="pagination($event)" [isDeleteEnabled]="isDeleteEnabled" [isWriteEnabled]="isWriteEnabled"></app-sales-table>
+    [apiLoader]="apiLoader" (checkBoxes)="selectAll($event)" (emitIds)="getIds($event)" (pagination)="pagination($event)" [isDeleteEnabled]="isDeleteEnabled" [isWriteEnabled]="isWriteEnabled" (sort)="sort($event)"></app-sales-table>
 <div *ngIf="showOrHide" class="no-data text-center py-3 bold-text">No Data Found</div>
