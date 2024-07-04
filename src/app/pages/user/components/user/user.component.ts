@@ -205,23 +205,14 @@ export class UserComponent {
     this.getUser();
   }
 
-  sortType: any = 'ASC';
+  sortType: any = '';
   sort(data: any) {
     this.apiLoader = true;
-    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
-    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
-    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.sortType = data.direction;
+
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.header.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.header.key}`);
     this.getUser();
-    // this.adminService.sortUsers(this.query, this.soryByValue).subscribe({
-    //   next: (res) => {
-    //     this.apiLoader = false;
-    //     this.count = res.total;
-    //     this.tableValues = res.data;
-    //   },
-    //   error: (err) => {
-    //     this.apiLoader = false;
-    //   },
-    // });
   }
 
 }

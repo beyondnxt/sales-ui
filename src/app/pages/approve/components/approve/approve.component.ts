@@ -172,9 +172,10 @@ export class ApproveComponent {
   sortType: any = 'ASC';
   sort(data: any) {
     this.apiLoader = true;
-    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
-    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
-    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.sortType = data.direction;
+
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.header.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.header.key}`);
     this.approvelList();
   }
 

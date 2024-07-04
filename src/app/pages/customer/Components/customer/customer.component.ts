@@ -171,14 +171,13 @@ export class CustomerComponent {
     });
   }
 
-  sortType: any = 'ASC';
+  sortType: any = '';
   sort(data: any) {
     this.apiLoader = true;
-    // if(data.name == 'Company Name') { this.sortData = 'name'; }
-    // else if data.name == 'Company Name') { this.sortData = 'name'; }
-    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
-    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
-    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.sortType = data.direction;
+    // this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.header.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.header.key}`);
     this.customerService.sortCustomer(this.soryByValue).subscribe({
       next: (res) => {
         this.apiLoader = false;

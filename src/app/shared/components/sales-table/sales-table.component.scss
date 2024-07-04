@@ -185,4 +185,23 @@
 // ::ng-deep mat-tab-group table td {
 //   color: #0000FF !important; /* Change this to your desired color */
 // }
+th {
+  position: relative;
+  padding-right: 20px; /* Adjust based on the size of the icons */
+}
+
+th i {
+  position: absolute;
+  right: 5px; /* Adjust based on your preference */
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+th i.fa-sort-up {
+  margin-bottom: 5px; /* Adjust spacing between the icons */
+}
+
+th i.fa-sort-down {
+  margin-top: 3px; /* Adjust spacing between the icons */
+}
   

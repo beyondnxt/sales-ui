@@ -397,9 +397,10 @@ export class TaskComponent {
   sort(data: any) {
     // console.log('sorting-----', data);
     this.apiLoader = true;
-    this.sortType = this.sortType == 'ASC' ? 'DESC' : 'ASC';
-    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.key}`);
-    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.key}`);
+    this.sortType = data.direction;
+
+    this.sortType == 'ASC' && (this.soryByValue=`sortByAsc=${data.header.key}`);
+    this.sortType == 'DESC' && (this.soryByValue=`sortByDes=${data.header.key}`);
     this.taskService.sortTask(this.soryByValue, this.changeTab).subscribe({
       next: (res) => {
         this.apiLoader = false;

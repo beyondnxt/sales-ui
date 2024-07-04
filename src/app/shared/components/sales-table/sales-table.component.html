@@ -12,14 +12,25 @@
             </th>
           </ng-container>
           <ng-template #headerCell>
-            <th (click)="sort.emit(header)">
+            <th *ngIf="header.sort; else noSort">
               {{ header.name }}
+              <!-- <i class="fas fa-sort" (click)="sort.emit(header)" style="cursor: pointer"></i> -->
               <i
-                *ngIf="header?.sort"
-                class="fas fa-sort"
-                style="cursor: pointer"
-              ></i>
+              class="fas fa-sort-up"
+              (click)="sort.emit({ header: header, direction: 'ASC' })"
+              style="cursor: pointer"
+            ></i>
+            <i
+              class="fas fa-sort-down"
+              (click)="sort.emit({ header: header, direction: 'DESC' })"
+              style="cursor: pointer"
+            ></i>
             </th>
+            <ng-template #noSort>
+              <th>
+                {{ header.name }}
+              </th>
+            </ng-template>
           </ng-template>
         </ng-container>
       </tr>
